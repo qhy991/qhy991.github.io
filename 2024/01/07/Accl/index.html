@@ -1,0 +1,206 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Category: Paper-reading | Haiyan's Blog</title><meta name="author" content="Haiyan Qin"><meta name="copyright" content="Haiyan Qin"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Title：AccelTran: A Sparsity-Aware Accelerator for Dynamic Inference with Transformers Authors: Shikhar Tuli , Student Member, IEEE, and Niraj K. Jha, Fellow, IEEE Institutes: Publish: Tags: Sparse Pap">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AccelTran: A Sparsity-Aware Accelerator for Dynamic Inference With Transformers">
+<meta property="og:url" content="http://qhy991.github.io/2024/01/07/Accl/index.html">
+<meta property="og:site_name" content="Haiyan&#39;s Blog">
+<meta property="og:description" content="Title：AccelTran: A Sparsity-Aware Accelerator for Dynamic Inference with Transformers Authors: Shikhar Tuli , Student Member, IEEE, and Niraj K. Jha, Fellow, IEEE Institutes: Publish: Tags: Sparse Pap">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
+<meta property="article:published_time" content="2024-01-07T13:43:07.457Z">
+<meta property="article:modified_time" content="2024-01-07T14:13:46.615Z">
+<meta property="article:author" content="Haiyan Qin">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://qhy991.github.io/2024/01/07/Accl/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.12.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.32/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Error',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Category: Paper-reading',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-01-07 22:13:46'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.0.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">6</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">5</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">1</div></a></div><hr class="custom-hr"/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="Haiyan's Blog"><span class="site-name">Haiyan's Blog</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">AccelTran: A Sparsity-Aware Accelerator for Dynamic Inference With Transformers</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2024-01-07T13:43:07.457Z" title="Created 2024-01-07 21:43:07">2024-01-07</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2024-01-07T14:13:46.615Z" title="Updated 2024-01-07 22:13:46">2024-01-07</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Paper-reading/">Paper-reading</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="AccelTran: A Sparsity-Aware Accelerator for Dynamic Inference With Transformers"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>Title：AccelTran: A Sparsity-Aware Accelerator for Dynamic Inference with Transformers</p>
+<p>Authors: Shikhar Tuli , Student Member, IEEE, and Niraj K. Jha, Fellow, IEEE</p>
+<p>Institutes:</p>
+<p>Publish:</p>
+<p>Tags: Sparse</p>
+<h2 id="Paper-in-3-sentences"><a href="#Paper-in-3-sentences" class="headerlink" title="Paper in 3 sentences"></a>Paper in 3 sentences</h2><p>文章针对稀疏化推理Transformer模型设计了一个动态推理框架 DynaTran</p>
+<h2 id="Impressions"><a href="#Impressions" class="headerlink" title="Impressions"></a>Impressions</h2><h2 id="Top-3-Quotes"><a href="#Top-3-Quotes" class="headerlink" title="Top 3 Quotes"></a>Top 3 Quotes</h2><h2 id="Notes-Useful-Quotes"><a href="#Notes-Useful-Quotes" class="headerlink" title="Notes &amp; Useful Quotes"></a>Notes &amp; Useful Quotes</h2><h3 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h3><p>CNN加速器和transformer加速器不兼容的原因是，CNN加速器优化的是inner-product operation， 而不是matrix-matrix multiplication control flows。</p>
+<p>现有的几个工作：</p>
+<p>A^3 包含了几个估计策略来避免计算接近0的attention scores</p>
+<p>SpAtten 利用cascade token pruning机制来根据低attention概率逐步修剪不重要的tokens，但是提出的 top-k 剪枝机制带来了很高的硬件开销。</p>
+<p>Energon 使用一种混合精度多轮滤波算法来逼近top-k剪枝方法。但是只考虑到了attention 概率中的稀疏，没有考虑所用的乘法操作。</p>
+<p>OPTIMUS 使用了一种集合关联重新排列压缩稀疏列 (SA-RCSC) 格式，以消除无效的乘法累加 (MAC) 操作。但是只考虑了weight。</p>
+<p>为了提高硬件利用率，FFTRANS和SpAtten将matrix-matrix乘法分解成matrix-vector乘法操作，失去数据重用能力，也限制了并行度规模。</p>
+<p>由于成本低廉，基于现场可编程门阵列（FPGA）的变压器加速器也被提出[20,21,22]。然而，由于位级可重构抽象和相应的高互连开销，它们的性能和功耗效率低下</p>
+<h3 id="Background-and-motivation"><a href="#Background-and-motivation" class="headerlink" title="Background and motivation"></a>Background and motivation</h3><h4 id="The-transformer-model"><a href="#The-transformer-model" class="headerlink" title="The transformer model"></a>The transformer model</h4><p>1）Compute Operation</p>
+<p><img src="https://hjkhnvgbih.feishu.cn/space/api/box/stream/download/asynccode/?code=MjYzMDMxNjZmYjk2YzhhOWU0MjRkM2NhMTllNjZiMjBfMmg0dDBDbUpsSXJRZmF6M2MyeEVFOWRIcnM2UFBwZlpfVG9rZW46Tk50T2Jsd1Yyb0h5T1Z4WUt3cWM4QnRRbnhkXzE3MDQ2MzUyMTM6MTcwNDYzODgxM19WNA"></p>
+<p><img src="https://hjkhnvgbih.feishu.cn/space/api/box/stream/download/asynccode/?code=NjBhNmM0MzBkNWZkNzc5Yjk0MzU2NjA5YWMwYjI4YzNfMXNHelRsQWdyOXFtamdNeFNGdUZlbGMxblJCbFpxT0ZfVG9rZW46S0lrbWJvM1c2b3hDbll4ZHF1bWNRQUJtblFBXzE3MDQ2MzUyMTM6MTcwNDYzODgxM19WNA"></p>
+<p>2） Memory Requirements</p>
+<p><img src="https://hjkhnvgbih.feishu.cn/space/api/box/stream/download/asynccode/?code=NGRiNmZhNGQ5NjEzZjZjMTBhN2MxZDRiNjYxOTllMGFfN3BFVDlmWkZaRUVpMGdwdVlFZTJGV3ZlWmUwbFNXUjdfVG9rZW46RHB2QmJFSVZtb0sxUjR4YzFiUmNVem83bmZnXzE3MDQ2MzUyMTM6MTcwNDYzODgxM19WNA"></p>
+<p>两个模型的main memory的需求分别是52.8MB和3.4GB</p>
+<h4 id="Sparsity-in-Self-Attention"><a href="#Sparsity-in-Self-Attention" class="headerlink" title="Sparsity in Self-Attention"></a>Sparsity in Self-Attention</h4><p>SpAtten 提出了一个top-k 的剪枝方法， 在runtime时，识别出产生最大的attention 概率的 query-key pairs。这种方法会带来一定的性能损失，而且还会带来很大的硬件开销。</p>
+<h3 id="Methodology"><a href="#Methodology" class="headerlink" title="Methodology"></a>Methodology</h3><p><img src="https://hjkhnvgbih.feishu.cn/space/api/box/stream/download/asynccode/?code=M2Q4MjllMDNjZTk3MGJjMTFiYTRmYTIzNjk3Y2ZiODRfbmZDNGZUN2pvdllvQlppSzhJWWJwc0ZvUjRHZGlXdHRfVG9rZW46Wk9JdGJ3MG50b3pZd2p4QjBzNGNqZlZHbm5iXzE3MDQ2MzUyMTM6MTcwNDYzODgxM19WNA"></p>
+<p>首先对transformer 模型进行weight-prune，要么使用Movement pruning，或者DynaTran。然后把网络映射成细粒的计算和存储操作。</p>
+<h4 id="DynaTran"><a href="#DynaTran" class="headerlink" title="DynaTran"></a>DynaTran</h4><p>没有使用top-k剪枝方法，这个工作使用了一种低硬件开销的动态推理方法，能够快速地将不关键的权重和激活值在runtime期间就去除。</p>
+<p>通过判断数值的大小是否超过阈值。这种比较还能够并行进行，从而在一个周期内完成。</p>
+<p>这里的阈值是在多个模型上实验得到的，在runtime时，通过查表计算即可。</p>
+<h4 id="The-AccelTran-Simulator"><a href="#The-AccelTran-Simulator" class="headerlink" title="The AccelTran Simulator"></a>The AccelTran Simulator</h4><p>1）Tiling and datafflow</p>
+<p>用的是tiled matrix multiplication</p>
+<p>2）Accelerator Organization</p>
+<p>使用的monolithic-3D integeration 来连接一个片上3D RRAM，也支持DRAM</p>
+<p><img src="https://hjkhnvgbih.feishu.cn/space/api/box/stream/download/asynccode/?code=NTU4ZjU0MmE0ZjkxZWQ0ZGYxZGM3MWU0YWM0MjQ5YWJfNlFIYjNxZUp1YkhYWnRBbmJKRllHYW1uV3RLa0lrdm5fVG9rZW46QWhEbmJ0Wktrb0dqOUJ4MEVTb2NjcERkblVXXzE3MDQ2MzUyMTM6MTcwNDYzODgxM19WNA"></p>
+<p>首先从CPU获得指令数据流，然后从DRAM或RRAM读取 weights 和 embedding，这个mask buffer是和压缩方式有关。</p>
+<p>3） Processing Elements</p>
+<p>压缩后的数据分别存储在activation和weight FIFO</p>
+<p><img src="https://hjkhnvgbih.feishu.cn/space/api/box/stream/download/asynccode/?code=NGE3Zjg5ZTA3ZGJmZDFkMDU2NGU1MzVjZDAxOTIwMDFfVlREZ0NxNlljVUdveXlrMEpLNnpsUTB3aFVpdGd4RkRfVG9rZW46Uk1GRGJoRjV4b3JLN0J4R2N5TWNnM3dUbkZmXzE3MDQ2MzUyMTM6MTcwNDYzODgxM19WNA"></p>
+<p>这个Post-compute saprsity module是将计算出来的数值再还原回应该有的二维格式保存在FIFO，最终存到Main memory</p>
+<p>4）MAC Lanes</p>
+<p><img src="https://hjkhnvgbih.feishu.cn/space/api/box/stream/download/asynccode/?code=Mzg4YmVmMmE5ODc5OTcxZDM5ZGM5ZjMwYTlhYzYzYzhfZ0hla3VGWUc0NXNaUERYbFZVOWM1VWVOOEppMGlKNExfVG9rZW46SW5RTmJyUEJSb0lmWkZ4MnNjaGNkN1IybjdkXzE3MDQ2MzUyMTM6MTcwNDYzODgxM19WNA"></p>
+<p>注意这里的数据位宽，初始都是IL+FL，然后变成2倍以防止溢出。</p>
+<p>5） Dynamic Inference Modules</p>
+<p>对于一个b x x x y的tile，使用 b x x x y个比较器。</p>
+<p><img src="https://hjkhnvgbih.feishu.cn/space/api/box/stream/download/asynccode/?code=ZmRhNGE3NGQ3YmM0NmE2YzhlMmQ1ZDRmODNlZDUyZmZfblRLa1ZNTGNMeDN5VzExTEdQM0ViVGw0WVBBcjIyTzBfVG9rZW46SG13U2JWdVBvb0FRSXB4MTZnaWNHQ0k0bnhjXzE3MDQ2MzUyMTM6MTcwNDYzODgxM19WNA"></p>
+<p>6） Sparsity-aware Acceleration</p>
+<p>使用binary-mask 框架来encode，使用一个和uncompressed的数据的shape一样的数组存储是否是NZ的信息。</p>
+<p><img src="https://hjkhnvgbih.feishu.cn/space/api/box/stream/download/asynccode/?code=ODZjOTU5MWY3MzBiMjZkOTliNzliMzE2MjhiOThiNjNfaWZLaU92dlVrSTFnanNLZUZ1UDBSNlVURHoyS0NWcmNfVG9rZW46RFdaOGJkN01GbzBUQmZ4b3AwNWM4S09EbmVlXzE3MDQ2MzUyMTM6MTcwNDYzODgxM19WNA"></p>
+<p>通过对输入的两个mask进行bit-wise的AND 计算，两个XOR门就能参数filter mask。之后就只对需要的数据进行计算。</p>
+<p>7）Simulator Flow</p>
+<p>基于多个对Finfet，cache，main memory的模拟模型，使用python搭建了一个cycle-accurate的仿真器。</p>
+<p>8）Smart scheduling of tiled operations</p>
+<p>会存在计算、存储阻塞的情况</p>
+<p>后面的不想看了，是口嗨了一下，这些东西在FPGA上或者CIM上实现不了。不过使用的模型，和任务可以参考一下。</p>
+<h2 id="Useful-Reference"><a href="#Useful-Reference" class="headerlink" title="Useful Reference"></a>Useful Reference</h2><h2 id="URL"><a href="#URL" class="headerlink" title="URL"></a>URL</h2></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="http://qhy991.github.io">Haiyan Qin</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="http://qhy991.github.io/2024/01/07/Accl/">http://qhy991.github.io/2024/01/07/Accl/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/01/07/PIM/" title="PIM"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">Previous</div><div class="prev_info">PIM</div></div></a></div><div class="next-post pull-right"><a href="/2024/01/07/hello-world/" title="Hello World"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">Next</div><div class="next_info">Hello World</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Haiyan Qin</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">6</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">5</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">1</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Paper-in-3-sentences"><span class="toc-number">1.</span> <span class="toc-text">Paper in 3 sentences</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Impressions"><span class="toc-number">2.</span> <span class="toc-text">Impressions</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Top-3-Quotes"><span class="toc-number">3.</span> <span class="toc-text">Top 3 Quotes</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Notes-Useful-Quotes"><span class="toc-number">4.</span> <span class="toc-text">Notes &amp; Useful Quotes</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Introduction"><span class="toc-number">4.1.</span> <span class="toc-text">Introduction</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Background-and-motivation"><span class="toc-number">4.2.</span> <span class="toc-text">Background and motivation</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#The-transformer-model"><span class="toc-number">4.2.1.</span> <span class="toc-text">The transformer model</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Sparsity-in-Self-Attention"><span class="toc-number">4.2.2.</span> <span class="toc-text">Sparsity in Self-Attention</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Methodology"><span class="toc-number">4.3.</span> <span class="toc-text">Methodology</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#DynaTran"><span class="toc-number">4.3.1.</span> <span class="toc-text">DynaTran</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#The-AccelTran-Simulator"><span class="toc-number">4.3.2.</span> <span class="toc-text">The AccelTran Simulator</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Useful-Reference"><span class="toc-number">5.</span> <span class="toc-text">Useful Reference</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#URL"><span class="toc-number">6.</span> <span class="toc-text">URL</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/01/17/ViTCoD%20Vision%20Transformer%20Acceleration%20viaDedicated%20Algorithm%20and%20Accelerator%20Co-Design/" title="ViTCoD: Vision Transformer Acceleration viaDedicated Algorithm and Accelerator Co-Design">ViTCoD: Vision Transformer Acceleration viaDedicated Algorithm and Accelerator Co-Design</a><time datetime="2024-01-17T14:13:10.000Z" title="Created 2024-01-17 22:13:10">2024-01-17</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/01/17/FastVi%20A%20Fast%20Hybrid%20Vision%20Transformer%20using%20Structural%20Reparameterization/" title="FastVi a Fast Hybrid Vision Transformer Using Structural Reparameterization">FastVi a Fast Hybrid Vision Transformer Using Structural Reparameterization</a><time datetime="2024-01-17T11:34:55.000Z" title="Created 2024-01-17 19:34:55">2024-01-17</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/01/07/Parallel%20programming%20for%20FPGAs/" title="Parallel Programming for FPGAs">Parallel Programming for FPGAs</a><time datetime="2024-01-07T14:17:01.000Z" title="Created 2024-01-07 22:17:01">2024-01-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/01/07/PIM/" title="PIM">PIM</a><time datetime="2024-01-07T13:57:57.851Z" title="Created 2024-01-07 21:57:57">2024-01-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/01/07/Accl/" title="AccelTran: A Sparsity-Aware Accelerator for Dynamic Inference With Transformers">AccelTran: A Sparsity-Aware Accelerator for Dynamic Inference With Transformers</a><time datetime="2024-01-07T13:43:07.457Z" title="Created 2024-01-07 21:43:07">2024-01-07</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Haiyan Qin</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.12.0"></script><script src="/js/main.js?v=4.12.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.32/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

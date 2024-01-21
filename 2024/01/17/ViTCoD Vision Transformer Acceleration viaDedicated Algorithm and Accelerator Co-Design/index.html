@@ -1,0 +1,267 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Category: Paper-reading | Haiyan's Blog</title><meta name="author" content="Haiyan Qin"><meta name="copyright" content="Haiyan Qin"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Paper in 3 sentences这篇文章针对ViT提出了针对的软件算法和硬件加速器联合设计的方案。在算法层面将计算极化成denser和sparser的计算，然后在硬件上进行对应支持。同时针对Q K在片上片外存储频繁搬运限制加速效果的瓶颈，采用用计算换搬运的方案，进行了软硬件协同设计，实现了很高的能效比，文章在仿真软件中进行了测试。 Related linksPaper Slide Yout">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ViTCoD: Vision Transformer Acceleration viaDedicated Algorithm and Accelerator Co-Design">
+<meta property="og:url" content="http://qhy991.github.io/2024/01/17/ViTCoD%20Vision%20Transformer%20Acceleration%20viaDedicated%20Algorithm%20and%20Accelerator%20Co-Design/index.html">
+<meta property="og:site_name" content="Haiyan&#39;s Blog">
+<meta property="og:description" content="Paper in 3 sentences这篇文章针对ViT提出了针对的软件算法和硬件加速器联合设计的方案。在算法层面将计算极化成denser和sparser的计算，然后在硬件上进行对应支持。同时针对Q K在片上片外存储频繁搬运限制加速效果的瓶颈，采用用计算换搬运的方案，进行了软硬件协同设计，实现了很高的能效比，文章在仿真软件中进行了测试。 Related linksPaper Slide Yout">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
+<meta property="article:published_time" content="2024-01-17T14:13:10.000Z">
+<meta property="article:modified_time" content="2024-01-21T02:01:06.431Z">
+<meta property="article:author" content="Haiyan Qin">
+<meta property="article:tag" content="ViT">
+<meta property="article:tag" content="FPGA">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://qhy991.github.io/2024/01/17/ViTCoD%20Vision%20Transformer%20Acceleration%20viaDedicated%20Algorithm%20and%20Accelerator%20Co-Design/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.12.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.32/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Error',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Category: Paper-reading',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-01-21 10:01:06'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.0.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">6</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">5</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">1</div></a></div><hr class="custom-hr"/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="Haiyan's Blog"><span class="site-name">Haiyan's Blog</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">ViTCoD: Vision Transformer Acceleration viaDedicated Algorithm and Accelerator Co-Design</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2024-01-17T14:13:10.000Z" title="Created 2024-01-17 22:13:10">2024-01-17</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2024-01-21T02:01:06.431Z" title="Updated 2024-01-21 10:01:06">2024-01-21</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Paper-reading/">Paper-reading</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="ViTCoD: Vision Transformer Acceleration viaDedicated Algorithm and Accelerator Co-Design"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="Paper-in-3-sentences"><a href="#Paper-in-3-sentences" class="headerlink" title="Paper in 3 sentences"></a>Paper in 3 sentences</h2><p>这篇文章针对ViT提出了针对的软件算法和硬件加速器联合设计的方案。在算法层面将计算极化成denser和sparser的计算，然后在硬件上进行对应支持。同时针对Q K在片上片外存储频繁搬运限制加速效果的瓶颈，采用用计算换搬运的方案，进行了软硬件协同设计，实现了很高的能效比，文章在仿真软件中进行了测试。</p>
+<h3 id="Related-links"><a href="#Related-links" class="headerlink" title="Related links"></a>Related links</h3><p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2210.09573"><strong>Paper</strong></a> <a target="_blank" rel="noopener" href="https://drive.google.com/file/d/1NIWiqxac8ufF-nzslpZzEU9ZQ69GLe2b/view?usp=share_link"><strong>Slide</strong></a> <a target="_blank" rel="noopener" href="https://youtu.be/Foyuctc8aPE"><strong>Youtube</strong></a> <a target="_blank" rel="noopener" href="https://github.com/GATECH-EIC/ViTCoD/"><strong>Github</strong></a> </p>
+<h2 id="Insights"><a href="#Insights" class="headerlink" title="Insights"></a>Insights</h2><p>这篇文章实现了很好的软硬件协同，软件算法上的创新在硬件上都有对应支持，这与他全定制的设计是分不开的，在仿真软件上完成一个完整的设计也是一种好办法。<br>文章写的很好，感觉文章总是反复在提它的几个创新点还有ViT和NLP的Transformer的区别。</p>
+<h2 id="Main-Contributions"><a href="#Main-Contributions" class="headerlink" title="Main Contributions"></a>Main Contributions</h2><p>第一个针对sparse ViT进行codesign的工作</p>
+<h2 id="Problem-definition"><a href="#Problem-definition" class="headerlink" title="Problem definition"></a>Problem definition</h2><h3 id="ViT-推理的瓶颈"><a href="#ViT-推理的瓶颈" class="headerlink" title="ViT 推理的瓶颈"></a>ViT 推理的瓶颈</h3><blockquote>
+<p>Self-attention算子在计算上不够高效，并且在网络中占比大（GPT-2占比超50%，LeViT-128超过69%）</p>
+</blockquote>
+<p>文章分析了多类ViT模型，包括<br>1）标准的用于移动场景的DeiT，LeViT<br>2）在AR&#x2F;VR应用上达到SOTA性能的Strided Transformer<br>![[Pasted image 20240118160127.png]]<br>通过对计算过程的分解分析，可以观察到：</p>
+<ol>
+<li>虽然self-attention在FLOPs维度上不如MLP模块关键，但是在移动端设备运行时占据了超过50%的延时。</li>
+<li>Q&#x2F;K&#x2F;V之间的Matrix multiplication和相应的reshape&#x2F;split算子在EdgeGPU平台上占据了53%的延时<br>进而得出以下结论，Q&#x2F;K&#x2F;V之间的Matrix multiplication 是主要的瓶颈。</li>
+</ol>
+<p>基于以上分析，可以发现ViT的推理存在一个根本困境：<br>    如果attention map是稀疏的，那么会带来Q&#x2F;K&#x2F;V的不规则数据访问。高度稀疏的attention，加速效果会被数据搬运所限制，导致PE的低利用率。<br>    而要实现ViT的dense attention maps 和任务精度需要更高的硬件开销，限制了应用场景。</p>
+<h2 id="Review-existing-works-and-highlight-the-unsolved-problem"><a href="#Review-existing-works-and-highlight-the-unsolved-problem" class="headerlink" title="Review existing works and highlight the unsolved problem"></a>Review existing works and highlight the unsolved problem</h2><p>解决self-attention计算瓶颈的方法之一就是sparse attention，现有工作包括算法和硬件加速器两方面：</p>
+<h3 id="算法："><a href="#算法：" class="headerlink" title="算法："></a>算法：</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2004.05150.pdf">Longformer: The longdocument transformer</a> 2020 Allen Institute for Artificial Intelligence, Seattle, WA, USA</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2109.12188.pdf">Predicting Attention Sparsity in Transformers</a> 2022 1 Instituto de Telecomunicações, Lisbon, Portugal</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2007.14062.pdf">Big bird: Transformers for longer sequences</a> Google 2021</li>
+</ul>
+<h3 id="硬件加速器："><a href="#硬件加速器：" class="headerlink" title="硬件加速器："></a>硬件加速器：</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://ieeexplore.ieee.org/document/9499860">Elsa: Hardware-software co-design for efficient, lightweight selfattention mechanism in neural networks</a> ISCA 2021</li>
+<li><a target="_blank" rel="noopener" href="https://dl.acm.org/doi/pdf/10.1145/3466752.3480125#:~:text=We%20propose%20Sanger%2C%20a%20hardware,software%20to%20achieve%20high%20sparsity.&text=We%20propose%20a%20dynamic%20and,with%20high%20flexibility%20and%20sparsity.">Sanger: A co-design framework for enabling sparse attention using reconfigurable architecture</a> Mirco 2021</li>
+<li><a target="_blank" rel="noopener" href="https://dl.acm.org/doi/pdf/10.1145/3503222.3507738">Dota: detect and omit weak attentions for scalable transformer acceleration</a></li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2012.09852">Spatten: Efficient sparse attention architecture with cascade token and head pruning</a> HPCA 2021, MIT 韩松</li>
+</ul>
+<h3 id="Sparse-Attention-Algorithms"><a href="#Sparse-Attention-Algorithms" class="headerlink" title="Sparse Attention Algorithms"></a>Sparse Attention Algorithms</h3><blockquote>
+<p>Reformer uses locality sensitive hashing to compute the nearest neighbors instead of all tokens in the attentions; BlockBERT proposes the block sparsity for the attention map to reduce the complexity; BigBird  and BlockBERT  propose the structured or block sparsity for the attention map while requiring to predict dynamic and input-dependent sparse patterns.</p>
+</blockquote>
+<h3 id="Sparse-Tensor-Algebra-Accelerators"><a href="#Sparse-Tensor-Algebra-Accelerators" class="headerlink" title="Sparse Tensor Algebra Accelerators"></a>Sparse Tensor Algebra Accelerators</h3><p>Sparse General Matrix Multiplication (SpGEMM) 是硬件不友好的，学术界提出了很多加速器：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://research.nvidia.com/publication/2019-10_extensor-accelerator-sparse-tensor-algebra">Extensor: An accelerator for sparse tensor algebra</a> Nvidia 2019 MIRCO</li>
+<li><a target="_blank" rel="noopener" href="https://ieeexplore.ieee.org/document/8327050">Outerspace: An outer product based sparse matrix multiplication accelerator</a> 2018 HPCA</li>
+<li><a target="_blank" rel="noopener" href="https://ieeexplore.ieee.org/document/9251978">Matraptor: A sparse-sparse matrix multiplication accelerator based on row-wise product</a> 2020 MIRCO</li>
+<li><a target="_blank" rel="noopener" href="https://ieeexplore.ieee.org/document/9065579">Tensaurus: A versatile accelerator for mixed sparse-dense tensor computations</a>HPCA 2020<ul>
+<li>提出了一个新的存储稀疏张量的方式，开发了能够同时支持sparse&#x2F;dense 张量分解和普通的sparse-dense 混合矩阵算子。</li>
+</ul>
+</li>
+<li><a target="_blank" rel="noopener" href="https://people.csail.mit.edu/sanchez/papers/2021.gamma.asplos.pdf">Gamma: Leveraging gustavson’s algorithm to accelerate sparse matrix multiplication</a> 2021 Nvidia</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2002.08947">Sparch: Efficient architecture for sparse matrix multiplication</a> 2020 HPCA</li>
+</ul>
+<h3 id="Existing-Transformer-Accelerators"><a href="#Existing-Transformer-Accelerators" class="headerlink" title="Existing Transformer Accelerators"></a>Existing Transformer Accelerators</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2002.10941">A^3</a> 通过贪心搜索与K vector相似的Q vector来减少计算，但是这种估计会影响精度。</li>
+<li><a target="_blank" rel="noopener" href="https://ieeexplore.ieee.org/document/9499860">ELSA</a>直接使用二进制哈希映射来估计Q和K之间的角度，也会带来不可忽视的精度损失。</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2012.09852">SpAtten</a>结构化移除不必要的attention heads和input tokens，这是一种粗粒度的方法，达到的稀疏程度也比较小。</li>
+<li><a target="_blank" rel="noopener" href="https://dl.acm.org/doi/pdf/10.1145/3466752.3480125#:~:text=We%20propose%20Sanger%2C%20a%20hardware,software%20to%20achieve%20high%20sparsity.&text=We%20propose%20a%20dynamic%20and,with%20high%20flexibility%20and%20sparsity.">Sanger</a>采用低精度的Q和K 来估计稀疏attention mask，然后将其打包和拆分，以在可重新配置的架构的支持下变得更加规则和友好。</li>
+<li><a target="_blank" rel="noopener" href="https://dl.acm.org/doi/10.1145/3503222.3507738">DOTA</a> 考虑了低精度和低秩线性转换来预测sparse attention mask，并探索token-level的并行和局部感知计算的乱序执行。<br>以上工作都针对NLP Transformer，需要动态、input-dependent sparse mask prediction。</li>
+</ul>
+<p>对于ViT的优化：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2201.06618.pdf">VAQF</a>基于FPGA设计了推理加速器用于加速量化后的ViT。</li>
+</ul>
+<h3 id="Challenges"><a href="#Challenges" class="headerlink" title="Challenges"></a>Challenges</h3><ul>
+<li>现有加速器存在只针对NLP Transformer，硬件加速器采用on-the-fly的稀疏注意力预测和高度的可重构性来解决变长的tokens，因此不适合ViT模型。</li>
+<li>ViT固定的tokens数量，可以避免on-the-fly的稀疏注意力类型预测。ViT能够实现更高的稀疏度，使用固定的稀疏类型也可以达到90%-95%，NLP采用动态稀疏也只能达到50%-70%。</li>
+<li>高度的稀疏化带来了不规则的数据访问和处理，导致严重的负载不平衡。而且在处理稀疏的注意力区域时，还会带来计算资源的不充分利用。高的稀疏度虽然带来了计算量的减少，但同时也带来了数据搬运的瓶颈，限制了效率的提升。</li>
+</ul>
+<h3 id="Proposed-Solution"><a href="#Proposed-Solution" class="headerlink" title="Proposed Solution"></a>Proposed Solution</h3><h4 id="算法层面"><a href="#算法层面" class="headerlink" title="算法层面"></a>算法层面</h4><p>使用分而治之的算法，来剪枝实现超过90%的稀疏度， 同时使用极化的方法处理attention map来使得它们有denser或者sparser的模式，从而实现两个层级的负载的正则化。还进一步整了一个lightweight learnable auto-enccoder来将高成本的数据搬运转化成低成本的计算。利用Q K这两个vector在不同的attention head中具有相似性的假设，这个auto-encoder帮助减小computation-to-communication ratio。<br>这样的算法能够在增强常规和减少的数据访问，支持高度稀疏的注意力机制，最终实现memory&#x2F;bandwidth bounded 场景下最优的设计。</p>
+<h4 id="硬件层面"><a href="#硬件层面" class="headerlink" title="硬件层面"></a>硬件层面</h4><p>使用了一种双管齐下的加速器，能够同时协调denser和sparser的负载；整合了on-chip encoder和decoder engine来利用算法的pipeline，以减少数据搬运。<br>实现了dense workload和sparse workload的解耦。<br>encoder和decoder engine来传输Q&#x2F;K到片外存储之前会对Q&#x2F;K进行压缩。从而将高成本的数据搬运转变成低成本的计算来提升效率。</p>
+<h2 id="Design-software-hardware"><a href="#Design-software-hardware" class="headerlink" title="Design: software &amp; hardware"></a>Design: software &amp; hardware</h2><p>下图是这个工作的整体架构。<br>![[Pasted image 20240118165631.png]]</p>
+<h3 id="Software"><a href="#Software" class="headerlink" title="Software"></a>Software</h3><h4 id="Preliminaries-of-Self-Attention-and-ViTs"><a href="#Preliminaries-of-Self-Attention-and-ViTs" class="headerlink" title="Preliminaries of Self-Attention and ViTs"></a>Preliminaries of Self-Attention and ViTs</h4><h5 id="Self-Attention"><a href="#Self-Attention" class="headerlink" title="Self-Attention"></a>Self-Attention</h5><p>为了缓解self-attention机制带来的复杂的计算，提出了sparse attention 技术，会带来两种类型的attention matrix multiplication。<br>一种是将Q和K计算变成一种通用的sampled dense-dense matrix multiplication（SDDMM），如Fig.6 (b)。<br>另外一种是 Q和K计算之后的结果与V的计算，变成了一种sparse-dense matrix multiplication （SpMM），如Fig.6 (c)。<br>![[Pasted image 20240118170623.png]]<br>这样就导致在访问Q K V的时候，负载不规则，难以将计算并行化。如果attention scores中非零值分布不均衡，还会导致时间上的负载不均衡。</p>
+<h5 id="ViT-Models-and-Variants"><a href="#ViT-Models-and-Variants" class="headerlink" title="ViT Models and Variants"></a>ViT Models and Variants</h5><p>LeViT通过使用多阶段 Transformer架构并将Convolution整合到ViT block之前实现了很高的能效。这篇工作主要关注在ViT block，因为前面的Conv计算只占了少量的FLOPs（小于7%）</p>
+<h4 id="分而治之的算法"><a href="#分而治之的算法" class="headerlink" title="分而治之的算法"></a>分而治之的算法</h4><p><strong>设计考量</strong>：为了缓解占据延时超过50%的self attention 计算，文章使用固定掩码的剪枝方法和对attention map进行重排序的方法进行优化。</p>
+<h5 id="Pruning-with-Fixed-Masks"><a href="#Pruning-with-Fixed-Masks" class="headerlink" title="Pruning with Fixed Masks"></a>Pruning with Fixed Masks</h5><p>首先通过在训练集上进行推理，提取得到一个平均的attention map，然后根据剩余信息量的标准来进行剪枝。<br>对于query，选择累积和和排序后的attention scores 大于预先定义好的阈值的信息。这样对每一个attention map就都能得到一个二值化的mask。</p>
+<h5 id="Attention-Map-Reordering"><a href="#Attention-Map-Reordering" class="headerlink" title="Attention Map Reordering"></a>Attention Map Reordering</h5><p>为了减少由于剪枝导致稀疏掩码的不规则性，通过识别并聚类Q&#x2F;K 对，分成dense和sparse两种类型。这样可以提高计算效率。</p>
+<p>对dense pattern和sparse pattern的解释： denser pattern体现了这些token和其他所有token都具有很强的关联性；sparser pattern表示的是除了对角线其他大部分都是0，导致这种现象的原因是相邻的token的关联性更强。</p>
+<h5 id="分而治之算法"><a href="#分而治之算法" class="headerlink" title="分而治之算法"></a>分而治之算法</h5><p><strong>算法描述：</strong><br>![[Pasted image 20240118213955.png]]</p>
+<p>这个过程还需要推敲：<br>一个attention map为单位进行上述计算还是所有的一起？<br>Argsort的维度是横还是纵？</p>
+<h4 id="Learnable-Auto-encoder-Module"><a href="#Learnable-Auto-encoder-Module" class="headerlink" title="Learnable Auto-encoder Module"></a>Learnable Auto-encoder Module</h4><p>稀疏和重排序之后，sparser的部分在计算时对PE的利用率不够高。<br>由于非零注意力值的对角集中，更高的稀疏会导致更大的数据搬运瓶颈，这种对角的数据分布模式在roofline模型中最不高效。<br>如果只是使用低秩近似，简单地减少Q K的维度会带来很大的精度损失。所以这篇工作设计了一个轻量化的可学习自动编码模块，用来压缩Q K 向量到一个更加紧凑的表示，然后在从片外存储读取完之后再恢复到原来的维度。</p>
+<blockquote>
+<p>这种方法的提出基于以下假设：虽然Q&#x2F;K的维度不能减少，但是在不同的heads之间存在很大程度的冗余。</p>
+</blockquote>
+<p>下图展示了这种自动编码器模块的结构和训练过程：<br>![[Pasted image 20240118220919.png]]</p>
+<h4 id="ViT-Training-with-Auto-encoder-Modules"><a href="#ViT-Training-with-Auto-encoder-Modules" class="headerlink" title="ViT Training with Auto-encoder Modules"></a>ViT Training with Auto-encoder Modules</h4><p>在预训练模型上添加auto-encoder模块可，然后finetune模型，训练的loss定义如下：<br>![[Pasted image 20240118221108.png]]<br>$L_{CE}$是cross-entropy test loss，$l_{Recons}$是reconstruction loss</p>
+<h4 id="The-Unified-ViTCoD-Algorithm"><a href="#The-Unified-ViTCoD-Algorithm" class="headerlink" title="The Unified ViTCoD Algorithm"></a>The Unified ViTCoD Algorithm</h4><p>分而治之算法和auto-encoder module探索了高效ViT推理的两个正交的方向，前者减少了attention计算量和极化的workload，后者探索了将高成本的数据搬运转换成低成本的计算来提升PE利用率。<br>两个方法执行的先后顺序如下图所示：<br>![[Pasted image 20240118221642.png]]<br>这篇工作在DeiT和LeViT以及Strided Transformer上进行了实验。</p>
+<h3 id="Hardware"><a href="#Hardware" class="headerlink" title="Hardware"></a>Hardware</h3><h4 id="设计动机"><a href="#设计动机" class="headerlink" title="设计动机"></a>设计动机</h4><ol>
+<li><strong>Fixed and Structurally Sparse Attention</strong><br>ViTCoD提出的软件优化同时减小了attention计算量并缓解了负载不平衡的情况。<br>现有的加速器针对的是dynamic sparse attention，需要on-the-fly mask generation和高度的可重构架构支持，这两点都需要不少开销。并且现有的加速器没有同时针对两种很极端的工作情况进行设计。而ViT不需要动态预测。</li>
+<li><strong>Compact Q and K Representation</strong><br>AE 模块压缩了Q K，提高了sparse attention accelerator的PE利用率。</li>
+</ol>
+<h5 id="设计探索"><a href="#设计探索" class="headerlink" title="设计探索"></a>设计探索</h5><ol>
+<li>Mirco-architecture<br> 有两种选择：<br> a. 单一的加速器<br> b. 由针对不同稀疏度优化的子加速器组成的大加速器群<br>前者的优点是控制逻辑简单，但是在处理稀疏计算时，利用率低。后者的优点是能针对不同的稀疏计算进行专门优化，但是带来很大的控制开销。由于文章使用的算法将计算进行了极化，所以只需要考虑两类，减少了后一种方式的复杂性，所以采用了第二种。</li>
+<li>Dataflows<br>处理sparse attention模块的SDDMM有两种主要的数据流，S-stationary K-stationary dataflow。<br>![[Pasted image 20240118223301.png]]<br><strong>S-stationary dataflow</strong>的优势是Q和K在从片外读取到片上后能够被完全重复利用。缺点是这种数据流限制了加速器的计算和存储效率。<br> 计算方面：加速sparse attention时，PE利用率低，因为attention scores在空间上被映射到PE array，每一个PE对于计算一个attention score， 这需要高可重构性和剧的的控制开销。<br> 存储方面：需要巨大的片上寄存器或buffer，来存储中间结果。<br> Sanger使用的是这种数据流。</li>
+</ol>
+<p><strong>K-stationary dataflow</strong><br>载入K后，K和不同的Q以串行的方式进行计算，以column by column的方式产生attention scores。Q&#x2F;K的 column在空间上映射到不同的PE用来在PE间进行求和。<br>优势在于K vector被完全利用，并且只需要少量的片上buffer用于存储中间结果。这种方式也更适合sparse attention计算，因为只有基于S中非零的索引配对的Q&#x2F;K才会被乘。代价就是需要频繁搬运Q vector。这一缺点可以被AE模块所缓解。</p>
+<h4 id="ViTCoD-Accelerator’s-Mirco-architecture"><a href="#ViTCoD-Accelerator’s-Mirco-architecture" class="headerlink" title="ViTCoD Accelerator’s Mirco-architecture"></a>ViTCoD Accelerator’s Mirco-architecture</h4><p>整体架构一览：<br>![[Pasted image 20240119103024.png]]<br>左边是存储层次，中间是两类engine，右边是具体的PE阵列设计。<br>Denser Engine处理SDDMM中sampled dense Q&#x2F;K matrix multiplication和SpMM中S&#x2F;V matrix multiplication<br>Sparser Engine处理的是剩下的不规则的负载，也可以处理SpMM， SoftMax和non-linear activation。<br>为了减少控制复杂度，两个engine都有单独的output buffer，计算结果能够并行写入。<br>这种加速器架构还能够用于Q K V和MLP计算。</p>
+<h5 id="双管齐下的架构"><a href="#双管齐下的架构" class="headerlink" title="双管齐下的架构"></a>双管齐下的架构</h5><p><strong>Denser Engine</strong><br>为了处理不同attention head的denser pattern，采用了一个在denser、sparser engine之间动态分配计算资源的策略。由于sparse attention mask是预先知道的，所以能改预测两个pattern的负载规模，从而对PE数量、off-chip memory预算进行分配。<br>denser engine还能够处理MLP算子， 处理时将GEMM分解成多块，然后每一个PE line来处理一块的计算，实现并行计算。<br>每一块计算任务是根据attention head来划分，所以每一个PE line的数据和中间结果都是不一样的，从而避免了不必要的数据移动。<br>由于所有的attention head都是并行计算，分配的PE不能在一个周期内完成计算，所以采用了细粒度的分块，并设计了时间&#x2F;空间上SDDMM和SpMM计算任务的分配。<br>如下图所示，计算S使用的是K-stationary数据流，1）先将载入的K和所有相关的Q在时许上进行计算，然后将不同PE上的部分和累加起来。2）载入下一块K，再次进行计算。<br>处理V’时，采用的是output stationary 数据流，来减少片上缓冲区使用，避免频繁加载attention map。 按照token 维度来分块 S&#x2F;V vector然后在空间上映射到PE。然后沿着特征维度在时间上累加部分和来更新V。这种分块和计算分配方式能改完全重复使用S和V，只需要少量的片上缓存来存储计算的输出。为了实现这个效果，PE lines需要可重构，从inter-PE accumulation转换成intra-PE accumulation。<br>![[Pasted image 20240119110212.png]]<br><strong>Sparser Engine</strong></p>
+<ol>
+<li>采用的是CSC数据类型来存储稀疏化的数据。<br>相比较于COO方式，CSC更适合K-stationary 数据流</li>
+<li>采用了query-based Q forwarding<br>因为denser和sparser engine并行执行，所以两个engine有可能同时使用相同的Q，所以先把Q存储在Q buffer里，然后再通过查询Q buffer的方式，能改减少数据搬运。这种查询是以一种按需方式执行的。</li>
+</ol>
+<p>除了由于预存储的索引而在稀疏引擎中仅计算非零之外，在 SDDMM 和 SpMM 阶段，稀疏引擎的平铺和空间&#x2F;时间映射与密集引擎的平铺和空间&#x2F;时间映射一致</p>
+<p><strong>Architecture of the denser&#x2F;sparser engine</strong><br>两个engine包括以下功能单元：<br>1）专用缓存 outputs(OBuf) weights(WBuf) K&#x2F;S vector(K&#x2F;S Buf) Indexes(IdxBuf) Q&#x2F;V vector(Q&#x2F;V Buf) 这些缓存都具有并行的读写端口，容量大小有资源分配阶段决定。<br>2） Sparse&#x2F;Dense matrix multiplication controller，对于dense负载，将两个vector载入并通过inter-PE或intra-PE累加计算。对于sparse负载，只载入非零值和它们的索引用来计算。<br>3）SoftMax 单元，在attention score被计算之后使用。使用的是与Sanger的工作一样的方法实现SoftMax<br>4）Activation 单元，用来进行非线性算子计算。 使用的是gating modules for ReLU和查找表来估计其他的激活函数。</p>
+<h5 id="Encoder-and-Decoder-Engines"><a href="#Encoder-and-Decoder-Engines" class="headerlink" title="Encoder and Decoder Engines"></a>Encoder and Decoder Engines</h5><p>由于AE module的参数很少，所以都放在片上。<br>encoder decoder都有自己的PE&#x2F;MAC lines，但这些PE&#x2F;MAC lines在AE 模块不需要时，能够用于其他的denser&#x2F;sparser 负载计算。<br>encoder engine指用在Q&#x2F;K写入片外存储前，压缩Q&#x2F;K时使用。计算也是并行的，来掩盖encoder engine的处理时间。<br>decoder engine 只有在载入Q&#x2F;K载入到PE 阵列式使用。这个时候是pipeline执行的，因为要适应数据搬运。</p>
+<h5 id="Reconfigurability"><a href="#Reconfigurability" class="headerlink" title="Reconfigurability"></a>Reconfigurability</h5><p>为了适应部署后潜在的任务改变需求，比如不同类型的mask 和head 数量。加速器在硬件编译过程中采用了一个低成本的可重构策略，每一个任务只需要一次编译。<br>下图是整体的流程，首先使用network parser处理一个给定的稀疏ViT，提取出硬件配置，如number of global tokens, buffer sizes, and dataflows。 然后编译器产生相应的指令来分配加速器的存储和计算资源。 编译器还会产生指令来哦你告知加速器在inter-PE&#x2F;MAC累加和intra-PE&#x2F;MAC累加两种模式之间进行转化。这种可重构性的成本在每个任务的执行生命周期中分摊。<br>![[Pasted image 20240119114609.png]]</p>
+<h2 id="Experiments"><a href="#Experiments" class="headerlink" title="Experiments"></a>Experiments</h2><h4 id="实验设置"><a href="#实验设置" class="headerlink" title="实验设置"></a>实验设置</h4><ul>
+<li>Models： DeiT-Base&#x2F;Small&#x2F;Tiny（被广泛认可的ViT）LeViT-128&#x2F;192&#x2F;256 （ViT变体，用于移动设备） Strided Transformer （SOTA on AR&#x2F;VR）</li>
+<li>Datasets： ImageNet Human3.6M</li>
+<li>Training Settings： 使用各自模型的训练配置，降低了学习率到1e-5</li>
+<li>Baseline： 在三个平台CPU、EdgeGPU和GPU上测试，与SpAtten和Sanger两个attention 加速器比较。当与具有较大batch size的GPU进行比较时，会扩大ViTCod加速器的资源，以获得可比较的峰值吞吐。</li>
+<li>Metrics： Latency speedup 和 energy efficiency 以及 sparisity和模型精度</li>
+<li>Hardware Platform Setup： 3平方毫米， DDR4-2400 memory of 76.8GBs， 500MHz 323.9mW 320KB SRAM，512 MACs（64 MAC lines ，each having 8 MACs）</li>
+<li>Evolution： 可开发量一个cycle-accurate的模拟器， MAC和memory access的开销通过post-layout 仿真得到。 28nm CMOS工艺<br>![[Pasted image 20240119143828.png]]</li>
+</ul>
+<h4 id="Overall-Performance-Comparison"><a href="#Overall-Performance-Comparison" class="headerlink" title="Overall Performance Comparison"></a>Overall Performance Comparison</h4><p>![[Pasted image 20240119143819.png]]<br><strong>和其他加速器相比</strong><br><strong>For accelerating core attention workloads</strong></p>
+<ul>
+<li>Both SDDMM and SpMM phases, ViTCoD achieves 10.1× and 6.8× speedups over SpAtten and Sanger, respectively, under 90% sparsity of attention maps.</li>
+<li>Under 80% sparsity, at which time ViTCoD achieves 4.8× and 3.2× speedups over SpAtten and Sanger, respectively.<br><strong>For accelerating the end-to-end ViT models</strong></li>
+<li>speedups will be 3.1× and 2.1×</li>
+</ul>
+<p><strong>运行NLP模型的效果</strong><br>如果是强制静态的sparse attention类型，模型精度会下降（-1.18% for 60% sparsity vs. the unpruned counterparts for BERT-Base-NLP-models on the GLUE-MRPC dataset.<br>如果考虑动态的attention prediction overhead，ViTCoD’s attention speedups is 1.93×&#x2F;3.69× for a sparsity of 60%&#x2F;90% sparsity, respectively, over Sanger.<br><strong>验证软件算法的有效性</strong><br>![[Pasted image 20240121100026.png]]<br>![[Pasted image 20240121100016.png]]<br>可以看到使用ViTCoD的训练方法后，在降低延时的同时也恢复了精度。<br><strong>验证加速器的有效性</strong></p>
+<p>![[Pasted image 20240121095959.png]]<br>相较于Baseline，有了很大的速度提升。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="http://qhy991.github.io">Haiyan Qin</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="http://qhy991.github.io/2024/01/17/ViTCoD%20Vision%20Transformer%20Acceleration%20viaDedicated%20Algorithm%20and%20Accelerator%20Co-Design/">http://qhy991.github.io/2024/01/17/ViTCoD%20Vision%20Transformer%20Acceleration%20viaDedicated%20Algorithm%20and%20Accelerator%20Co-Design/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/ViT/">ViT</a><a class="post-meta__tags" href="/tags/FPGA/">FPGA</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2024/01/17/FastVi%20A%20Fast%20Hybrid%20Vision%20Transformer%20using%20Structural%20Reparameterization/" title="FastVi a Fast Hybrid Vision Transformer Using Structural Reparameterization"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">Next</div><div class="next_info">FastVi a Fast Hybrid Vision Transformer Using Structural Reparameterization</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2024/01/17/FastVi%20A%20Fast%20Hybrid%20Vision%20Transformer%20using%20Structural%20Reparameterization/" title="FastVi a Fast Hybrid Vision Transformer Using Structural Reparameterization"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-01-17</div><div class="title">FastVi a Fast Hybrid Vision Transformer Using Structural Reparameterization</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Haiyan Qin</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">6</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">5</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">1</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Paper-in-3-sentences"><span class="toc-number">1.</span> <span class="toc-text">Paper in 3 sentences</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Related-links"><span class="toc-number">1.1.</span> <span class="toc-text">Related links</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Insights"><span class="toc-number">2.</span> <span class="toc-text">Insights</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Main-Contributions"><span class="toc-number">3.</span> <span class="toc-text">Main Contributions</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Problem-definition"><span class="toc-number">4.</span> <span class="toc-text">Problem definition</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ViT-%E6%8E%A8%E7%90%86%E7%9A%84%E7%93%B6%E9%A2%88"><span class="toc-number">4.1.</span> <span class="toc-text">ViT 推理的瓶颈</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Review-existing-works-and-highlight-the-unsolved-problem"><span class="toc-number">5.</span> <span class="toc-text">Review existing works and highlight the unsolved problem</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%EF%BC%9A"><span class="toc-number">5.1.</span> <span class="toc-text">算法：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A1%AC%E4%BB%B6%E5%8A%A0%E9%80%9F%E5%99%A8%EF%BC%9A"><span class="toc-number">5.2.</span> <span class="toc-text">硬件加速器：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Sparse-Attention-Algorithms"><span class="toc-number">5.3.</span> <span class="toc-text">Sparse Attention Algorithms</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Sparse-Tensor-Algebra-Accelerators"><span class="toc-number">5.4.</span> <span class="toc-text">Sparse Tensor Algebra Accelerators</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Existing-Transformer-Accelerators"><span class="toc-number">5.5.</span> <span class="toc-text">Existing Transformer Accelerators</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Challenges"><span class="toc-number">5.6.</span> <span class="toc-text">Challenges</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Proposed-Solution"><span class="toc-number">5.7.</span> <span class="toc-text">Proposed Solution</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E5%B1%82%E9%9D%A2"><span class="toc-number">5.7.1.</span> <span class="toc-text">算法层面</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A1%AC%E4%BB%B6%E5%B1%82%E9%9D%A2"><span class="toc-number">5.7.2.</span> <span class="toc-text">硬件层面</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Design-software-hardware"><span class="toc-number">6.</span> <span class="toc-text">Design: software &amp; hardware</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Software"><span class="toc-number">6.1.</span> <span class="toc-text">Software</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Preliminaries-of-Self-Attention-and-ViTs"><span class="toc-number">6.1.1.</span> <span class="toc-text">Preliminaries of Self-Attention and ViTs</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Self-Attention"><span class="toc-number">6.1.1.1.</span> <span class="toc-text">Self-Attention</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#ViT-Models-and-Variants"><span class="toc-number">6.1.1.2.</span> <span class="toc-text">ViT Models and Variants</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%86%E8%80%8C%E6%B2%BB%E4%B9%8B%E7%9A%84%E7%AE%97%E6%B3%95"><span class="toc-number">6.1.2.</span> <span class="toc-text">分而治之的算法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Pruning-with-Fixed-Masks"><span class="toc-number">6.1.2.1.</span> <span class="toc-text">Pruning with Fixed Masks</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Attention-Map-Reordering"><span class="toc-number">6.1.2.2.</span> <span class="toc-text">Attention Map Reordering</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%88%86%E8%80%8C%E6%B2%BB%E4%B9%8B%E7%AE%97%E6%B3%95"><span class="toc-number">6.1.2.3.</span> <span class="toc-text">分而治之算法</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Learnable-Auto-encoder-Module"><span class="toc-number">6.1.3.</span> <span class="toc-text">Learnable Auto-encoder Module</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ViT-Training-with-Auto-encoder-Modules"><span class="toc-number">6.1.4.</span> <span class="toc-text">ViT Training with Auto-encoder Modules</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#The-Unified-ViTCoD-Algorithm"><span class="toc-number">6.1.5.</span> <span class="toc-text">The Unified ViTCoD Algorithm</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hardware"><span class="toc-number">6.2.</span> <span class="toc-text">Hardware</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E5%8A%A8%E6%9C%BA"><span class="toc-number">6.2.1.</span> <span class="toc-text">设计动机</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E6%8E%A2%E7%B4%A2"><span class="toc-number">6.2.1.1.</span> <span class="toc-text">设计探索</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ViTCoD-Accelerator%E2%80%99s-Mirco-architecture"><span class="toc-number">6.2.2.</span> <span class="toc-text">ViTCoD Accelerator’s Mirco-architecture</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8F%8C%E7%AE%A1%E9%BD%90%E4%B8%8B%E7%9A%84%E6%9E%B6%E6%9E%84"><span class="toc-number">6.2.2.1.</span> <span class="toc-text">双管齐下的架构</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Encoder-and-Decoder-Engines"><span class="toc-number">6.2.2.2.</span> <span class="toc-text">Encoder and Decoder Engines</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Reconfigurability"><span class="toc-number">6.2.2.3.</span> <span class="toc-text">Reconfigurability</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Experiments"><span class="toc-number">7.</span> <span class="toc-text">Experiments</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E8%AE%BE%E7%BD%AE"><span class="toc-number">7.0.1.</span> <span class="toc-text">实验设置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Overall-Performance-Comparison"><span class="toc-number">7.0.2.</span> <span class="toc-text">Overall Performance Comparison</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/01/17/ViTCoD%20Vision%20Transformer%20Acceleration%20viaDedicated%20Algorithm%20and%20Accelerator%20Co-Design/" title="ViTCoD: Vision Transformer Acceleration viaDedicated Algorithm and Accelerator Co-Design">ViTCoD: Vision Transformer Acceleration viaDedicated Algorithm and Accelerator Co-Design</a><time datetime="2024-01-17T14:13:10.000Z" title="Created 2024-01-17 22:13:10">2024-01-17</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/01/17/FastVi%20A%20Fast%20Hybrid%20Vision%20Transformer%20using%20Structural%20Reparameterization/" title="FastVi a Fast Hybrid Vision Transformer Using Structural Reparameterization">FastVi a Fast Hybrid Vision Transformer Using Structural Reparameterization</a><time datetime="2024-01-17T11:34:55.000Z" title="Created 2024-01-17 19:34:55">2024-01-17</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/01/07/Parallel%20programming%20for%20FPGAs/" title="Parallel Programming for FPGAs">Parallel Programming for FPGAs</a><time datetime="2024-01-07T14:17:01.000Z" title="Created 2024-01-07 22:17:01">2024-01-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/01/07/PIM/" title="PIM">PIM</a><time datetime="2024-01-07T13:57:57.851Z" title="Created 2024-01-07 21:57:57">2024-01-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/01/07/Accl/" title="AccelTran: A Sparsity-Aware Accelerator for Dynamic Inference With Transformers">AccelTran: A Sparsity-Aware Accelerator for Dynamic Inference With Transformers</a><time datetime="2024-01-07T13:43:07.457Z" title="Created 2024-01-07 21:43:07">2024-01-07</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Haiyan Qin</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.12.0"></script><script src="/js/main.js?v=4.12.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.32/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
