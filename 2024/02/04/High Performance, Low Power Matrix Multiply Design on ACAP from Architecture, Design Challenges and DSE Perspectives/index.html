@@ -1,0 +1,233 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>High Performance, Low Power Matrix Multiply Design on ACAP From Architecture, Design Challenges and DSE Perspectives | Haiyan's Blog</title><meta name="author" content="Haiyan Qin"><meta name="copyright" content="Haiyan Qin"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Paper in 3 sentencesThis paper propose an AutoMM tool to generate the accelerator for Matrix Multiplication for ACAP.  InsightsNew NotionsCTC: Communication to computation ratio, the required computat">
+<meta property="og:type" content="article">
+<meta property="og:title" content="High Performance, Low Power Matrix Multiply Design on ACAP From Architecture, Design Challenges and DSE Perspectives">
+<meta property="og:url" content="http://qhy991.github.io/2024/02/04/High%20Performance,%20Low%20Power%20Matrix%20Multiply%20Design%20on%20ACAP%20from%20Architecture,%20Design%20Challenges%20and%20DSE%20Perspectives/index.html">
+<meta property="og:site_name" content="Haiyan&#39;s Blog">
+<meta property="og:description" content="Paper in 3 sentencesThis paper propose an AutoMM tool to generate the accelerator for Matrix Multiplication for ACAP.  InsightsNew NotionsCTC: Communication to computation ratio, the required computat">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
+<meta property="article:published_time" content="2024-02-04T13:50:32.000Z">
+<meta property="article:modified_time" content="2024-02-22T13:24:27.917Z">
+<meta property="article:author" content="Haiyan Qin">
+<meta property="article:tag" content="FPGA">
+<meta property="article:tag" content="ACAP">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://qhy991.github.io/2024/02/04/High%20Performance,%20Low%20Power%20Matrix%20Multiply%20Design%20on%20ACAP%20from%20Architecture,%20Design%20Challenges%20and%20DSE%20Perspectives/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.12.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.32/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Error',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'High Performance, Low Power Matrix Multiply Design on ACAP From Architecture, Design Challenges and DSE Perspectives',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-02-22 21:24:27'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.0.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">13</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">10</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">1</div></a></div><hr class="custom-hr"/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="Haiyan's Blog"><span class="site-name">Haiyan's Blog</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">High Performance, Low Power Matrix Multiply Design on ACAP From Architecture, Design Challenges and DSE Perspectives</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2024-02-04T13:50:32.000Z" title="Created 2024-02-04 21:50:32">2024-02-04</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2024-02-22T13:24:27.917Z" title="Updated 2024-02-22 21:24:27">2024-02-22</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Paper-reading/">Paper-reading</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="High Performance, Low Power Matrix Multiply Design on ACAP From Architecture, Design Challenges and DSE Perspectives"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="Paper-in-3-sentences"><a href="#Paper-in-3-sentences" class="headerlink" title="Paper in 3 sentences"></a>Paper in 3 sentences</h2><p>This paper propose an AutoMM tool to generate the accelerator for Matrix Multiplication for ACAP. </p>
+<h2 id="Insights"><a href="#Insights" class="headerlink" title="Insights"></a>Insights</h2><h3 id="New-Notions"><a href="#New-Notions" class="headerlink" title="New Notions"></a>New Notions</h3><p><strong>CTC:</strong> Communication to computation ratio, the required computation-to-communication (CTC) ratio refers to the minimum data reuse rate that can sustain the theoretical throughput under the provided off-chip bandwidth.</p>
+<h2 id="Quick-questions-quick-answers"><a href="#Quick-questions-quick-answers" class="headerlink" title="Quick questions &amp; quick answers"></a>Quick questions &amp; quick answers</h2><p>Q: The pros of VCK190 compared with other hardware accelerator?<br>A: 1)High energy-efficiency 2)The 7nm VCK190 enables both bit-level hardware customization on the PL side and byte-level customization on the dedicated AIE array.</p>
+<p>Q: The main bottleneck of VCK190 compared with other hardware accelerator?<br>A: The off-chip bandwidth<br>While VCK190 provides 6400 GFLOPs throughput, it only equips with one DDR4-DIMM external memory with 25.6 GB&#x2F;s bandwidth meaning at least 250 operations per byte are needed to sustain the peak performance which is 13.10x, 17.01x, and 19.8x more severe compared with 16nm U250 FPGA, 16nm Jetson TX2 GPU and 7nm A100 GPU respectively.</p>
+<p>Q: Related works?<br>A: FPGA accelerator:</p>
+<ol>
+<li>Moss et al. propose a customizable hardware template with <strong>a fixed systolic array architecture</strong> to process matrix multiplication workloads on FPGA. </li>
+<li>AutoSA generates <strong>systolic array</strong> designs from <strong>user-specified matrix sizes</strong> by exploring different mapping strategies and implementing them on FPGA. </li>
+<li>FBLAS proposes an open-source HLS implementation of the BLAS library for FPGAs. </li>
+<li>CHARM (FPGA23) proposes an open-source design framework of <strong>FP32 matrix-multiply-based applications</strong> on Versal ACAP (advanced compute acceleration platform).<br>Dataflow:</li>
+<li>Eyeriss propose a tiled architecture with a 2D array of PEs and a shared global buffer to process the <strong>GEMM operations</strong> in NN applications. </li>
+<li>TPUs leverages systolic array architecture to schedule the <strong>byte-level computations</strong> and data movements in GEMM processing.</li>
+</ol>
+<p>Q: The comparison between FPGA and GPU?<br>A: Versal ACAP is capable of both bit-level computation customization on FPGA and byte-level computation customization.<br>In memory architecture, FPGA and aforementioned dataflow architectures use <strong>scratchpad memory</strong>, while GPUs  use <strong>cache hierarchy</strong> to ease the data movement programming.</p>
+<blockquote>
+<p>ACAP is a special FPGA, also adopts scratchpad memory and therefore, it needs specific control for data movement. Specifically, as for on-chip communication, the aforementioned dataflow architectures adopt certain busbased network-on-chip (NoC) or systolic arrays for the data movements between buffers and computation processing elements.</p>
+</blockquote>
+<p>Q: what is the cost of ACAP?</p>
+<p>A: Due to the special design of ACAP, its heterogeneity between FPGA and AIE array, new challenges including how to efficiently leverage the DMAs and I&#x2F;Os between FPGA &amp; AIE arrays and switch-box based AXI stream (AXIS) within AIE arrays on Versal ACAP need to be solved</p>
+<p>Q: Why is utilization of AIE in int8 lower than float?</p>
+<p>A:</p>
+<blockquote>
+<p>computation-to-communication (CTC) ratio refers to the minimum data reuse rate that can sustain the theoretical throughput under the provided off-chip bandwidth.</p>
+</blockquote>
+<p>The computation capacity of a single AIE for the INT8 data type is 128x of the FP32 data type. The CTC ratio for the INT8 is half of the FP32 and the INT8 AIE array design is bounded by the number of PLIO.</p>
+<p>So for certain input data,  less AIEs are needed. As for the 50% of AIEs of float not 1&#x2F;128, I think it’s caused by the IO reuse.</p>
+<p>对于相同位宽的数据输入，int8类型需要的计算资源就更少，但相较于浮点数，int8的数据量是四倍，按道理应该是使用float类型计算下1&#x2F;32的AIE，我猜想是由于IO 复用导致对数据的利用程度进一步提高。</p>
+<p>Base on the gap between the performance and off-chip bandwidth, this work asked:<br>How can we design more energy-efficient MM accelerator designs to make full use of the gigantic computation resources under limited communication bandwidth?</p>
+<p>Next, let’s find how this paper divide and solve this problem.</p>
+<h2 id="Design-methodology-and-proposed-solution"><a href="#Design-methodology-and-proposed-solution" class="headerlink" title="Design methodology and proposed solution"></a>Design methodology and proposed solution</h2><p><strong>High Efficiency Single AIE Design:</strong> To achieve high efficiency in single AIE computation, we propose the optimized coding style in Section IV-B that makes full use of the 7-way VLIW capability to achieve back-to-back issued MAC intrinsic execution. </p>
+<p><strong>IO Reused and Routing Optimized AIE Array Design:</strong> This work efficiently utilizes the limited I&#x2F;O ports between PL↔AIEs by combining broadcast with packet-switch connections to scale out and maintain the computation efficiency to tens and hundreds of AIEs. In addition, to alleviate the routing congestion in the AIE array, explore a broadcast factor for the data transfer from PLIO to AIEs. </p>
+<p><strong>PL↔AIEs Bubble-free Pipelining Data Transfer:</strong> To amortize the bandwidth gap between limited off-chip bandwidth and the high bandwidth requirement from AIEs, this work makes full use of the on-chip storage to increase data reuse on PL. Bubble-free pipelining data transfer algorithm is proposed and implemented in the dedicated data mover on PL to feed the data between PL↔AIEs producing a non-stall AIE execution pipeline.</p>
+<p><strong>Automatic MM Accelerator Design Framework on Versal:</strong> While AMD provides users a black-box IP DPU for INT8 neural network (NN) applications, this work provides an open-source white-box framework, i.e., AutoMM, to automatically generate MM accelerator designs for different data types on Versal ACAP. </p>
+<p>Let’s have a basic knowledge of Versal architecture firstly.</p>
+<h2 id="VERSAL-ARCHITECTURE-OVERVIEW"><a href="#VERSAL-ARCHITECTURE-OVERVIEW" class="headerlink" title="VERSAL ARCHITECTURE OVERVIEW"></a>VERSAL ARCHITECTURE OVERVIEW</h2><p><strong>Chip:</strong> AMD XCVC1902 Adaptive Compute Acceleration Platform (ACAP) chip</p>
+<p><strong>Resources:</strong> 400 VLIW processors, called the AI engine array (AIE array), ARM processors called the Processor System (PS), and the FPGA Programmable Logic (PL). These hardware components could communicate with each other through the NOC or on-chip AXIS.<br>![[Pasted image 20240204225623.png]]</p>
+<p><strong>How AIE communicate intra-&#x2F;inter-AIE?</strong></p>
+<ol>
+<li>Each AIE core shares its local memory with its neighbors for communication. </li>
+<li>The cores are connected to an AXI stream mesh through AXIS switches.<ol>
+<li>a circuit-switched path with dedicated ports for each communication</li>
+<li>a packet-switched network with a target identifier attached to reuse the paths for multiple communications.</li>
+</ol>
+</li>
+</ol>
+<p><strong>Interface</strong><br>There are 39 AXIS interface tiles between the AIE array and the PL.<br>The AIE side of the interface has eight 32-bit input and six 32-bit output channels at 1 GHz, supporting up to 256 Gbps input and 192 Gbps output. The PL side has eight 64-bit input channels and six 64-bit output channels.</p>
+<p><strong>7-way very long instruction word (VLIW)</strong><br>it supported vector processor including two loads (from local memory to register), two moves (update vector registers), one store (from register to local memory), one vector operation (2D-SIMD) and one scalar operation instructions. </p>
+<p><strong>AIE Memory</strong><br>It owns 2Kb vector registers, 3Kb accumulation registers, and 32 KB of data memory located either on the west or the east of the core alternating between rows. One AIE can access up to 128 KB memory in total.</p>
+<blockquote>
+<p>How to fully utilize these powerful hardware resources? </p>
+</blockquote>
+<h2 id="DESIGN-SOFTWARE-AND-HARDWARE"><a href="#DESIGN-SOFTWARE-AND-HARDWARE" class="headerlink" title="DESIGN: SOFTWARE AND HARDWARE"></a>DESIGN: SOFTWARE AND HARDWARE</h2><h3 id="HARDWARE"><a href="#HARDWARE" class="headerlink" title="HARDWARE"></a>HARDWARE</h3><p>Firstly, illustrate the dataflow, tiling, and mapping strategy of matrix-matrix multiply (MM)<br>Four level of loops:<br>![[Pasted image 20240205090706.png]]<br>These four loops take RAW and data locality and data movement from PL, off-chip memory. Code reference is needed.<br>![[Pasted image 20240206093245.png]]<br>Attention: the last matmul with store happened at last loop is different with the matmul without store. </p>
+<p>The detail of pipeline:<br>![[Pasted image 20240206094921.png]]<br>To conduct MM under &#x3D;&#x3D;FP32 datatype &#x3D;&#x3D;on a single AIE we pack 16 MAC8 together in the innermost loop as an atomic operation and these 16 instructions will calculate a Matmul block with size 8x8x2.</p>
+<p>For example, 32x32x32. In this case, the loop boundaries for Line 9, Line 11, and Line 14 are 4, 16, and 3 respectively. 32&#x2F;8&#x3D;4,32&#x2F;2&#x3D;16. Because the last loop is hoisted, so 4-1&#x3D;3.</p>
+<h3 id="Scale-out-to-AIEs"><a href="#Scale-out-to-AIEs" class="headerlink" title="Scale out to AIEs"></a>Scale out to AIEs</h3><h4 id="PLIO-Reuse"><a href="#PLIO-Reuse" class="headerlink" title="PLIO Reuse"></a>PLIO Reuse</h4><p>This part illustrates how to reuse PILO. One key prerequisites is computation time larger than communication time, which means CTC bigger than 1.<br>![[Pasted image 20240214121640.png]]</p>
+<p><strong>What is the switch?</strong> Find it in code!</p>
+<p>Dash lines mean different time steps.</p>
+<h4 id="Routing-optimization"><a href="#Routing-optimization" class="headerlink" title="Routing optimization"></a>Routing optimization</h4><p>The first data broadcast method may cause routing congestion in the switch boxes when broadcasting data to AIEs at a long distance from the interface tile.<br>I find some reference to explain the reason of routing congestion(<a target="_blank" rel="noopener" href="https://kimi.moonshot.cn/share/cn64359kqq4pdpnb17g0">links</a>)<br>The method proposed by this work is to use two ports rather than one port to finish the data transportation task.</p>
+<h3 id="AIE-PL-Bubble-free-Pipelining-Data-Transfer-Algorithm"><a href="#AIE-PL-Bubble-free-Pipelining-Data-Transfer-Algorithm" class="headerlink" title="AIE-PL Bubble-free Pipelining Data Transfer Algorithm"></a>AIE-PL Bubble-free Pipelining Data Transfer Algorithm</h3><p>![[Pasted image 20240214130621.png]]</p>
+<p> Analyze the chart above, I think this method is a very detailed point.</p>
+<h2 id="Experiments"><a href="#Experiments" class="headerlink" title="Experiments"></a>Experiments</h2><p>Platform: VCK190<br>Compare Objects: </p>
+<ol>
+<li>AutoSA implementation on AMD U250 FPGA</li>
+<li>cuBLAS on Nvidia A100 40GB PCIe GPU and Jetson TX2 GPU<br>Scenarios: NCF for recommendations, MLP for multilayer perceptron classification or regression.</li>
+</ol>
+<p>When comparing the performance of MM, we use the same size for VCK190 and NVIDIA GPUs.<br>For U250 designs, we pick the design sizes with the best performance due to the AutoSA design size limitation. We set the matrix size to 6K*6K*6K for VCK190, Nvidia A100, and Jetson TX2 GPUs, and 1040*1K*1K for U250 under FP32. For INT16, the matrix size is 9K<em>9K</em>10K and 1K*1K*1K for VCK190 and U250. For INT8, the matrix size is 16K*16K*16K for VCK190 and Nvidia A100 GPU, and 1056* 1K*1K for U250.</p>
+<p><strong>Frequency</strong><br>AMD Vitis 2021.1 is used for all the experiments on VCK190 with PL running on 230MHz and AIE running on 1GHz. The designs on U250 FPGA are generated by AutoSA and Autobridge for FP32, INT8 (300MHz) and INT16 (250MHz) using AMD Vitis 2019.2.</p>
+<h3 id="MM"><a href="#MM" class="headerlink" title="MM"></a>MM</h3><p>One interesting result:<br>For INT8, AIE utilization is greatly lower for limited PLIO.<br>![[Pasted image 20240214131743.png]]</p>
+<p>The compared metric mainly is energy efficiency.</p>
+<ul>
+<li>AutoSA on prior generation U250 FPGA under FP32, INT16, and INT8 data types. AutoMM achieves 7.20x, 3.26x and 6.23x energy efficiency respectively.</li>
+<li>2.32x higher energy efficiency than Nvidia Jetson TX2 under FP32, and 1.06x, 1.70x higher energy efficiency than Nvidia A100 under FP32 and INT8 respectively.</li>
+</ul>
+<h3 id="End-to-end-application"><a href="#End-to-end-application" class="headerlink" title="End-to-end application"></a>End-to-end application</h3><p>![[Pasted image 20240214132647.png]]</p>
+<p>Comparing the energy efficiency with A100 GPU under FP32 data type, AutoMM achieves 2.3 TFLOPs and 0.96x energy efficiency compared with A100 GPU on NCP task.</p>
+<p>AutoMM achieves 3.5 TFLOPs and 1.16x energy efficiency gain compared with A100 GPU on MLP task.</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="http://qhy991.github.io">Haiyan Qin</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="http://qhy991.github.io/2024/02/04/High%20Performance,%20Low%20Power%20Matrix%20Multiply%20Design%20on%20ACAP%20from%20Architecture,%20Design%20Challenges%20and%20DSE%20Perspectives/">http://qhy991.github.io/2024/02/04/High%20Performance,%20Low%20Power%20Matrix%20Multiply%20Design%20on%20ACAP%20from%20Architecture,%20Design%20Challenges%20and%20DSE%20Perspectives/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/FPGA/">FPGA</a><a class="post-meta__tags" href="/tags/ACAP/">ACAP</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2024/01/29/SSR/" title="SSR: Spatial Sequential Hybrid Architecture for Latency Throughput Tradeoff in Transformer Acceleration"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">Next</div><div class="next_info">SSR: Spatial Sequential Hybrid Architecture for Latency Throughput Tradeoff in Transformer Acceleration</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2024/01/29/SSR/" title="SSR: Spatial Sequential Hybrid Architecture for Latency Throughput Tradeoff in Transformer Acceleration"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-01-29</div><div class="title">SSR: Spatial Sequential Hybrid Architecture for Latency Throughput Tradeoff in Transformer Acceleration</div></div></a></div><div><a href="/2024/01/29/FlightLLM/" title="FlightLLM: Efficient Large Language Model Inference With a Complete Mapping Flow on FPGAs"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-01-29</div><div class="title">FlightLLM: Efficient Large Language Model Inference With a Complete Mapping Flow on FPGAs</div></div></a></div><div><a href="/2024/01/21/MSD%20Mixing%20Signed%20Digit%20Representations%20for%20Hardware-efficient%20DNN%20Acceleration%20on%20FPGA%20with%20Heterogeneous%20Resources/" title="MSD: Mixing Signed Digit Representations for Hardware-Efficient DNN Acceleration on FPGA With Heterogeneous Resources"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-01-21</div><div class="title">MSD: Mixing Signed Digit Representations for Hardware-Efficient DNN Acceleration on FPGA With Heterogeneous Resources</div></div></a></div><div><a href="/2024/01/21/Mix%20and%20Match%20-%20A%20Novel%20FPGA-Centric%20Deep%20Neural%20Network%20Quantization%20Framework/" title="Mix and Match - a Novel FPGA-Centric Deep Neural Network Quantization Framework"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-01-21</div><div class="title">Mix and Match - a Novel FPGA-Centric Deep Neural Network Quantization Framework</div></div></a></div><div><a href="/2024/01/21/Transformer-OPU%20An%20FPGA-based%20Overlay%20Processor%20for%20Transformer%20Networks/" title="Transformer-OPU an FPGA-Based Overlay Processor for Transformer Networks"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-01-21</div><div class="title">Transformer-OPU an FPGA-Based Overlay Processor for Transformer Networks</div></div></a></div><div><a href="/2024/01/17/ViTCoD%20Vision%20Transformer%20Acceleration%20viaDedicated%20Algorithm%20and%20Accelerator%20Co-Design/" title="ViTCoD: Vision Transformer Acceleration viaDedicated Algorithm and Accelerator Co-Design"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-01-17</div><div class="title">ViTCoD: Vision Transformer Acceleration viaDedicated Algorithm and Accelerator Co-Design</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Haiyan Qin</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">13</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">10</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">1</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Paper-in-3-sentences"><span class="toc-number">1.</span> <span class="toc-text">Paper in 3 sentences</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Insights"><span class="toc-number">2.</span> <span class="toc-text">Insights</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#New-Notions"><span class="toc-number">2.1.</span> <span class="toc-text">New Notions</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-questions-quick-answers"><span class="toc-number">3.</span> <span class="toc-text">Quick questions &amp; quick answers</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Design-methodology-and-proposed-solution"><span class="toc-number">4.</span> <span class="toc-text">Design methodology and proposed solution</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VERSAL-ARCHITECTURE-OVERVIEW"><span class="toc-number">5.</span> <span class="toc-text">VERSAL ARCHITECTURE OVERVIEW</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DESIGN-SOFTWARE-AND-HARDWARE"><span class="toc-number">6.</span> <span class="toc-text">DESIGN: SOFTWARE AND HARDWARE</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#HARDWARE"><span class="toc-number">6.1.</span> <span class="toc-text">HARDWARE</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Scale-out-to-AIEs"><span class="toc-number">6.2.</span> <span class="toc-text">Scale out to AIEs</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#PLIO-Reuse"><span class="toc-number">6.2.1.</span> <span class="toc-text">PLIO Reuse</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Routing-optimization"><span class="toc-number">6.2.2.</span> <span class="toc-text">Routing optimization</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AIE-PL-Bubble-free-Pipelining-Data-Transfer-Algorithm"><span class="toc-number">6.3.</span> <span class="toc-text">AIE-PL Bubble-free Pipelining Data Transfer Algorithm</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Experiments"><span class="toc-number">7.</span> <span class="toc-text">Experiments</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#MM"><span class="toc-number">7.1.</span> <span class="toc-text">MM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#End-to-end-application"><span class="toc-number">7.2.</span> <span class="toc-text">End-to-end application</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/02/04/High%20Performance,%20Low%20Power%20Matrix%20Multiply%20Design%20on%20ACAP%20from%20Architecture,%20Design%20Challenges%20and%20DSE%20Perspectives/" title="High Performance, Low Power Matrix Multiply Design on ACAP From Architecture, Design Challenges and DSE Perspectives">High Performance, Low Power Matrix Multiply Design on ACAP From Architecture, Design Challenges and DSE Perspectives</a><time datetime="2024-02-04T13:50:32.000Z" title="Created 2024-02-04 21:50:32">2024-02-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/01/29/SSR/" title="SSR: Spatial Sequential Hybrid Architecture for Latency Throughput Tradeoff in Transformer Acceleration">SSR: Spatial Sequential Hybrid Architecture for Latency Throughput Tradeoff in Transformer Acceleration</a><time datetime="2024-01-29T13:19:07.000Z" title="Created 2024-01-29 21:19:07">2024-01-29</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/01/29/FlightLLM/" title="FlightLLM: Efficient Large Language Model Inference With a Complete Mapping Flow on FPGAs">FlightLLM: Efficient Large Language Model Inference With a Complete Mapping Flow on FPGAs</a><time datetime="2024-01-29T12:28:15.000Z" title="Created 2024-01-29 20:28:15">2024-01-29</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/01/21/Mix%20and%20Match%20-%20A%20Novel%20FPGA-Centric%20Deep%20Neural%20Network%20Quantization%20Framework/" title="Mix and Match - a Novel FPGA-Centric Deep Neural Network Quantization Framework">Mix and Match - a Novel FPGA-Centric Deep Neural Network Quantization Framework</a><time datetime="2024-01-21T08:59:20.000Z" title="Created 2024-01-21 16:59:20">2024-01-21</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/01/21/Transformer-OPU%20An%20FPGA-based%20Overlay%20Processor%20for%20Transformer%20Networks/" title="Transformer-OPU an FPGA-Based Overlay Processor for Transformer Networks">Transformer-OPU an FPGA-Based Overlay Processor for Transformer Networks</a><time datetime="2024-01-21T08:55:26.000Z" title="Created 2024-01-21 16:55:26">2024-01-21</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Haiyan Qin</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.12.0"></script><script src="/js/main.js?v=4.12.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.32/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

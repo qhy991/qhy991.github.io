@@ -1,0 +1,307 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>SSR: Spatial Sequential Hybrid Architecture for Latency Throughput Tradeoff in Transformer Acceleration | Haiyan's Blog</title><meta name="author" content="Haiyan Qin"><meta name="copyright" content="Haiyan Qin"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Paper in 3 sentencesThis work investigates two execution models: 1) sequentially launch one monolithic accelerator and 2) spatially launch multiple accelerator, and propose spatial sequential architec">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SSR: Spatial Sequential Hybrid Architecture for Latency Throughput Tradeoff in Transformer Acceleration">
+<meta property="og:url" content="http://qhy991.github.io/2024/01/29/SSR/index.html">
+<meta property="og:site_name" content="Haiyan&#39;s Blog">
+<meta property="og:description" content="Paper in 3 sentencesThis work investigates two execution models: 1) sequentially launch one monolithic accelerator and 2) spatially launch multiple accelerator, and propose spatial sequential architec">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
+<meta property="article:published_time" content="2024-01-29T13:19:07.000Z">
+<meta property="article:modified_time" content="2024-02-17T14:04:38.743Z">
+<meta property="article:author" content="Haiyan Qin">
+<meta property="article:tag" content="ViT">
+<meta property="article:tag" content="Transformer">
+<meta property="article:tag" content="FPGA">
+<meta property="article:tag" content="ACAP">
+<meta property="article:tag" content="AIE">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://qhy991.github.io/2024/01/29/SSR/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.12.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.32/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Error',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'SSR: Spatial Sequential Hybrid Architecture for Latency Throughput Tradeoff in Transformer Acceleration',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-02-17 22:04:38'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.0.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">13</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">10</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">1</div></a></div><hr class="custom-hr"/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="Haiyan's Blog"><span class="site-name">Haiyan's Blog</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">SSR: Spatial Sequential Hybrid Architecture for Latency Throughput Tradeoff in Transformer Acceleration</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2024-01-29T13:19:07.000Z" title="Created 2024-01-29 21:19:07">2024-01-29</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2024-02-17T14:04:38.743Z" title="Updated 2024-02-17 22:04:38">2024-02-17</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Paper-reading/">Paper-reading</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="SSR: Spatial Sequential Hybrid Architecture for Latency Throughput Tradeoff in Transformer Acceleration"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="Paper-in-3-sentences"><a href="#Paper-in-3-sentences" class="headerlink" title="Paper in 3 sentences"></a>Paper in 3 sentences</h2><p>This work investigates two execution models: 1) sequentially launch one monolithic accelerator and 2) spatially launch multiple accelerator, and propose spatial sequential architecture(SSR) and SSR design automation framework to explore both strategies for ACAP FPGA.</p>
+<h2 id="Insights"><a href="#Insights" class="headerlink" title="Insights"></a>Insights</h2><p>Different application scenarios have different demands for latency and throughput.</p>
+<p>The pro of FPGA compared with GPU:</p>
+<ul>
+<li>When using the off-the-shelf GPU, user can only change the batch-size to gain better latency. </li>
+<li>FPGA accelerator provides more flexibility.</li>
+</ul>
+<p><strong>SSR framework, a programming mapping solution</strong></p>
+<p>how to gain the achievement compared with other FPGA, take the advantages of AIE?</p>
+<p>first perform an in-depth kernel profiling by using TensorRT</p>
+<p>To achieve higher throughput, many work implement spatial acc</p>
+<blockquote>
+<p>[!NOTE]<br>The models implemented on board are tiny, all parameters can stored on on-chip memory. If target is large model, this work propose multi-device solution to solve this problem.</p>
+<p>In addition, this work doesn’t search deep in software-software co-design. Other technologies such as mixed-precision quantization and sparse can be utilized to further support large model.</p>
+</blockquote>
+<p>The method to solve the communication stall and conflicts need further discussion.</p>
+<h2 id="Quick-question-quick-answer"><a href="#Quick-question-quick-answer" class="headerlink" title="Quick question &amp; quick answer"></a>Quick question &amp; quick answer</h2><p>Q: What problem does this work want to solve?</p>
+<p>A: How to get a appropriate solution with better tradeoff between throughput and latency.</p>
+<p>Q: How to solve the above problem in this work?</p>
+<p>A: This work propose SSR framework to search the combination of sequential and spatial accelerators to inference ViT model on FPGA for diverse demands automatically.</p>
+<p>Q: Related works and their drawbacks?</p>
+<p>A:</p>
+<ul>
+<li>Sequential accelerator<ul>
+<li>Target hardware: GPU</li>
+<li><strong>Works</strong>: Gemmini is an automatic accelerator generator. It can generate both systolic-array-based and parallel vector engines like hardware accelerators.</li>
+<li><a href="">Full stack optimization of transformer inference.</a> use Gemmini in Transformer inference. and propose various optimization methods.</li>
+<li>ViTCoD designs a dedicated accelerator for sparse and dense workloads to boost hardware utilization for vision transformers. </li>
+<li>Auto-ViT-Acc designs an FPGA accelerator for multi-head attention and an FPGA-aware quantization algorithm to make better use of FPGA resources. </li>
+<li>HeatViT accelerates vision transformer on embedded FPGAs using image-adaptive token pruning and 8-bit quantization.</li>
+<li><strong>Drawback</strong>:sequential accelerators use a generic accelerator for all layers with different shapes, which possibly leads to shape mismatch and results in larger latency.</li>
+</ul>
+</li>
+<li>Spatial accelerator<ul>
+<li>Feature: high hardware utilization</li>
+<li><strong>Works</strong>: Microsoft BrainWave targets real-time AI inference in the data center scale production system. It explores parallelism within a single task and achieves much lower latency on FPGAs compared with GPUs without sacrificing system level throughput.</li>
+</ul>
+</li>
+<li>Hybrid accelerator<ul>
+<li><p><strong>Works</strong>: DNNExplorer proposes a hybrid design methodology. Specifically, applying spatial accelerators for the first several layers and using a generic accelerator for the rest layers to enable deep networks while achieving acceptable performance. </p>
+</li>
+<li><p>SET is a framework that automatically schedules deep neural network (DNN) nodes onto tiled accelerators. SET proposes a universal notation and formally defines the mapping space for analyzing tradeoffs among different schedule choices.</p>
+</li>
+<li><p>CHARM composes heterogeneous accelerators for deep learning applications on ACAP.</p>
+</li>
+<li><p>DiviML formalizes the DNN partition problem on the heterogeneous computing systems in which different accelerators such as GPUs are connected through PCIe links. DiviML proposes a linear programming model to search for both model and data parallelism and a heuristic schedule algorithm to optimize both latency and throughput.</p>
+</li>
+<li><p><strong>Drawbacks</strong>: DNNExplorer only supports a fine-grained pipeline between linear kernels. </p>
+</li>
+<li><p>SET assumes a very flexible Network-on-Chip (NoC) to connect the accelerators which consumes non-negligible resources and may cause large overhead because of the data congestion in the NoC.</p>
+</li>
+<li><p>CHARM does not support on-chip data forwarding which results in longer inference latency.</p>
+</li>
+<li><p>In DiviML, data transfer only happens after one layer finishes its computation, and overlap between computation and communication is not supported.</p>
+</li>
+<li><p>Herald and MAGMA optimize DNN on heterogeneous computing systems, but different accelerators can only communicate with each other via off-chip memory, resulting in high latency.</p>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>Sequential VS Spatial VS SSR</strong></p>
+<p>![[Pasted image 20240129215652.png]]</p>
+<p>This figure illustrates three different accelerators framework. </p>
+<p>Sequential accelerator uses one monolithic acc to execute all different layers of a NN. </p>
+<p>Spatial accelerator utilizes different acc for different layers.</p>
+<p>SRR is a mixed method depended on every layer execution feature.</p>
+<p>Q: So what is the difference between this work with others?</p>
+<p>A: SSR adopts sequential spatial hybrid strategies, enables more scheduling flexibility to map layers to accelerators, designs fine-grained pipelines across different types of accelerators, and co-optimizes inter-acc communication with accelerator designs. All together, SSR achieves a better latency throughput Pareto front.</p>
+<p>This graph provides a detailed comparison with other frameworks in serval topics:</p>
+<p>![[Pasted image 20240204113208.png]]<br>Q: The motivation of this work?</p>
+<p>A: </p>
+<p>![[Pasted image 20240129220158.png]]</p>
+<p>This figure show the relation between latency and throughput of three accelerators running DeiT-T inference.</p>
+<p>Based on the experimental results, this work asks two questions:</p>
+<ol>
+<li>For sequential accelerator, can we achieve a higher throughput?</li>
+<li>Spatial accelerator can achieve high throughout, can we combine sequential acc and spatial acc strategies together and gain the best of both worlds?</li>
+</ol>
+<p>So, this work want to solve the above two questions.</p>
+<p>It‘s worth mentioning that CHARM is developed by the seam team. Next, let’s dive into the  details of the SSR framework.</p>
+<h2 id="Details"><a href="#Details" class="headerlink" title="Details"></a>Details</h2><p>The overview of the SSR framework:</p>
+<p>![[Pasted image 20240204114108.png]]</p>
+<p><strong>Input:</strong> the transformer model and hardware resource constraints </p>
+<p><strong>Output:</strong> the spatial sequential hybrid execution scheduling as well as the corresponding hardware implementation on the Versal ACAP heterogeneous system</p>
+<p><strong>How to optimize:</strong> systematically optimizes the system throughput under certain latency constraints through two levels of optimization including Layer→Acc level and Acc-Customization level.</p>
+<p>So what are the two levels?</p>
+<p><strong>Layer→Acc level</strong></p>
+<p>given an application graph, the Layer→ Acc scheduler will first generate the layer-accelerator assignment map by partitioning the graph into multiple sub-graphs and allocating each one to a specific accelerator.</p>
+<p><strong>Acc-Customization level</strong></p>
+<p>Then the Acc-Customizer will optimize the configuration of each accelerator including:</p>
+<ol>
+<li>the AIE array design, memory pinning strategy </li>
+<li>non-linear kernel fine-grained pipeline design </li>
+<li>to reduce the data transfer overhead between different accelerators, SSR applies an inter-acc communication and accelerator co-design and introduce a customized memory partitioning strategy</li>
+</ol>
+<p>After the Layer→Acc assignment and scheduling, SSR will allocate the initial resource allocation constraints on each accelerator.</p>
+<p>Guided by the configuration provided by the SSR scheduler, the automatic code generator will generate the source code for the host CPU, PL, and AIE respectively.</p>
+<p>Next, we want to know how the Acc is and how are they used?</p>
+<h3 id="The-overview-of-SSR"><a href="#The-overview-of-SSR" class="headerlink" title="The overview of SSR"></a>The overview of SSR</h3><p>![[Pasted image 20240204120500.png]]</p>
+<p>It consists of N (∈ 1,…,n) spatial accelerators implemented on the AIE and PL. Within each spatial accelerator, there are two basic blocks, the heterogeneous matrix multiply (HMM) unit, and the heterogeneous customized engine (HCE).</p>
+<p>The data is transported by AXI DMA.</p>
+<p>The HMM units handle the computation-intensive MM and BMM kernels using the high throughput AIE arrays. </p>
+<p>The HCE units contain senders and receivers to transfer the data between AIE and PL. </p>
+<p>The sender and receiver modules are not only responsible for generating the AXI stream protocols needed by the AIE array but also for computing the nonlinear and element-wise kernels. (So that means the nonlinear and element-wise kernels  fuse with the data transport?)</p>
+<p><strong>But why they design the framework above?</strong></p>
+<p><strong>Purpose:</strong> to sustain the computation of 400 AIEs under the limited PLIO constraint</p>
+<p><strong>Methods:</strong> Design two types of HMM</p>
+<p>For HMM-type0, by pinning the weights to the local memory of AIEs it only takes one operand (activations) to reduce the utilized PLIOs.</p>
+<p>HMM-type1 is designed to deal with such general matrix multiply operations (multi head attention).</p>
+<p><strong>How to assign these two types:</strong> Set optimizable flag.</p>
+<p><strong>Purpose:</strong> to reduce the latency of the non-computation intensive kernels</p>
+<p><strong>Methods:</strong> Fine-grained pipeline for element-wise and nonlinear kernels between the HMM and HCE units.</p>
+<p>The operation that <strong>data reuse distance</strong> is one such as Transpose, VectorAdd and Reformat (data type conversion), can be easily fused with the HMM kernels.</p>
+<p>Nonlinear operations such as Softmax, LayerNorm, and GeLU perform the reduction in an array resulting in the reuse distance larger than 1. For these nonlinear operations, SSR apply the bypass line-buffer structure in the customized Layernorm kernel on the PL side to overlap the latency in different stages to reduce the latency and improve hardware utilization.</p>
+<p>![[Pasted image 20240204142053.png]]</p>
+<p><strong>Purpose:</strong> Reduce the communication latency and complexity.</p>
+<p><strong>Methods:</strong> Inter-acc communication and accelerator co-design.</p>
+<p>Take the MM as an example:</p>
+<p>The output of MatMul0 is the input of Matmul1.</p>
+<p>![[Pasted image 20240204143625.png]]</p>
+<p><strong>The main idea:</strong> For the pairs that do have communication, we configure the parallelism of the them to be divisible by each other. For example, the parallel parameters A, C of HMM0 should be fully divisible by the A, B of HMM1 or vice versa. (When designing the HMM kernels for MM with size M×K×N, there are three corresponding parallel choices at the AIE array level including here noted as A, B, and C.)</p>
+<p>Now, we know the hardware architecture, how about the exploration if a good design?</p>
+<h3 id="SSR-Design-Space-Exploration"><a href="#SSR-Design-Space-Exploration" class="headerlink" title="SSR Design Space Exploration"></a>SSR Design Space Exploration</h3><p>There two part of the exploration corresponding to ACC-&gt;layer level and ACC-Customization level.</p>
+<p><strong>Purpose:</strong> optimize the throughput of the system while achieving the latency constraints demonstrated in Algorithm 1.</p>
+<p><strong>Inputs:</strong> the execution graph, hardware resources, and latency constraints as input.</p>
+<p><strong>Layer→Acc evolutionary algorithm (EA).</strong> </p>
+<p>![[Pasted image 20240204144158.png]]</p>
+<p>Attention: All weights and activations are stored in the on-chip memory.</p>
+<p>Acc-Customization is a part of the EA (Lines 35-36, Algorithm 2)</p>
+<p>Inter-acc communication aware optimization at the AccCustomization level.</p>
+<p>Purpose: In our design space, we find all integer solutions that make sure a single AIE workload can be fit in 32Kb AIE local memory and AIE utilization doesn’t exceed the number of AIE.</p>
+<p>Inputs: the resources to each accelerator including AIE, PLIO, RAM, and DSP.</p>
+<p>![[Pasted image 20240204145031.png]]</p>
+<h3 id="Automatic-Code-Generation-Compilation"><a href="#Automatic-Code-Generation-Compilation" class="headerlink" title="Automatic Code Generation &amp; Compilation"></a>Automatic Code Generation &amp; Compilation</h3><p>This work based on CHARM support code generation and compilation.</p>
+<h2 id="Experiments"><a href="#Experiments" class="headerlink" title="Experiments"></a>Experiments</h2><p>This work compares the inference performance on different hardwares. GPU A10G isn’t the high-end GPU, just like 3070.</p>
+<p>![[Pasted image 20240204145533.png]]</p>
+<p>The detailed data analysis:</p>
+<p>![[Pasted image 20240204150234.png]]</p>
+<p>The average throughput gains SSR achieves are 2.53x, 35.71x, and 14.20x when compared to Nvidia A10G GPU, AMD ZCU102, and U250 FPGA. The average energy efficiency gains are 8.51x, 6.75x, and 21.22x, respectively.</p>
+<p>The advantage of SSR compared with GPU</p>
+<p>From the following table, we can find that the latency of GPU has a higher lower-limit.</p>
+<p>![[Pasted image 20240204150401.png]]</p>
+<p>Interestingly, this work’s hardware performance estimator has high precision:</p>
+<p>![[Pasted image 20240204150219.png]]</p>
+<p>The search time cost</p>
+<p>All in all, I think the search time is acceptable. (run on Intel Xeon Gold 6346 CPU utilizing 16 cores that run at 3.10GHz.)</p>
+<p>![[Pasted image 20240204150628.png]]</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="http://qhy991.github.io">Haiyan Qin</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="http://qhy991.github.io/2024/01/29/SSR/">http://qhy991.github.io/2024/01/29/SSR/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/ViT/">ViT</a><a class="post-meta__tags" href="/tags/Transformer/">Transformer</a><a class="post-meta__tags" href="/tags/FPGA/">FPGA</a><a class="post-meta__tags" href="/tags/ACAP/">ACAP</a><a class="post-meta__tags" href="/tags/AIE/">AIE</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/02/04/High%20Performance,%20Low%20Power%20Matrix%20Multiply%20Design%20on%20ACAP%20from%20Architecture,%20Design%20Challenges%20and%20DSE%20Perspectives/" title="High Performance, Low Power Matrix Multiply Design on ACAP From Architecture, Design Challenges and DSE Perspectives"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">Previous</div><div class="prev_info">High Performance, Low Power Matrix Multiply Design on ACAP From Architecture, Design Challenges and DSE Perspectives</div></div></a></div><div class="next-post pull-right"><a href="/2024/01/29/FlightLLM/" title="FlightLLM: Efficient Large Language Model Inference With a Complete Mapping Flow on FPGAs"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">Next</div><div class="next_info">FlightLLM: Efficient Large Language Model Inference With a Complete Mapping Flow on FPGAs</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2024/01/17/FastVi%20A%20Fast%20Hybrid%20Vision%20Transformer%20using%20Structural%20Reparameterization/" title="FastVi a Fast Hybrid Vision Transformer Using Structural Reparameterization"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-01-17</div><div class="title">FastVi a Fast Hybrid Vision Transformer Using Structural Reparameterization</div></div></a></div><div><a href="/2024/01/17/ViTCoD%20Vision%20Transformer%20Acceleration%20viaDedicated%20Algorithm%20and%20Accelerator%20Co-Design/" title="ViTCoD: Vision Transformer Acceleration viaDedicated Algorithm and Accelerator Co-Design"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-01-17</div><div class="title">ViTCoD: Vision Transformer Acceleration viaDedicated Algorithm and Accelerator Co-Design</div></div></a></div><div><a href="/2024/01/29/FlightLLM/" title="FlightLLM: Efficient Large Language Model Inference With a Complete Mapping Flow on FPGAs"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-01-29</div><div class="title">FlightLLM: Efficient Large Language Model Inference With a Complete Mapping Flow on FPGAs</div></div></a></div><div><a href="/2024/01/21/Mix%20and%20Match%20-%20A%20Novel%20FPGA-Centric%20Deep%20Neural%20Network%20Quantization%20Framework/" title="Mix and Match - a Novel FPGA-Centric Deep Neural Network Quantization Framework"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-01-21</div><div class="title">Mix and Match - a Novel FPGA-Centric Deep Neural Network Quantization Framework</div></div></a></div><div><a href="/2024/01/21/Transformer-OPU%20An%20FPGA-based%20Overlay%20Processor%20for%20Transformer%20Networks/" title="Transformer-OPU an FPGA-Based Overlay Processor for Transformer Networks"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-01-21</div><div class="title">Transformer-OPU an FPGA-Based Overlay Processor for Transformer Networks</div></div></a></div><div><a href="/2024/02/04/High%20Performance,%20Low%20Power%20Matrix%20Multiply%20Design%20on%20ACAP%20from%20Architecture,%20Design%20Challenges%20and%20DSE%20Perspectives/" title="High Performance, Low Power Matrix Multiply Design on ACAP From Architecture, Design Challenges and DSE Perspectives"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-02-04</div><div class="title">High Performance, Low Power Matrix Multiply Design on ACAP From Architecture, Design Challenges and DSE Perspectives</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Haiyan Qin</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">13</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">10</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">1</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Paper-in-3-sentences"><span class="toc-number">1.</span> <span class="toc-text">Paper in 3 sentences</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Insights"><span class="toc-number">2.</span> <span class="toc-text">Insights</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-question-quick-answer"><span class="toc-number">3.</span> <span class="toc-text">Quick question &amp; quick answer</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Details"><span class="toc-number">4.</span> <span class="toc-text">Details</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#The-overview-of-SSR"><span class="toc-number">4.1.</span> <span class="toc-text">The overview of SSR</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SSR-Design-Space-Exploration"><span class="toc-number">4.2.</span> <span class="toc-text">SSR Design Space Exploration</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Automatic-Code-Generation-Compilation"><span class="toc-number">4.3.</span> <span class="toc-text">Automatic Code Generation &amp; Compilation</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Experiments"><span class="toc-number">5.</span> <span class="toc-text">Experiments</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/02/04/High%20Performance,%20Low%20Power%20Matrix%20Multiply%20Design%20on%20ACAP%20from%20Architecture,%20Design%20Challenges%20and%20DSE%20Perspectives/" title="High Performance, Low Power Matrix Multiply Design on ACAP From Architecture, Design Challenges and DSE Perspectives">High Performance, Low Power Matrix Multiply Design on ACAP From Architecture, Design Challenges and DSE Perspectives</a><time datetime="2024-02-04T13:50:32.000Z" title="Created 2024-02-04 21:50:32">2024-02-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/01/29/SSR/" title="SSR: Spatial Sequential Hybrid Architecture for Latency Throughput Tradeoff in Transformer Acceleration">SSR: Spatial Sequential Hybrid Architecture for Latency Throughput Tradeoff in Transformer Acceleration</a><time datetime="2024-01-29T13:19:07.000Z" title="Created 2024-01-29 21:19:07">2024-01-29</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/01/29/FlightLLM/" title="FlightLLM: Efficient Large Language Model Inference With a Complete Mapping Flow on FPGAs">FlightLLM: Efficient Large Language Model Inference With a Complete Mapping Flow on FPGAs</a><time datetime="2024-01-29T12:28:15.000Z" title="Created 2024-01-29 20:28:15">2024-01-29</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/01/21/Mix%20and%20Match%20-%20A%20Novel%20FPGA-Centric%20Deep%20Neural%20Network%20Quantization%20Framework/" title="Mix and Match - a Novel FPGA-Centric Deep Neural Network Quantization Framework">Mix and Match - a Novel FPGA-Centric Deep Neural Network Quantization Framework</a><time datetime="2024-01-21T08:59:20.000Z" title="Created 2024-01-21 16:59:20">2024-01-21</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/01/21/Transformer-OPU%20An%20FPGA-based%20Overlay%20Processor%20for%20Transformer%20Networks/" title="Transformer-OPU an FPGA-Based Overlay Processor for Transformer Networks">Transformer-OPU an FPGA-Based Overlay Processor for Transformer Networks</a><time datetime="2024-01-21T08:55:26.000Z" title="Created 2024-01-21 16:55:26">2024-01-21</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Haiyan Qin</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.12.0"></script><script src="/js/main.js?v=4.12.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.32/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
