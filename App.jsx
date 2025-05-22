@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
-
 export default function App() {
-  const [language, setLanguage] = useState('en');
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [language, setLanguage] = React.useState('en');
+  const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
 
   // 中英文内容配置
   const content = {
