@@ -7,7 +7,7 @@ url: "https://qhy991.github.io"
 # Author information
 author:
   name: "Haiyan Qin"
-  avatar: "images/profile.png"
+  avatar: "/images/profile.png"
   bio: "Researcher at Beihang University | AI-Assisted Hardware Design | FPGA & Neural Networks"
   googlescholar: "zzmYq9QAAAAJ"
   github: "qhy991"
