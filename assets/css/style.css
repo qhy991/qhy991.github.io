@@ -29,12 +29,13 @@ body {
   padding: 40px 20px;
   display: flex;
   flex-wrap: wrap;
-  gap: 40px;
+  gap: 30px;
 }
 
 header {
-  flex: 0 0 240px;
-  max-width: 240px;
+  flex: 0 0 calc(20% - 15px);
+  max-width: calc(20% - 15px);
+  min-width: 180px;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   padding: 30px 20px;
   border-radius: 16px;
@@ -79,15 +80,15 @@ section {
 }
 
 .avatar {
-  width: 100px;
-  height: 100px;
-  max-width: 100px;
-  max-height: 100px;
+  width: 80px;
+  height: 80px;
+  max-width: 80px;
+  max-height: 80px;
   border-radius: 50%;
-  margin: 15px auto;
+  margin: 10px auto;
   display: block;
-  border: 3px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   object-fit: cover;
 }
@@ -296,8 +297,8 @@ section a:hover {
   }
 
   .avatar {
-    width: 120px;
-    height: 120px;
+    width: 100px;
+    height: 100px;
   }
 
   h1 {
