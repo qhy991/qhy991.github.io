@@ -1,53 +1,26 @@
 # Academic Homepage
 
-This is the academic homepage for Haiyan Qin, built using Jekyll and GitHub Pages.
+This is the academic homepage for Haiyan Qin, hosted on GitHub Pages.
+
+## About
+
+This is a static HTML site that showcases academic work and research interests.
 
 ## Features
 
-- Clean, academic-focused design
-- Integration with Google Scholar profile
-- Sections for publications, teaching, portfolio, and talks
-- Responsive design
-- Easy to customize
+- Clean, responsive design
+- Google Scholar integration
+- Professional academic layout
+- Mobile-friendly navigation
 
 ## Setup
 
-1. Fork this repository
-2. Update `_config.yml` with your information
-3. Add your content to the relevant pages
-4. Add a profile picture as `images/profile.png`
-5. Push to GitHub and enable GitHub Pages
+This site is automatically deployed using GitHub Actions when changes are pushed to the master branch.
 
-## Local Development
+## Contact
 
-To run locally:
-
-```bash
-bundle install
-bundle exec jekyll serve
-```
-
-## Structure
-
-- `_config.yml` - Main configuration file
-- `_layouts/` - Page templates
-- `_includes/` - Reusable components
-- `about.md` - About page
-- `publications.md` - Publications page
-- `teaching.md` - Teaching page
-- `portfolio.md` - Portfolio page
-- `talks.md` - Talks page
-
-## Customization
-
-- Update your information in `_config.yml`
-- Modify the content in each markdown file
-- Customize the styling in `assets/css/main.scss`
-- Add your profile picture to `images/profile.png`
-
-## Google Scholar Integration
-
-Your Google Scholar profile is automatically linked in the social media section. Update the `googlescholar` field in `_config.yml` with your Google Scholar user ID.
+- Google Scholar: [Profile](https://scholar.google.com/citations?user=zzmYq9QAAAAJ&hl=en)
+- GitHub: [qhy991](https://github.com/qhy991)
 
 ## License
 

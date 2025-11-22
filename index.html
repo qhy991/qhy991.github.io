@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haiyan Qin - Academic Homepage</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+
+        header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        nav {
+            background: #fff;
+            padding: 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        nav li {
+            margin: 0;
+        }
+
+        nav a {
+            display: block;
+            padding: 20px 30px;
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+        }
+
+        nav a:hover {
+            color: #667eea;
+            border-bottom-color: #667eea;
+            background: #f8f9fa;
+        }
+
+        main {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .link-button {
+            display: inline-block;
+            padding: 12px 24px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .link-button:hover {
+            background: #5a67d8;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 20px auto;
+            display: block;
+            border: 5px solid white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 40px 20px;
+            }
+
+            header h1 {
+                font-size: 2em;
+            }
+
+            nav ul {
+                flex-direction: column;
+            }
+
+            nav a {
+                padding: 15px 20px;
+            }
+
+            main {
+                padding: 20px;
+            }
+
+            .links {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Haiyan Qin</h1>
+            <p>Academic Homepage</p>
+            <img src="https://via.placeholder.com/150x150/667eea/ffffff?text=HQ" alt="Profile" class="profile-img">
+        </header>
+
+        <nav>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#publications">Publications</a></li>
+                <li><a href="#teaching">Teaching</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#talks">Talks</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+
+        <main>
+            <section id="about" class="section">
+                <h2>About Me</h2>
+                <p>I am Haiyan Qin, a researcher with diverse academic interests. This site serves as my professional academic presence where you can find information about my research, publications, teaching activities, and more.</p>
+
+                <h3>Research Interests</h3>
+                <p>My research spans multiple disciplines with focus on:</p>
+                <ul>
+                    <li>Data Science and Analytics</li>
+                    <li>Machine Learning Applications</li>
+                    <li>Academic Research Methodologies</li>
+                    <li>Technology-Enhanced Learning</li>
+                </ul>
+            </section>
+
+            <section id="publications" class="section">
+                <h2>Publications</h2>
+                <p>For my complete publication list and citation metrics, please visit my Google Scholar profile.</p>
+                <div class="links">
+                    <a href="https://scholar.google.com/citations?user=zzmYq9QAAAAJ&hl=en" target="_blank" class="link-button">View Google Scholar Profile</a>
+                </div>
+            </section>
+
+            <section id="teaching" class="section">
+                <h2>Teaching</h2>
+                <p>Information about courses taught, teaching philosophy, and student supervision opportunities.</p>
+                <p>I emphasize student-centered learning, practical application of theoretical concepts, and collaborative learning environments.</p>
+            </section>
+
+            <section id="portfolio" class="section">
+                <h2>Portfolio</h2>
+                <p>This section showcases various academic and research projects, including research initiatives, academic tools, data visualizations, and open source contributions.</p>
+            </section>
+
+            <section id="talks" class="section">
+                <h2>Talks and Presentations</h2>
+                <p>Information about conference presentations, invited talks, workshop presentations, and academic seminars.</p>
+                <p>I am available to speak on topics related to research methodology, data analysis, academic collaboration, and technology in education.</p>
+            </section>
+
+            <section id="contact" class="section">
+                <h2>Contact</h2>
+                <div class="links">
+                    <a href="https://scholar.google.com/citations?user=zzmYq9QAAAAJ&hl=en" target="_blank" class="link-button">Google Scholar</a>
+                    <a href="https://github.com/qhy991" target="_blank" class="link-button">GitHub</a>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2024 Haiyan Qin. All rights reserved.</p>
+            <p>Academic Homepage | Powered by GitHub Pages</p>
+        </footer>
+    </div>
+</body>
+</html>
