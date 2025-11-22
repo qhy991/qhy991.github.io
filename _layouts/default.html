@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ page.title | default: site.title }}</title>
-    <link rel="stylesheet" href="{{ "/assets/css/style.css" | relative_url }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ " /assets/css/style.css" | relative_url }}">
 </head>
+
 <body>
     <div class="wrapper">
         <header>
-            <h1><a href="{{ "/" | relative_url }}">{{ site.title | default: site.author.name }}</a></h1>
+            <h1><a href="{{ " /" | relative_url }}">{{ site.title | default: site.author.name }}</a></h1>
             {% if site.author.avatar %}
             <img src="{{ site.author.avatar | relative_url }}" alt="{{ site.author.name }}" class="avatar">
             {% endif %}
@@ -18,19 +21,24 @@
 
             <nav>
                 <ul>
-                    <li><a href="{{ "/about/" | relative_url }}">About</a></li>
-                    <li><a href="{{ "/publications/" | relative_url }}">Publications</a></li>
-                    <li><a href="{{ "/teaching/" | relative_url }}">Teaching</a></li>
-                    <li><a href="{{ "/portfolio/" | relative_url }}">Portfolio</a></li>
-                    <li><a href="{{ "/talks/" | relative_url }}">Talks</a></li>
+                    <li><a href="{{ " /about/" | relative_url }}"><i class="fas fa-user"></i> About</a></li>
+                    <li><a href="{{ " /publications/" | relative_url }}"><i class="fas fa-book"></i> Publications</a>
+                    </li>
+                    <li><a href="{{ " /teaching/" | relative_url }}"><i class="fas fa-chalkboard-teacher"></i>
+                            Teaching</a></li>
+                    <li><a href="{{ " /portfolio/" | relative_url }}"><i class="fas fa-briefcase"></i> Portfolio</a>
+                    </li>
+                    <li><a href="{{ " /talks/" | relative_url }}"><i class="fas fa-microphone"></i> Talks</a></li>
                 </ul>
             </nav>
 
             {% if site.author.googlescholar %}
-            <p><a href="https://scholar.google.com/citations?user={{ site.author.googlescholar }}" target="_blank">Google Scholar</a></p>
+            <p><a href="https://scholar.google.com/citations?user={{ site.author.googlescholar }}" target="_blank"><i
+                        class="fas fa-graduation-cap"></i> Google Scholar</a></p>
             {% endif %}
             {% if site.author.github %}
-            <p><a href="https://github.com/{{ site.author.github }}" target="_blank">GitHub</a></p>
+            <p><a href="https://github.com/{{ site.author.github }}" target="_blank"><i class="fab fa-github"></i>
+                    GitHub</a></p>
             {% endif %}
         </header>
 
@@ -43,4 +51,5 @@
         </footer>
     </div>
 </body>
+
 </html>

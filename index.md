@@ -5,30 +5,40 @@ title: "Haiyan Qin - Academic Homepage"
 
 ## Welcome to My Academic Homepage
 
-I am Haiyan Qin, a researcher with diverse academic interests. This site serves as my professional academic presence where you can find information about my research, publications, teaching activities, and more.
+I am **Haiyan Qin** (秦海燕), a researcher from **Beihang University** with diverse academic interests in AI-assisted hardware design, neural network deployment, and circuit optimization.
 
-### Quick Links
+### <i class="fas fa-chart-line"></i> Research Impact
 
-- **[Publications](publications/)** - My research publications and academic work
-- **[About](about/)** - Detailed information about my background and research interests
-- **[Teaching](teaching/)** - Information about my teaching activities and philosophy
-- **[Portfolio](portfolio/)** - Projects and technical work
-- **[Talks](talks/)** - Presentations and speaking engagements
+- **7 Publications** | **5 Citations** | **h-index: 1**
+- Focus on **LLM-based Circuit Generation** and **Efficient Neural Networks**
+- Active open-source contributor with **30+ repositories**
 
-### Contact Information
+---
 
-You can connect with me through:
+### <i class="fas fa-compass"></i> Quick Links
 
-- **[Google Scholar](https://scholar.google.com/citations?user=zzmYq9QAAAAJ&hl=en)** - View my publications and citation metrics
-- **[GitHub](https://github.com/qhy991)** - View my code repositories and projects
+- **<i class="fas fa-book"></i> [Publications](publications/)** - My research publications and academic work
+- **<i class="fas fa-user"></i> [About](about/)** - Detailed information about my background and research interests
+- **<i class="fas fa-chalkboard-teacher"></i> [Teaching](teaching/)** - Information about my teaching activities and philosophy
+- **<i class="fas fa-briefcase"></i> [Portfolio](portfolio/)** - Projects and technical work
+- **<i class="fas fa-microphone"></i> [Talks](talks/)** - Presentations and speaking engagements
 
-### Research Interests
+---
+
+### <i class="fas fa-link"></i> Connect With Me
+
+- **<i class="fas fa-graduation-cap"></i> [Google Scholar](https://scholar.google.com/citations?user=zzmYq9QAAAAJ&hl=en)** - View my publications and citation metrics
+- **<i class="fab fa-github"></i> [GitHub](https://github.com/qhy991)** - View my code repositories and projects
+
+---
+
+### <i class="fas fa-microscope"></i> Research Interests
 
 My research spans multiple disciplines including:
-- Data Science and Analytics
-- Machine Learning Applications
-- Academic Research Methodologies
-- Technology-Enhanced Learning
+- <i class="fas fa-microchip"></i> **AI-Assisted Circuit Design** - Verilog generation with LLM agents
+- <i class="fas fa-brain"></i> **Neural Network Deployment** - Efficient FPGA implementations
+- <i class="fas fa-memory"></i> **Computing-in-Memory** - Novel CIM architectures for AI
+- <i class="fas fa-chart-line"></i> **Circuit Optimization** - Multi-agent yield analysis
 
 ---
 
