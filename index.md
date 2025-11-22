@@ -5,7 +5,7 @@ title: "Haiyan Qin - Academic Homepage"
 
 ## Welcome to My Academic Homepage
 
-I am **Haiyan Qin** (秦海燕), a researcher from **Beihang University** with diverse academic interests in AI-assisted hardware design, neural network deployment, and circuit optimization.
+I am **Haiyan Qin** (秦海燕), a graduate student at **Beihang University** with research interests in AI-assisted hardware design, neural network deployment, and circuit optimization.
 
 ### <i class="fas fa-chart-line"></i> Research Impact
 
@@ -19,7 +19,6 @@ I am **Haiyan Qin** (秦海燕), a researcher from **Beihang University** with d
 
 - **<i class="fas fa-book"></i> [Publications](publications/)** - My research publications and academic work
 - **<i class="fas fa-user"></i> [About](about/)** - Detailed information about my background and research interests
-- **<i class="fas fa-chalkboard-teacher"></i> [Teaching](teaching/)** - Information about my teaching activities and philosophy
 - **<i class="fas fa-briefcase"></i> [Portfolio](portfolio/)** - Projects and technical work
 - **<i class="fas fa-microphone"></i> [Talks](talks/)** - Presentations and speaking engagements
 

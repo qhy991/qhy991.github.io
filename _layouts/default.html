@@ -8,6 +8,7 @@
     <title>{{ page.title | default: site.title }}</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="{{ " /assets/css/style.css" | relative_url }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 </head>
 
 <body>
@@ -24,8 +25,6 @@
                     <li><a href="{{ " /about/" | relative_url }}"><i class="fas fa-user"></i> About</a></li>
                     <li><a href="{{ " /publications/" | relative_url }}"><i class="fas fa-book"></i> Publications</a>
                     </li>
-                    <li><a href="{{ " /teaching/" | relative_url }}"><i class="fas fa-chalkboard-teacher"></i>
-                            Teaching</a></li>
                     <li><a href="{{ " /portfolio/" | relative_url }}"><i class="fas fa-briefcase"></i> Portfolio</a>
                     </li>
                     <li><a href="{{ " /talks/" | relative_url }}"><i class="fas fa-microphone"></i> Talks</a></li>

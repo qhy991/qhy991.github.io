@@ -6,7 +6,7 @@ permalink: /about/
 
 ## About Me
 
-I am **Haiyan Qin** (秦海燕), a researcher from **Beihang University** (北京航空航天大学) with diverse academic interests spanning hardware design, machine learning, and circuit optimization.
+I am **Haiyan Qin** (秦海燕), a graduate student at **Beihang University** (北京航空航天大学) with research interests spanning hardware design, machine learning, and circuit optimization.
 
 ### Research Interests
 
