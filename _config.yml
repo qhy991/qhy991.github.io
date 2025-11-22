@@ -15,7 +15,13 @@ author:
 # Build settings
 markdown: kramdown
 highlighter: rouge
-theme: jekyll-theme-minimal
+
+# Sass settings
+sass:
+  style: compressed
+
+# Theme
+remote_theme: pages-themes/minimal@v0.2.0
 
 # Plugins
 plugins:
