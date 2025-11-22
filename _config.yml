@@ -15,23 +15,12 @@ author:
 # Build settings
 markdown: kramdown
 highlighter: rouge
-
-# Sass settings
-sass:
-  style: compressed
-
-# Theme
-remote_theme: pages-themes/minimal@v0.2.0
+theme: jekyll-theme-minimal
 
 # Plugins
 plugins:
   - jekyll-feed
   - jekyll-sitemap
-
-# Collections
-collections:
-  posts:
-    output: true
 
 # Exclude from processing
 exclude:
@@ -39,3 +28,4 @@ exclude:
   - Gemfile
   - Gemfile.lock
   - README.md
+  - vendor/
