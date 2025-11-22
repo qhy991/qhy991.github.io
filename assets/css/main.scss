@@ -1,0 +1,220 @@
+---
+# Only the main Sass file needs front matter (the dashes are enough)
+---
+
+@import "minima";
+
+/* Academic Homepage Custom Styles */
+
+/* Author profile */
+.author__avatar {
+  display: inline-block;
+  margin-bottom: 1rem;
+}
+
+.author__avatar-img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.author__content {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.author__name {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.author__bio {
+  font-size: 1.1rem;
+  color: #666;
+  margin-bottom: 1rem;
+}
+
+.author__location {
+  color: #888;
+  margin-bottom: 1rem;
+}
+
+/* Social links */
+.author__urls-wrapper {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.author__urls {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.author__urls li {
+  display: inline-block;
+}
+
+.author__urls a {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: #f5f5f5;
+  border-radius: 4px;
+  text-decoration: none;
+  color: #333;
+  transition: background 0.3s ease;
+}
+
+.author__urls a:hover {
+  background: #e0e0e0;
+}
+
+/* Home sections */
+.home__section {
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid #eee;
+}
+
+.home__section:last-child {
+  border-bottom: none;
+}
+
+.home__section-title {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #333;
+  border-bottom: 2px solid #333;
+  padding-bottom: 0.5rem;
+}
+
+/* Archive items */
+.archive__item {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: #f9f9f9;
+  border-radius: 4px;
+}
+
+.archive__item-title {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.archive__item-title a {
+  text-decoration: none;
+  color: #333;
+}
+
+.archive__item-title a:hover {
+  color: #666;
+}
+
+.archive__item-excerpt {
+  color: #666;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+/* Navigation */
+.masthead {
+  background: #fff;
+  border-bottom: 1px solid #e8e8e8;
+  margin-bottom: 2rem;
+}
+
+.masthead__inner-wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.masthead__menu {
+  text-align: center;
+}
+
+.site-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-decoration: none;
+  color: #333;
+  margin-bottom: 1rem;
+  display: inline-block;
+}
+
+.visible-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.visible-links li {
+  display: inline-block;
+}
+
+.visible-links a {
+  text-decoration: none;
+  color: #666;
+  font-weight: 500;
+  padding: 0.5rem 0;
+  border-bottom: 2px solid transparent;
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.visible-links a:hover {
+  color: #333;
+  border-bottom-color: #333;
+}
+
+/* Footer */
+.site-footer {
+  background: #f5f5f5;
+  margin-top: 3rem;
+  padding: 2rem 0;
+  text-align: center;
+  color: #666;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .author__avatar-img {
+    width: 120px;
+    height: 120px;
+  }
+
+  .author__name {
+    font-size: 1.5rem;
+  }
+
+  .visible-links {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .home__section-title {
+    font-size: 1.2rem;
+  }
+}
+
+/* Print styles */
+@media print {
+  .masthead,
+  .site-footer,
+  .author__urls-wrapper {
+    display: none;
+  }
+
+  .home__section {
+    page-break-inside: avoid;
+  }
+}

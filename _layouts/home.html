@@ -1,0 +1,86 @@
+---
+layout: default
+---
+
+<div class="home">
+  <div class="author__avatar">
+    <img src="{{ site.author.avatar | relative_url }}" alt="{{ site.author.name }}" class="author__avatar-img">
+  </div>
+
+  <div class="author__content">
+    <h1 class="author__name">{{ site.author.name }}</h1>
+    {% if site.author.bio %}
+      <p class="author__bio">{{ site.author.bio }}</p>
+    {% endif %}
+    {% if site.author.location %}
+      <p class="author__location">{{ site.author.location }}</p>
+    {% endif %}
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      {% if site.author.googlescholar %}
+        <li><a href="https://scholar.google.com/citations?user={{ site.author.googlescholar }}">
+          <i class="fas fa-graduation-cap" aria-hidden="true"></i> Google Scholar
+        </a></li>
+      {% endif %}
+      {% if site.author.github %}
+        <li><a href="https://github.com/{{ site.author.github }}">
+          <i class="fab fa-github" aria-hidden="true"></i> GitHub
+        </a></li>
+      {% endif %}
+      {% if site.author.linkedin %}
+        <li><a href="https://linkedin.com/in/{{ site.author.linkedin }}">
+          <i class="fab fa-linkedin" aria-hidden="true"></i> LinkedIn
+        </a></li>
+      {% endif %}
+      {% if site.author.twitter %}
+        <li><a href="https://twitter.com/{{ site.author.twitter }}">
+          <i class="fab fa-twitter" aria-hidden="true"></i> Twitter
+        </a></li>
+      {% endif %}
+    </ul>
+  </div>
+
+  <div class="home__section">
+    <h2 class="home__section-title">About</h2>
+    <p>Welcome to my academic homepage. I am a researcher with interests in various fields. You can find my publications and research information below.</p>
+  </div>
+
+  {% if site.posts.size > 0 %}
+  <div class="home__section">
+    <h2 class="home__section-title">Recent Posts</h2>
+    {% for post in site.posts limit:5 %}
+      <div class="archive__item">
+        <h3 class="archive__item-title"><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+        <p class="archive__item-excerpt">{{ post.excerpt | markdownify | strip_html | truncate: 160 }}</p>
+      </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  {% if site.teaching.size > 0 %}
+  <div class="home__section">
+    <h2 class="home__section-title">Teaching</h2>
+    {% for teaching in site.teaching limit:3 %}
+      <div class="archive__item">
+        <h3 class="archive__item-title"><a href="{{ teaching.url | relative_url }}">{{ teaching.title }}</a></h3>
+        <p class="archive__item-excerpt">{{ teaching.excerpt | markdownify | strip_html | truncate: 160 }}</p>
+      </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  {% if site.publications.size > 0 %}
+  <div class="home__section">
+    <h2 class="home__section-title">Publications</h2>
+    {% for publication in site.publications limit:5 %}
+      <div class="archive__item">
+        <h3 class="archive__item-title"><a href="{{ publication.url | relative_url }}">{{ publication.title }}</a></h3>
+        <p class="archive__item-excerpt">{{ publication.excerpt | markdownify | strip_html | truncate: 160 }}</p>
+      </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+</div>
