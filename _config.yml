@@ -62,11 +62,20 @@ analytics:
   google:
     tracking_id:
 
-# Build settings
+# Build settings for GitHub Pages
 markdown: kramdown
 highlighter: rouge
-theme: minima
+# Use GitHub Pages compatible theme
+theme: jekyll-theme-minimal
+remote_theme: pages-themes/minimal@v0.2.0
 timezone: America/Los_Angeles
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-gist
+  - jekyll-paginate
+  - jemoji
+  - jekyll-remote-theme
 
 # Collections
 collections:
