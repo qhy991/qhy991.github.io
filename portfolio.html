@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>作品集 - Haiyan Qin | 秦海岩</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Inter:wght@300;400;500;600;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Core Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.3/echarts.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+    
+    <!-- Custom Styles -->
+    <style>
+        :root {
+            --primary-dark: #0f172a;
+            --primary-blue: #1e293b;
+            --accent-cyan: #06b6d4;
+            --accent-purple: #8b5cf6;
+            --accent-green: #10b981;
+            --text-light: #f1f5f9;
+            --text-muted: #94a3b8;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--primary-dark);
+            color: var(--text-light);
+            overflow-x: hidden;
+        }
+        
+        .pixel-font {
+            font-family: 'Press Start 2P', cursive;
+        }
+        
+        .mono-font {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .hero-bg {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, #1e1b4b 50%, var(--primary-dark) 100%);
+            position: relative;
+        }
+        
+        .pixel-border {
+            border: 2px solid var(--accent-cyan);
+            box-shadow: 0 0 20px rgba(6, 182, 212, 0.3);
+        }
+        
+        .project-card {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid var(--accent-purple);
+            border-radius: 12px;
+            padding: 24px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .project-card:hover {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.2);
+            transform: translateY(-5px);
+        }
+        
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(6, 182, 212, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .project-card:hover::before {
+            left: 100%;
+        }
+        
+        .project-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            border-radius: 8px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        
+        .tech-tag {
+            display: inline-block;
+            padding: 4px 12px;
+            margin: 4px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .tech-tag:hover {
+            transform: scale(1.1);
+        }
+        
+        .tag-verilog {
+            background: rgba(6, 182, 212, 0.2);
+            color: var(--accent-cyan);
+        }
+        
+        .tag-python {
+            background: rgba(139, 92, 246, 0.2);
+            color: var(--accent-purple);
+        }
+        
+        .tag-cuda {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--accent-green);
+        }
+        
+        .tag-jupyter {
+            background: rgba(245, 158, 11, 0.2);
+            color: #f59e0b;
+        }
+        
+        .filter-btn {
+            padding: 8px 16px;
+            margin: 4px;
+            border: 1px solid var(--accent-purple);
+            border-radius: 20px;
+            background: transparent;
+            color: var(--text-light);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+        
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--accent-purple);
+            color: white;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+        }
+        
+        .search-box {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid var(--accent-purple);
+            border-radius: 25px;
+            padding: 12px 20px;
+            color: var(--text-light);
+            width: 100%;
+            max-width: 400px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        
+        .search-box:focus {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 20px rgba(6, 182, 212, 0.3);
+        }
+        
+        .stats-card {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid var(--accent-purple);
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .stats-card:hover {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.2);
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+        
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--primary-dark);
+            border: 1px solid var(--accent-cyan);
+            border-radius: 12px;
+            padding: 32px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: none;
+            border: none;
+            color: var(--text-light);
+            font-size: 24px;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        
+        .close-btn:hover {
+            color: var(--accent-cyan);
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-cyan);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .content-section {
+            padding: 80px 0;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .github-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 16px;
+            margin-top: 24px;
+        }
+        
+        .github-stat {
+            text-align: center;
+            padding: 16px;
+            background: rgba(30, 41, 59, 0.5);
+            border-radius: 8px;
+        }
+        
+        .github-stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--accent-cyan);
+        }
+        
+        .github-stat-label {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+        
+        @media (max-width: 768px) {
+            .content-section {
+                padding: 40px 20px;
+            }
+            
+            .modal-content {
+                padding: 20px;
+                width: 95%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 bg-slate-900/80 backdrop-blur-md border-b border-cyan-500/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <span class="pixel-font text-cyan-400 text-sm">HAIYAN.QIN</span>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="index.html" class="nav-link text-slate-300 hover:text-cyan-300 px-3 py-2 text-sm font-medium">首页</a>
+                        <a href="about.html" class="nav-link text-slate-300 hover:text-cyan-300 px-3 py-2 text-sm font-medium">关于</a>
+                        <a href="portfolio.html" class="nav-link text-cyan-400 hover:text-cyan-300 px-3 py-2 text-sm font-medium">作品集</a>
+                        <a href="publications.html" class="nav-link text-slate-300 hover:text-cyan-300 px-3 py-2 text-sm font-medium">出版物</a>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-slate-300 hover:text-cyan-300">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="md:hidden hidden bg-slate-900/95 backdrop-blur-md">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="index.html" class="block px-3 py-2 text-slate-300 hover:text-cyan-300 text-base font-medium">首页</a>
+                <a href="about.html" class="block px-3 py-2 text-slate-300 hover:text-cyan-300 text-base font-medium">关于</a>
+                <a href="portfolio.html" class="block px-3 py-2 text-cyan-400 text-base font-medium">作品集</a>
+                <a href="publications.html" class="block px-3 py-2 text-slate-300 hover:text-cyan-300 text-base font-medium">出版物</a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="hero-bg pt-20 pb-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h1 class="text-5xl lg:text-6xl font-bold mb-6">
+                    <span class="text-cyan-400">我的</span>
+                    <span class="text-purple-400">作品集</span>
+                </h1>
+                <p class="text-xl text-slate-400 max-w-3xl mx-auto">
+                    探索我的开源项目、研究成果和技术创新
+                </p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- GitHub Stats Section -->
+    <section class="content-section">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">
+                    <span class="text-cyan-400">GitHub</span>
+                    <span class="text-purple-400">统计</span>
+                </h2>
+                <p class="text-xl text-slate-400">开源贡献和项目活跃度</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div class="stats-card">
+                    <div class="github-stat-value">30+</div>
+                    <div class="github-stat-label">公开仓库</div>
+                </div>
+                <div class="stats-card">
+                    <div class="github-stat-value">50+</div>
+                    <div class="github-stat-label">提交次数</div>
+                </div>
+                <div class="stats-card">
+                    <div class="github-stat-value">15+</div>
+                    <div class="github-stat-label">星标总数</div>
+                </div>
+                <div class="stats-card">
+                    <div class="github-stat-value">8+</div>
+                    <div class="github-stat-label">分支总数</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Projects Section -->
+    <section class="content-section bg-slate-900/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">
+                    <span class="text-cyan-400">特色</span>
+                    <span class="text-purple-400">项目</span>
+                </h2>
+                <p class="text-xl text-slate-400">精选的开源项目和研究成果</p>
+            </div>
+            
+            <!-- Search and Filter -->
+            <div class="mb-12 text-center">
+                <input type="text" id="search-input" class="search-box" placeholder="搜索项目...">
+                <div class="mt-6">
+                    <button class="filter-btn active" data-filter="all">全部</button>
+                    <button class="filter-btn" data-filter="verilog">Verilog</button>
+                    <button class="filter-btn" data-filter="python">Python</button>
+                    <button class="filter-btn" data-filter="cuda">CUDA</button>
+                    <button class="filter-btn" data-filter="jupyter">Jupyter</button>
+                </div>
+            </div>
+            
+            <!-- Projects Grid -->
+            <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project 1: Awesome-LLM-Circuit-Agent -->
+                <div class="project-card" data-tags="python verilog" data-project="circuit-agent">
+                    <div class="project-image">
+                        <img src="assets/project-circuit.png" alt="LLM Circuit Agent">
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-cyan-400">Awesome-LLM-Circuit-Agent</h3>
+                    <p class="text-slate-400 mb-4 text-sm">
+                        基于大语言模型的RTL生成和模拟电路生成的学术作品仓库，汇集了最新的研究成果和方法。
+                    </p>
+                    <div class="mb-4">
+                        <span class="tech-tag tag-python">Python</span>
+                        <span class="tech-tag tag-verilog">Verilog</span>
+                        <span class="tech-tag tag-cuda">AI/ML</span>
+                    </div>
+                    <div class="flex justify-between items-center text-sm text-slate-500">
+                        <span>⭐ 2 stars</span>
+                        <span>🍴 1 fork</span>
+                        <span>📅 2025</span>
+                    </div>
+                </div>
+                
+                <!-- Project 2: Awesome-LLM-Kernel-Agent -->
+                <div class="project-card" data-tags="python" data-project="kernel-agent">
+                    <div class="project-image">
+                        <img src="assets/project-ai.png" alt="LLM Kernel Agent">
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-cyan-400">Awesome-LLM-Kernel-Agent</h3>
+                    <p class="text-slate-400 mb-4 text-sm">
+                        内核生成的LLM智能体学术研究仓库，专注于使用大语言模型自动生成和优化CUDA内核代码。
+                    </p>
+                    <div class="mb-4">
+                        <span class="tech-tag tag-python">Python</span>
+                        <span class="tech-tag tag-cuda">CUDA</span>
+                        <span class="tech-tag tag-jupyter">Research</span>
+                    </div>
+                    <div class="flex justify-between items-center text-sm text-slate-500">
+                        <span>⭐ 3 stars</span>
+                        <span>🍴 0 forks</span>
+                        <span>📅 2025</span>
+                    </div>
+                </div>
+                
+                <!-- Project 3: Digital-CIM -->
+                <div class="project-card" data-tags="verilog" data-project="digital-cim">
+                    <div class="project-image">
+                        <img src="assets/project-fpga.png" alt="Digital CIM">
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-cyan-400">Digital-CIM</h3>
+                    <p class="text-slate-400 mb-4 text-sm">
+                        Verilog实现的数字存内计算系统，为AI边缘推理提供高效的硬件解决方案。
+                    </p>
+                    <div class="mb-4">
+                        <span class="tech-tag tag-verilog">Verilog</span>
+                        <span class="tech-tag tag-python">FPGA</span>
+                        <span class="tech-tag tag-cuda">AI加速</span>
+                    </div>
+                    <div class="flex justify-between items-center text-sm text-slate-500">
+                        <span>⭐ 1 star</span>
+                        <span>🍴 1 fork</span>
+                        <span>📅 2024</span>
+                    </div>
+                </div>
+                
+                <!-- Project 4: Chat-CPU -->
+                <div class="project-card" data-tags="verilog" data-project="chat-cpu">
+                    <div class="project-image">
+                        <div style="background: linear-gradient(135deg, #06b6d4, #8b5cf6); width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+                            💻
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-cyan-400">Chat-CPU</h3>
+                    <p class="text-slate-400 mb-4 text-sm">
+                        具有对话界面的CPU设计项目，结合了处理器设计和自然语言处理技术。
+                    </p>
+                    <div class="mb-4">
+                        <span class="tech-tag tag-verilog">Verilog</span>
+                        <span class="tech-tag tag-python">NLP</span>
+                        <span class="tech-tag tag-jupyter">Interface</span>
+                    </div>
+                    <div class="flex justify-between items-center text-sm text-slate-500">
+                        <span>⭐ 0 stars</span>
+                        <span>🍴 0 forks</span>
+                        <span>📅 2024</span>
+                    </div>
+                </div>
+                
+                <!-- Project 5: GRPO-Clean -->
+                <div class="project-card" data-tags="python" data-project="grpo-clean">
+                    <div class="project-image">
+                        <div style="background: linear-gradient(135deg, #10b981, #06b6d4); width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+                            🧹
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-cyan-400">GRPO-Clean</h3>
+                    <p class="text-slate-400 mb-4 text-sm">
+                        组相对策略优化的清洁实现，用于强化学习和策略优化研究。
+                    </p>
+                    <div class="mb-4">
+                        <span class="tech-tag tag-python">Python</span>
+                        <span class="tech-tag tag-cuda">RL</span>
+                        <span class="tech-tag tag-jupyter">Optimization</span>
+                    </div>
+                    <div class="flex justify-between items-center text-sm text-slate-500">
+                        <span>⭐ 1 star</span>
+                        <span>🍴 0 forks</span>
+                        <span>📅 2024</span>
+                    </div>
+                </div>
+                
+                <!-- Project 6: Blog-Note -->
+                <div class="project-card" data-tags="jupyter" data-project="blog-note">
+                    <div class="project-image">
+                        <div style="background: linear-gradient(135deg, #f59e0b, #8b5cf6); width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+                            📝
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-cyan-400">Blog-Note</h3>
+                    <p class="text-slate-400 mb-4 text-sm">
+                        研究笔记和技术博客内容，记录学术思考和技术探索过程。
+                    </p>
+                    <div class="mb-4">
+                        <span class="tech-tag tag-jupyter">Jupyter</span>
+                        <span class="tech-tag tag-python">Markdown</span>
+                        <span class="tech-tag tag-cuda">Research</span>
+                    </div>
+                    <div class="flex justify-between items-center text-sm text-slate-500">
+                        <span>⭐ 2 stars</span>
+                        <span>🍴 1 fork</span>
+                        <span>📅 2024</span>
+                    </div>
+                </div>
+                
+                <!-- Project 7: Book-CUDA -->
+                <div class="project-card" data-tags="cuda jupyter" data-project="book-cuda">
+                    <div class="project-image">
+                        <div style="background: linear-gradient(135deg, #10b981, #06b6d4); width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+                            📚
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-cyan-400">Book-CUDA</h3>
+                    <p class="text-slate-400 mb-4 text-sm">
+                        CUDA编程学习笔记和示例代码，系统整理CUDA编程知识和最佳实践。
+                    </p>
+                    <div class="mb-4">
+                        <span class="tech-tag tag-cuda">CUDA</span>
+                        <span class="tech-tag tag-jupyter">Jupyter</span>
+                        <span class="tech-tag tag-python">GPU</span>
+                    </div>
+                    <div class="flex justify-between items-center text-sm text-slate-500">
+                        <span>⭐ 4 stars</span>
+                        <span>🍴 2 forks</span>
+                        <span>📅 2023</span>
+                    </div>
+                </div>
+                
+                <!-- Project 8: ReasoningV -->
+                <div class="project-card" data-tags="python" data-project="reasoningv">
+                    <div class="project-image">
+                        <div style="background: linear-gradient(135deg, #06b6d4, #8b5cf6); width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+                            🧠
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-cyan-400">ReasoningV</h3>
+                    <p class="text-slate-400 mb-4 text-sm">
+                        自适应混合推理模型的高效Verilog代码生成，ICAIS 2025接收论文的实现代码。
+                    </p>
+                    <div class="mb-4">
+                        <span class="tech-tag tag-python">Python</span>
+                        <span class="tech-tag tag-verilog">Verilog</span>
+                        <span class="tech-tag tag-cuda">AI/ML</span>
+                    </div>
+                    <div class="flex justify-between items-center text-sm text-slate-500">
+                        <span>⭐ 5 stars</span>
+                        <span>🍴 2 forks</span>
+                        <span>📅 2025</span>
+                    </div>
+                </div>
+                
+                <!-- Project 9: Multi-Agent-Circuit -->
+                <div class="project-card" data-tags="python verilog" data-project="multi-agent">
+                    <div class="project-image">
+                        <div style="background: linear-gradient(135deg, #8b5cf6, #10b981); width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+                            🤖
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-cyan-400">Multi-Agent-Circuit</h3>
+                    <p class="text-slate-400 mb-4 text-sm">
+                        电路设计优化的多智能体方法，DAC 2025接收论文的实现代码和实验数据。
+                    </p>
+                    <div class="mb-4">
+                        <span class="tech-tag tag-python">Python</span>
+                        <span class="tech-tag tag-verilog">Verilog</span>
+                        <span class="tech-tag tag-cuda">Multi-Agent</span>
+                    </div>
+                    <div class="flex justify-between items-center text-sm text-slate-500">
+                        <span>⭐ 3 stars</span>
+                        <span>🍴 1 fork</span>
+                        <span>📅 2025</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Project Detail Modal -->
+    <div id="project-modal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal()">&times;</button>
+            <div id="modal-body">
+                <!-- Dynamic content will be loaded here -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="bg-slate-900/80 border-t border-cyan-500/30 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <p class="text-slate-400">
+                    © 2025 Haiyan Qin (秦海岩). Built with passion for AI and hardware design.
+                </p>
+                <div class="flex justify-center space-x-6 mt-4">
+                    <a href="mailto:haiyanq@buaa.edu.cn" class="text-cyan-400 hover:text-cyan-300 transition-colors">
+                        <span class="mono-font">Email</span>
+                    </a>
+                    <a href="https://scholar.google.com/citations?user=zzmYq9QAAAAJ&hl=en" class="text-cyan-400 hover:text-cyan-300 transition-colors">
+                        <span class="mono-font">Scholar</span>
+                    </a>
+                    <a href="https://github.com/qhy991" class="text-cyan-400 hover:text-cyan-300 transition-colors">
+                        <span class="mono-font">GitHub</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Project data
+        const projectDetails = {
+            'circuit-agent': {
+                title: 'Awesome-LLM-Circuit-Agent',
+                description: '基于大语言模型的RTL生成和模拟电路生成的学术作品仓库',
+                longDescription: '这个项目汇集了基于大语言模型进行电路设计的最新研究成果。包括RTL代码生成、模拟电路设计、验证方法等多个方面的内容。项目旨在为研究人员和工程师提供一个全面的参考资料库。',
+                features: [
+                    'RTL代码生成算法',
+                    '模拟电路设计方法',
+                    '验证和测试技术',
+                    '性能评估指标',
+                    '开源工具集成'
+                ],
+                techStack: ['Python', 'Verilog', 'PyTorch', 'Transformers'],
+                github: 'https://github.com/qhy991/Awesome-LLM-Circuit-Agent',
+                demo: null,
+                image: 'assets/project-circuit.png'
+            },
+            'kernel-agent': {
+                title: 'Awesome-LLM-Kernel-Agent',
+                description: '内核生成的LLM智能体学术研究仓库',
+                longDescription: '专注于使用大语言模型自动生成和优化CUDA内核代码的研究项目。探索了多种 prompting 策略和模型架构，为GPU编程自动化提供了新的思路。',
+                features: [
+                    'CUDA内核自动生成',
+                    '性能优化策略',
+                    '多模态代码理解',
+                    '自动调优系统',
+                    '性能基准测试'
+                ],
+                techStack: ['Python', 'CUDA', 'PyTorch', 'Jupyter'],
+                github: 'https://github.com/qhy991/Awesome-LLM-Kernel-Agent',
+                demo: null,
+                image: 'assets/project-ai.png'
+            },
+            'digital-cim': {
+                title: 'Digital-CIM',
+                description: 'Verilog实现的数字存内计算系统',
+                longDescription: '一个完整的数字存内计算系统实现，专为AI边缘推理优化。该项目包含了从基本的存内计算单元到完整的系统架构设计。',
+                features: [
+                    '存内计算单元设计',
+                    '系统架构优化',
+                    '功耗分析',
+                    '性能模拟',
+                    'FPGA验证'
+                ],
+                techStack: ['Verilog', 'Python', 'FPGA', 'Vivado'],
+                github: 'https://github.com/qhy991/Digital-CIM',
+                demo: null,
+                image: 'assets/project-fpga.png'
+            }
+        };
+        
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', () => {
+            setupMobileMenu();
+            setupSearch();
+            setupFilters();
+            setupProjectCards();
+            setupAnimations();
+        });
+        
+        // Mobile menu
+        function setupMobileMenu() {
+            const menuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            if (menuBtn && mobileMenu) {
+                menuBtn.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+        }
+        
+        // Search functionality
+        function setupSearch() {
+            const searchInput = document.getElementById('search-input');
+            searchInput.addEventListener('input', (e) => {
+                filterProjects();
+            });
+        }
+        
+        // Filter functionality
+        function setupFilters() {
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Update active state
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    
+                    filterProjects();
+                });
+            });
+        }
+        
+        // Filter projects based on search and category
+        function filterProjects() {
+            const searchTerm = document.getElementById('search-input').value.toLowerCase();
+            const activeFilter = document.querySelector('.filter-btn.active').dataset.filter;
+            const projectCards = document.querySelectorAll('.project-card');
+            
+            projectCards.forEach(card => {
+                const title = card.querySelector('h3').textContent.toLowerCase();
+                const description = card.querySelector('p').textContent.toLowerCase();
+                const tags = card.dataset.tags;
+                
+                const matchesSearch = title.includes(searchTerm) || description.includes(searchTerm);
+                const matchesFilter = activeFilter === 'all' || tags.includes(activeFilter);
+                
+                if (matchesSearch && matchesFilter) {
+                    card.style.display = 'block';
+                    anime({
+                        targets: card,
+                        opacity: [0, 1],
+                        translateY: [20, 0],
+                        duration: 300,
+                        easing: 'easeOutQuad'
+                    });
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+        
+        // Project card interactions
+        function setupProjectCards() {
+            const projectCards = document.querySelectorAll('.project-card');
+            
+            projectCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    const projectId = card.dataset.project;
+                    if (projectDetails[projectId]) {
+                        showProjectModal(projectDetails[projectId]);
+                    } else {
+                        showComingSoon();
+                    }
+                });
+                
+                // Hover effects
+                card.addEventListener('mouseenter', () => {
+                    anime({
+                        targets: card,
+                        scale: 1.02,
+                        duration: 300,
+                        easing: 'easeOutQuad'
+                    });
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    anime({
+                        targets: card,
+                        scale: 1,
+                        duration: 300,
+                        easing: 'easeOutQuad'
+                    });
+                });
+            });
+        }
+        
+        // Show project modal
+        function showProjectModal(project) {
+            const modal = document.getElementById('project-modal');
+            const modalBody = document.getElementById('modal-body');
+            
+            modalBody.innerHTML = `
+                <div class="text-center mb-6">
+                    <img src="${project.image}" alt="${project.title}" class="w-full h-48 object-cover rounded-lg mb-4">
+                    <h2 class="text-2xl font-bold text-cyan-400 mb-2">${project.title}</h2>
+                    <p class="text-slate-400">${project.description}</p>
+                </div>
+                
+                <div class="mb-6">
+                    <h3 class="text-lg font-semibold mb-3 text-purple-400">项目描述</h3>
+                    <p class="text-slate-300 leading-relaxed">${project.longDescription}</p>
+                </div>
+                
+                <div class="mb-6">
+                    <h3 class="text-lg font-semibold mb-3 text-purple-400">主要特性</h3>
+                    <ul class="space-y-2">
+                        ${project.features.map(feature => `<li class="flex items-center text-slate-300"><span class="text-cyan-400 mr-2">•</span>${feature}</li>`).join('')}
+                    </ul>
+                </div>
+                
+                <div class="mb-6">
+                    <h3 class="text-lg font-semibold mb-3 text-purple-400">技术栈</h3>
+                    <div class="flex flex-wrap gap-2">
+                        ${project.techStack.map(tech => `<span class="tech-tag bg-cyan-500/20 text-cyan-400">${tech}</span>`).join('')}
+                    </div>
+                </div>
+                
+                <div class="flex gap-4">
+                    <a href="${project.github}" target="_blank" class="flex-1 bg-cyan-500/20 text-cyan-400 py-2 px-4 rounded-lg text-center hover:bg-cyan-500/30 transition-colors">
+                        查看代码
+                    </a>
+                    ${project.demo ? `<a href="${project.demo}" target="_blank" class="flex-1 bg-purple-500/20 text-purple-400 py-2 px-4 rounded-lg text-center hover:bg-purple-500/30 transition-colors">在线演示</a>` : ''}
+                </div>
+            `;
+            
+            modal.style.display = 'block';
+            anime({
+                targets: modal,
+                opacity: [0, 1],
+                duration: 300,
+                easing: 'easeOutQuad'
+            });
+        }
+        
+        // Close modal
+        function closeModal() {
+            const modal = document.getElementById('project-modal');
+            anime({
+                targets: modal,
+                opacity: [1, 0],
+                duration: 300,
+                easing: 'easeOutQuad',
+                complete: () => {
+                    modal.style.display = 'none';
+                }
+            });
+        }
+        
+        // Click outside modal to close
+        document.getElementById('project-modal').addEventListener('click', (e) => {
+            if (e.target.id === 'project-modal') {
+                closeModal();
+            }
+        });
+        
+        // Setup animations
+        function setupAnimations() {
+            // Animate project cards on scroll
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        anime({
+                            targets: entry.target,
+                            opacity: [0, 1],
+                            translateY: [30, 0],
+                            duration: 600,
+                            easing: 'easeOutQuad',
+                            delay: anime.stagger(100)
+                        });
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            document.querySelectorAll('.project-card').forEach(card => {
+                card.style.opacity = '0';
+                observer.observe(card);
+            });
+            
+            // Animate stats cards
+            document.querySelectorAll('.stats-card').forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    anime({
+                        targets: card,
+                        scale: 1.05,
+                        duration: 300,
+                        easing: 'easeOutQuad'
+                    });
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    anime({
+                        targets: card,
+                        scale: 1,
+                        duration: 300,
+                        easing: 'easeOutQuad'
+                    });
+                });
+            });
+        }
+        
+        // Coming soon function
+        function showComingSoon() {
+            alert('项目详情即将推出，敬请期待！');
+        }
+    </script>
+</body>
+</html>

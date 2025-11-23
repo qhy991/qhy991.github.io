@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haiyan Qin - 秦海岩 | AI硬件设计研究员</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Inter:wght@300;400;500;600;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Core Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.3/echarts.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/7.3.2/pixi.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/glfx-js/0.0.1/glfx.min.js"></script>
+    
+    <!-- Custom Styles -->
+    <style>
+        :root {
+            --primary-dark: #0f172a;
+            --primary-blue: #1e293b;
+            --accent-cyan: #06b6d4;
+            --accent-purple: #8b5cf6;
+            --accent-green: #10b981;
+            --text-light: #f1f5f9;
+            --text-muted: #94a3b8;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--primary-dark);
+            color: var(--text-light);
+            overflow-x: hidden;
+        }
+        
+        .pixel-font {
+            font-family: 'Press Start 2P', cursive;
+        }
+        
+        .mono-font {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .hero-bg {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, #1e1b4b 50%, var(--primary-dark) 100%);
+            position: relative;
+        }
+        
+        .pixel-border {
+            border: 2px solid var(--accent-cyan);
+            box-shadow: 0 0 20px rgba(6, 182, 212, 0.3);
+        }
+        
+        .glow-effect {
+            box-shadow: 0 0 30px rgba(6, 182, 212, 0.5);
+            transition: all 0.3s ease;
+        }
+        
+        .glow-effect:hover {
+            box-shadow: 0 0 40px rgba(6, 182, 212, 0.8);
+            transform: translateY(-2px);
+        }
+        
+        .terminal {
+            background: rgba(15, 23, 42, 0.95);
+            border: 1px solid var(--accent-cyan);
+            border-radius: 8px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .terminal-header {
+            background: var(--accent-cyan);
+            color: var(--primary-dark);
+            padding: 8px 16px;
+            border-radius: 6px 6px 0 0;
+            font-weight: 600;
+        }
+        
+        .terminal-body {
+            padding: 20px;
+            min-height: 300px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .command-line {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        
+        .prompt {
+            color: var(--accent-green);
+            margin-right: 8px;
+        }
+        
+        .command-input {
+            background: transparent;
+            border: none;
+            color: var(--text-light);
+            font-family: inherit;
+            outline: none;
+            flex: 1;
+        }
+        
+        .output {
+            color: var(--text-muted);
+            margin-left: 20px;
+            margin-bottom: 8px;
+        }
+        
+        .skill-card {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid var(--accent-purple);
+            border-radius: 8px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .skill-card:hover {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.2);
+        }
+        
+        .news-ticker {
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: scroll-left 30s linear infinite;
+        }
+        
+        @keyframes scroll-left {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        
+        .achievement-badge {
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .achievement-badge:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(139, 92, 246, 0.5);
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-cyan);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .typewriter {
+            overflow: hidden;
+            border-right: 2px solid var(--accent-cyan);
+            white-space: nowrap;
+            margin: 0 auto;
+            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+        
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        
+        @keyframes blink-caret {
+            from, to { border-color: transparent; }
+            50% { border-color: var(--accent-cyan); }
+        }
+        
+        .particle-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+        }
+        
+        .content-section {
+            padding: 80px 0;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero-content {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .floating {
+            animation: floating 6s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .pulse-glow {
+            animation: pulse-glow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes pulse-glow {
+            from { box-shadow: 0 0 20px rgba(6, 182, 212, 0.5); }
+            to { box-shadow: 0 0 30px rgba(6, 182, 212, 0.8); }
+        }
+        
+        @media (max-width: 768px) {
+            .hero-content {
+                flex-direction: column;
+                text-align: center;
+                padding: 40px 20px;
+            }
+            
+            .terminal {
+                margin-top: 20px;
+            }
+            
+            .content-section {
+                padding: 40px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Particle Background -->
+    <div id="particle-bg" class="particle-bg"></div>
+    
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 bg-slate-900/80 backdrop-blur-md border-b border-cyan-500/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <span class="pixel-font text-cyan-400 text-sm">HAIYAN.QIN</span>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="index.html" class="nav-link text-cyan-400 hover:text-cyan-300 px-3 py-2 text-sm font-medium">首页</a>
+                        <a href="about.html" class="nav-link text-slate-300 hover:text-cyan-300 px-3 py-2 text-sm font-medium">关于</a>
+                        <a href="portfolio.html" class="nav-link text-slate-300 hover:text-cyan-300 px-3 py-2 text-sm font-medium">作品集</a>
+                        <a href="publications.html" class="nav-link text-slate-300 hover:text-cyan-300 px-3 py-2 text-sm font-medium">出版物</a>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-slate-300 hover:text-cyan-300">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="md:hidden hidden bg-slate-900/95 backdrop-blur-md">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="index.html" class="block px-3 py-2 text-cyan-400 text-base font-medium">首页</a>
+                <a href="about.html" class="block px-3 py-2 text-slate-300 hover:text-cyan-300 text-base font-medium">关于</a>
+                <a href="portfolio.html" class="block px-3 py-2 text-slate-300 hover:text-cyan-300 text-base font-medium">作品集</a>
+                <a href="publications.html" class="block px-3 py-2 text-slate-300 hover:text-cyan-300 text-base font-medium">出版物</a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="hero-bg">
+        <div class="hero-content">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <!-- Avatar Section -->
+                    <div class="text-center lg:text-left">
+                        <div class="floating">
+                            <img src="assets/avatar.png" alt="Haiyan Qin" class="w-48 h-48 mx-auto lg:mx-0 rounded-full pixel-border pulse-glow mb-8">
+                        </div>
+                        <h1 class="text-5xl lg:text-6xl font-bold mb-4">
+                            <span class="text-cyan-400">Haiyan</span>
+                            <span class="text-purple-400">Qin</span>
+                        </h1>
+                        <h2 class="text-2xl lg:text-3xl text-slate-300 mb-6 typewriter">
+                            秦海岩 - AI硬件设计研究员
+                        </h2>
+                        <p class="text-lg text-slate-400 mb-8 leading-relaxed">
+                            北京航空航天大学研究生，专注于AI辅助硬件设计、神经网络部署和电路优化研究。
+                            在LLM电路生成和高效神经网络领域拥有丰富的研究经验。
+                        </p>
+                        <div class="flex flex-wrap gap-4 justify-center lg:justify-start">
+                            <div class="achievement-badge" title="7篇出版物">
+                                <span class="text-xs">7PUB</span>
+                            </div>
+                            <div class="achievement-badge" title="5次引用">
+                                <span class="text-xs">5CIT</span>
+                            </div>
+                            <div class="achievement-badge" title="30+项目">
+                                <span class="text-xs">30+PRJ</span>
+                            </div>
+                            <div class="achievement-badge" title="H指数1">
+                                <span class="text-xs">H1</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Terminal Section -->
+                    <div class="terminal glow-effect">
+                        <div class="terminal-header">
+                            <span class="mono-font">Haiyan_Qin@Research:~$</span>
+                        </div>
+                        <div class="terminal-body" id="terminal-body">
+                            <div class="output">欢迎使用我的学术主页终端！</div>
+                            <div class="output">输入 'help' 查看可用命令。</div>
+                            <div class="command-line">
+                                <span class="prompt">></span>
+                                <input type="text" class="command-input" id="command-input" placeholder="输入命令..." autocomplete="off">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Skills Radar Section -->
+    <section class="content-section bg-slate-900/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">
+                    <span class="text-cyan-400">研究</span>
+                    <span class="text-purple-400">领域</span>
+                </h2>
+                <p class="text-xl text-slate-400">探索AI与硬件设计的交叉领域</p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <!-- Radar Chart -->
+                <div class="skill-card">
+                    <div id="skills-radar" style="height: 400px;"></div>
+                </div>
+                
+                <!-- Skills Description -->
+                <div class="space-y-6">
+                    <div class="skill-card">
+                        <div class="flex items-center mb-4">
+                            <div class="w-4 h-4 bg-cyan-400 rounded mr-3"></div>
+                            <h3 class="text-xl font-semibold">AI辅助电路设计</h3>
+                        </div>
+                        <p class="text-slate-400">使用大语言模型生成Verilog代码，自动化RTL设计流程，提高电路设计效率。</p>
+                    </div>
+                    
+                    <div class="skill-card">
+                        <div class="flex items-center mb-4">
+                            <div class="w-4 h-4 bg-purple-400 rounded mr-3"></div>
+                            <h3 class="text-xl font-semibold">神经网络部署</h3>
+                        </div>
+                        <p class="text-slate-400">在FPGA和嵌入式系统上实现高效的神经网络推理，优化性能和功耗。</p>
+                    </div>
+                    
+                    <div class="skill-card">
+                        <div class="flex items-center mb-4">
+                            <div class="w-4 h-4 bg-green-400 rounded mr-3"></div>
+                            <h3 class="text-xl font-semibold">存内计算</h3>
+                        </div>
+                        <p class="text-slate-400">研究新型存内计算架构，为AI边缘推理提供高效解决方案。</p>
+                    </div>
+                    
+                    <div class="skill-card">
+                        <div class="flex items-center mb-4">
+                            <div class="w-4 h-4 bg-yellow-400 rounded mr-3"></div>
+                            <h3 class="text-xl font-semibold">电路优化</h3>
+                        </div>
+                        <p class="text-slate-400">应用多智能体方法和贝叶斯优化进行电路良率分析和性能优化。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Latest News Section -->
+    <section class="content-section">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold mb-4">
+                    <span class="text-cyan-400">最新</span>
+                    <span class="text-purple-400">动态</span>
+                </h2>
+            </div>
+            
+            <div class="bg-slate-800/50 rounded-lg p-6 border border-cyan-500/30">
+                <div class="news-ticker text-lg font-medium mb-4">
+                    🎉 我们的论文《ReasoningV: Efficient Verilog Code Generation with Adaptive Hybrid Reasoning Model》已被ICAIS 2025接收！
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="skill-card">
+                        <div class="flex items-center mb-3">
+                            <div class="w-3 h-3 bg-yellow-400 rounded-full mr-3 animate-pulse"></div>
+                            <span class="text-sm text-slate-400">2025.11</span>
+                        </div>
+                        <h3 class="text-lg font-semibold mb-2">ICAIS 2025论文接收</h3>
+                        <p class="text-slate-400 text-sm">我们的论文《ReasoningV: Efficient Verilog Code Generation with Adaptive Hybrid Reasoning Model》已被第一届国际AI科学家会议接收！</p>
+                    </div>
+                    
+                    <div class="skill-card">
+                        <div class="flex items-center mb-3">
+                            <div class="w-3 h-3 bg-green-400 rounded-full mr-3 animate-pulse"></div>
+                            <span class="text-sm text-slate-400">2025</span>
+                        </div>
+                        <h3 class="text-lg font-semibold mb-2">DAC 2025论文接收</h3>
+                        <p class="text-slate-400 text-sm">关于多智能体电路设计优化的研究论文已被设计自动化会议DAC 2025接收。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="bg-slate-900/80 border-t border-cyan-500/30 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <p class="text-slate-400">
+                    © 2025 Haiyan Qin (秦海岩). Built with passion for AI and hardware design.
+                </p>
+                <div class="flex justify-center space-x-6 mt-4">
+                    <a href="mailto:haiyanq@buaa.edu.cn" class="text-cyan-400 hover:text-cyan-300 transition-colors">
+                        <span class="mono-font">Email</span>
+                    </a>
+                    <a href="https://scholar.google.com/citations?user=zzmYq9QAAAAJ&hl=en" class="text-cyan-400 hover:text-cyan-300 transition-colors">
+                        <span class="mono-font">Scholar</span>
+                    </a>
+                    <a href="https://github.com/qhy991" class="text-cyan-400 hover:text-cyan-300 transition-colors">
+                        <span class="mono-font">GitHub</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="main.js"></script>
+</body>
+</html>
