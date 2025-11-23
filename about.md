@@ -75,6 +75,18 @@ My research focuses on the intersection of AI and hardware design:
 
   [Click here to browse the TC-Bench dataset and tools](https://huggingface.co/datasets/hyq001/TC-Bench)
 
+#### 📚 Academic Resource Collections
+
+Curated repositories tracking the latest advancements in AI-assisted hardware design:
+
+[![Awesome-LLM-Kernel-Agent](https://img.shields.io/github/stars/qhy991/Awesome-LLM-Kernel-Agent?style=social)](https://github.com/qhy991/Awesome-LLM-Kernel-Agent) **Awesome LLM Kernel Agent**  
+*A comprehensive collection of academic works on GPU kernel generation using LLM agents. Features cutting-edge research in CUDA, Triton, and multi-agent optimization frameworks.*
+
+[![Awesome-LLM-Circuit-Agent](https://img.shields.io/github/stars/qhy991/Awesome-LLM-Circuit-Agent?style=social)](https://github.com/qhy991/Awesome-LLM-Circuit-Agent) **Awesome LLM Circuit Agent**  
+*A curated repository of academic papers on RTL generation and analog circuit design using large language models. Covers Verilog code generation, circuit optimization, and AI-assisted hardware synthesis.*
+
+These collections serve as valuable resources for researchers and practitioners working at the intersection of AI and hardware design, providing up-to-date references and implementation insights.
+
 ### Research Highlights
 
 - **7 Publications** with 5 total citations
