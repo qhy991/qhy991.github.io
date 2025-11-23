@@ -31,22 +31,6 @@ My research focuses on the intersection of AI and hardware design:
 
 <div>&nbsp;</div>
 
-[🤗 Hugging Face Dataset](https://huggingface.co/datasets/GipAI/ReaoningV) | [🤗 Hugging Face Model](https://huggingface.co/GipAI/ReasoningV-7B) | [🌐 ModelScope Dataset](https://modelscope.cn/datasets/GipsyAI/ReasoningV) | [🌐 ModelScope Model](https://modelscope.cn/models/GipsyAI/ReasoningV-7B) | [📄 Paper](https://arxiv.org/pdf/2504.14560v3)
-
-<div>&nbsp;</div>
-
-[![Hugging Face Dataset](https://img.shields.io/badge/Dataset-HuggingFace-blue?link=https://huggingface.co/datasets/GipAI/ReaoningV)](https://huggingface.co/datasets/GipAI/ReaoningV)
-
-[![Hugging Face Model](https://img.shields.io/badge/Model-HuggingFace-blue?link=https://huggingface.co/GipAI/ReasoningV-7B)](https://huggingface.co/GipAI/ReasoningV-7B)
-
-[![ModelScope Dataset](https://img.shields.io/badge/Dataset-ModelScope-orange?link=https://modelscope.cn/datasets/GipsyAI/ReasoningV)](https://modelscope.cn/datasets/GipsyAI/ReasoningV)
-
-[![ModelScope Model](https://img.shields.io/badge/Model-ModelScope-orange?link=https://modelscope.cn/models/GipsyAI/ReasoningV-7B)](https://modelscope.cn/models/GipsyAI/ReasoningV-7B)
-
-[![GitHub Stars](https://img.shields.io/github/stars/BUAA-CLab/ReasoningV?style=social)](https://github.com/BUAA-CLab/ReasoningV)
-
-<div>&nbsp;</div>
-
 #### 🧠 ReasoningV: Efficient Verilog Code Generation with Adaptive Hybrid Reasoning Model
 
 **Project Overview**: ReasoningV is an AI model specifically optimized for hardware design, focusing on automated generation of high-quality Verilog code. By combining multiple reasoning strategies, the model can understand circuit design requirements and generate hardware description code that meets both syntax and functional specifications.
@@ -67,6 +51,20 @@ My research focuses on the intersection of AI and hardware design:
 - FPGA development assistance
 - ASIC design process optimization
 - Hardware verification code generation
+
+**Resources & Links**:
+- 📄 [Paper](https://arxiv.org/pdf/2504.14560v3)
+- 🤗 [Hugging Face Dataset](https://huggingface.co/datasets/GipAI/ReaoningV)
+- 🤗 [Hugging Face Model](https://huggingface.co/GipAI/ReasoningV-7B)
+- 🌐 [ModelScope Dataset](https://modelscope.cn/datasets/GipsyAI/ReasoningV)
+- 🌐 [ModelScope Model](https://modelscope.cn/models/GipsyAI/ReasoningV-7B)
+- ⭐ [GitHub Repository](https://github.com/BUAA-CLab/ReasoningV)
+
+[![Hugging Face Dataset](https://img.shields.io/badge/Dataset-HuggingFace-blue)](https://huggingface.co/datasets/GipAI/ReaoningV)
+[![Hugging Face Model](https://img.shields.io/badge/Model-HuggingFace-blue)](https://huggingface.co/GipAI/ReasoningV-7B)
+[![ModelScope Dataset](https://img.shields.io/badge/Dataset-ModelScope-orange)](https://modelscope.cn/datasets/GipsyAI/ReasoningV)
+[![ModelScope Model](https://img.shields.io/badge/Model-ModelScope-orange)](https://modelscope.cn/models/GipsyAI/ReasoningV-7B)
+[![GitHub Stars](https://img.shields.io/github/stars/BUAA-CLab/ReasoningV?style=social)](https://github.com/BUAA-CLab/ReasoningV)
 
 **Additional Resources:**
 - [TC-Bench Dataset](https://huggingface.co/datasets/hyq001/TC-Bench) - **TC-Bench Test Suite & Evaluation Tools**
