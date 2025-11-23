@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page.title | default: site.title }}</title>
+
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Inter:wght@300;400;500;600;700&family=Press+Start+2P&display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Core Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.3/echarts.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/7.3.2/pixi.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/glfx-js/0.0.1/glfx.min.js"></script>
+
+    <!-- Custom Styles -->
+    <style>
+        :root {
+            --primary-dark: #0f172a;
+            --primary-blue: #1e293b;
+            --accent-cyan: #06b6d4;
+            --accent-purple: #8b5cf6;
+            --accent-green: #10b981;
+            --text-light: #f1f5f9;
+            --text-muted: #94a3b8;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--primary-dark);
+            color: var(--text-light);
+            overflow-x: hidden;
+        }
+
+        .pixel-font {
+            font-family: 'Press Start 2P', cursive;
+        }
+
+        .mono-font {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .hero-bg {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, #1e1b4b 50%, var(--primary-dark) 100%);
+            position: relative;
+        }
+
+        .pixel-border {
+            border: 2px solid var(--accent-cyan);
+            box-shadow: 0 0 20px rgba(6, 182, 212, 0.3);
+        }
+
+        .glow-effect {
+            box-shadow: 0 0 30px rgba(6, 182, 212, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .glow-effect:hover {
+            box-shadow: 0 0 40px rgba(6, 182, 212, 0.8);
+            transform: translateY(-2px);
+        }
+
+        .terminal {
+            background: rgba(15, 23, 42, 0.95);
+            border: 1px solid var(--accent-cyan);
+            border-radius: 8px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .terminal-header {
+            background: var(--accent-cyan);
+            color: var(--primary-dark);
+            padding: 8px 16px;
+            border-radius: 6px 6px 0 0;
+            font-weight: 600;
+        }
+
+        .terminal-body {
+            padding: 20px;
+            min-height: 300px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .command-line {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .prompt {
+            color: var(--accent-green);
+            margin-right: 8px;
+        }
+
+        .command-input {
+            background: transparent;
+            border: none;
+            color: var(--text-light);
+            font-family: inherit;
+            outline: none;
+            flex: 1;
+        }
+
+        .output {
+            color: var(--text-muted);
+            margin-left: 20px;
+            margin-bottom: 8px;
+        }
+
+        .skill-card {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid var(--accent-purple);
+            border-radius: 8px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .skill-card:hover {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.2);
+        }
+
+        .news-ticker {
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: scroll-left 30s linear infinite;
+        }
+
+        @keyframes scroll-left {
+            0% {
+                transform: translateX(100%);
+            }
+
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        .achievement-badge {
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .achievement-badge:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(139, 92, 246, 0.5);
+        }
+
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-cyan);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .typewriter {
+            overflow: hidden;
+            border-right: 2px solid var(--accent-cyan);
+            white-space: nowrap;
+            margin: 0 auto;
+            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from {
+                width: 0;
+            }
+
+            to {
+                width: 100%;
+            }
+        }
+
+        @keyframes blink-caret {
+
+            from,
+            to {
+                border-color: transparent;
+            }
+
+            50% {
+                border-color: var(--accent-cyan);
+            }
+        }
+
+        .particle-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        .content-section {
+            padding: 80px 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .floating {
+            animation: floating 6s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .pulse-glow {
+            animation: pulse-glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulse-glow {
+            from {
+                box-shadow: 0 0 20px rgba(6, 182, 212, 0.5);
+            }
+
+            to {
+                box-shadow: 0 0 30px rgba(6, 182, 212, 0.8);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-content {
+                flex-direction: column;
+                text-align: center;
+                padding: 40px 20px;
+            }
+
+            .terminal {
+                margin-top: 20px;
+            }
+
+            .content-section {
+                padding: 40px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Particle Background -->
+    <div id="particle-bg" class="particle-bg"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 bg-slate-900/80 backdrop-blur-md border-b border-cyan-500/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <span class="pixel-font text-cyan-400 text-sm">HAIYAN.QIN</span>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="{{ '/' | relative_url }}"
+                            class="nav-link text-cyan-400 hover:text-cyan-300 px-3 py-2 text-sm font-medium">首页</a>
+                        <a href="{{ '/about/' | relative_url }}"
+                            class="nav-link text-slate-300 hover:text-cyan-300 px-3 py-2 text-sm font-medium">关于</a>
+                        <a href="{{ '/portfolio/' | relative_url }}"
+                            class="nav-link text-slate-300 hover:text-cyan-300 px-3 py-2 text-sm font-medium">作品集</a>
+                        <a href="{{ '/publications/' | relative_url }}"
+                            class="nav-link text-slate-300 hover:text-cyan-300 px-3 py-2 text-sm font-medium">出版物</a>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-slate-300 hover:text-cyan-300">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="md:hidden hidden bg-slate-900/95 backdrop-blur-md">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="{{ '/' | relative_url }}" class="block px-3 py-2 text-cyan-400 text-base font-medium">首页</a>
+                <a href="{{ '/about/' | relative_url }}"
+                    class="block px-3 py-2 text-slate-300 hover:text-cyan-300 text-base font-medium">关于</a>
+                <a href="{{ '/portfolio/' | relative_url }}"
+                    class="block px-3 py-2 text-slate-300 hover:text-cyan-300 text-base font-medium">作品集</a>
+                <a href="{{ '/publications/' | relative_url }}"
+                    class="block px-3 py-2 text-slate-300 hover:text-cyan-300 text-base font-medium">出版物</a>
+            </div>
+        </div>
+    </nav>
+
+    {{ content }}
+
+    <!-- Footer -->
+    <footer class="bg-slate-900/80 border-t border-cyan-500/30 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <p class="text-slate-400">
+                    © 2025 Haiyan Qin (秦海岩). Built with passion for AI and hardware design.
+                </p>
+                <div class="flex justify-center space-x-6 mt-4">
+                    <a href="mailto:haiyanq@buaa.edu.cn" class="text-cyan-400 hover:text-cyan-300 transition-colors">
+                        <span class="mono-font">Email</span>
+                    </a>
+                    <a href="https://scholar.google.com/citations?user=zzmYq9QAAAAJ&hl=en"
+                        class="text-cyan-400 hover:text-cyan-300 transition-colors">
+                        <span class="mono-font">Scholar</span>
+                    </a>
+                    <a href="https://github.com/qhy991" class="text-cyan-400 hover:text-cyan-300 transition-colors">
+                        <span class="mono-font">GitHub</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{{ '/assets/js/pixel_main.js' | relative_url }}"></script>
+</body>
+
+</html>
