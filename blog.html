@@ -1,0 +1,163 @@
+---
+layout: default
+title: Blog
+---
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - Haiyan Qin</title>
+
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Inter:wght@300;400;500;600;700&family=Press+Start+2P&display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0f172a;
+            color: #f1f5f9;
+        }
+
+        .pixel-font {
+            font-family: 'Press Start 2P', cursive;
+        }
+
+        .blog-card {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 12px;
+            padding: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .blog-card:hover {
+            border-color: rgba(6, 182, 212, 0.5);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 32px rgba(6, 182, 212, 0.2);
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: rgba(6, 182, 212, 0.2);
+            color: #06b6d4;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 bg-slate-900/80 backdrop-blur-md border-b border-cyan-500/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="index.html"
+                        class="pixel-font text-cyan-400 text-sm hover:text-cyan-300 transition-colors">HAIYAN.QIN</a>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="index.html"
+                            class="text-slate-300 hover:text-cyan-300 px-3 py-2 text-sm font-medium">Home</a>
+                        <a href="about.html"
+                            class="text-slate-300 hover:text-cyan-300 px-3 py-2 text-sm font-medium">About</a>
+                        <a href="blog.html"
+                            class="text-cyan-400 hover:text-cyan-300 px-3 py-2 text-sm font-medium">Blog</a>
+                        <a href="portfolio.html"
+                            class="text-slate-300 hover:text-cyan-300 px-3 py-2 text-sm font-medium">Portfolio</a>
+                        <a href="publications.html"
+                            class="text-slate-300 hover:text-cyan-300 px-3 py-2 text-sm font-medium">Publications</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-24 pb-16 px-4">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h1 class="text-5xl lg:text-6xl font-bold mb-6">
+                    <span class="text-cyan-400">Tech</span>
+                    <span class="text-purple-400">Blog</span>
+                </h1>
+                <p class="text-xl text-slate-400 max-w-3xl mx-auto">
+                    Sharing insights on AI, hardware design, and cutting-edge technologies
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Posts -->
+    <section class="pb-16 px-4">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {% for post in site.posts %}
+                <article class="blog-card">
+                    <div class="mb-4">
+                        {% if post.image %}
+                        <img src="{{ post.image }}" alt="{{ post.title }}"
+                            class="w-full h-48 object-cover rounded-lg mb-4">
+                        {% endif %}
+                        <h2 class="text-2xl font-bold mb-2">
+                            <a href="{{ post.url }}" class="text-cyan-400 hover:text-cyan-300">{{ post.title }}</a>
+                        </h2>
+                        <div class="text-sm text-slate-400 mb-3">
+                            <span>📅 {{ post.date | date: "%B %d, %Y" }}</span>
+                            {% if post.reading_time %}
+                            <span class="ml-4">⏱️ {{ post.reading_time }} min</span>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <p class="text-slate-300 mb-4">
+                        {{ post.excerpt | strip_html | truncatewords: 30 }}
+                    </p>
+
+                    {% if post.tags %}
+                    <div class="mb-4">
+                        {% for tag in post.tags %}
+                        <span class="tag">{{ tag }}</span>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    <a href="{{ post.url }}" class="inline-flex items-center text-purple-400 hover:text-purple-300">
+                        Read More →
+                    </a>
+                </article>
+                {% endfor %}
+
+                <!-- Placeholder if no posts -->
+                {% if site.posts.size == 0 %}
+                <div class="col-span-full text-center py-16">
+                    <p class="text-slate-400 text-xl">No blog posts yet. Stay tuned!</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900/80 border-t border-cyan-500/30 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <p class="text-slate-400">
+                    © 2025 Haiyan Qin. Built with passion for AI and hardware design.
+                </p>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
