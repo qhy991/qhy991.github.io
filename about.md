@@ -6,7 +6,7 @@ permalink: /about/
 
 ## About Me
 
-I am **Haiyan Qin** (秦海燕), a graduate student at **Beihang University** (北京航空航天大学) with research interests spanning hardware design, machine learning, and circuit optimization.
+I am **Haiyan Qin** (秦海岩), a graduate student at **Beihang University** (北京航空航天大学) with research interests spanning hardware design, machine learning, and circuit optimization.
 
 ### Research Interests
 
@@ -20,8 +20,37 @@ My research focuses on the intersection of AI and hardware design:
 ### Education
 
 **Beihang University** (北京航空航天大学)
-- Research focus on hardware design automation and AI acceleration
-- Published work in circuit design, FPGA deployment, and computing-in-memory systems
+- **Ph.D. in Integrated Circuit Engineering** (2023-Present)
+  - Research focus on hardware design automation and AI acceleration
+  - Published work in circuit design, FPGA deployment, and computing-in-memory systems
+- **B.S. in Microelectronics Science and Engineering** (2019-2023)
+  - Foundation in integrated circuit design and semiconductor physics
+  - Developed strong background in electronic systems and hardware design
+
+### Open-Source Contributions
+
+<div>&nbsp;</div>
+
+[🤗 Hugging Face Dataset](https://huggingface.co/datasets/GipAI/ReaoningV) | [🤗 Hugging Face Model](https://huggingface.co/GipAI/ReasoningV-7B) | [🌐 ModelScope Dataset](https://modelscope.cn/datasets/GipsyAI/ReasoningV) | [🌐 ModelScope Model](https://modelscope.cn/models/GipsyAI/ReasoningV-7B) | [📄 Paper](https://arxiv.org/pdf/2504.14560v3)
+
+<div>&nbsp;</div>
+
+[![Hugging Face Dataset](https://img.shields.io/badge/Dataset-HuggingFace-blue?link=https://huggingface.co/datasets/GipAI/ReaoningV)](https://huggingface.co/datasets/GipAI/ReaoningV)
+
+[![Hugging Face Model](https://img.shields.io/badge/Model-HuggingFace-blue?link=https://huggingface.co/GipAI/ReasoningV-7B)](https://huggingface.co/GipAI/ReasoningV-7B)
+
+[![ModelScope Dataset](https://img.shields.io/badge/Dataset-ModelScope-orange?link=https://modelscope.cn/datasets/GipsyAI/ReasoningV)](https://modelscope.cn/datasets/GipsyAI/ReasoningV)
+
+[![ModelScope Model](https://img.shields.io/badge/Model-ModelScope-orange?link=https://modelscope.cn/models/GipsyAI/ReasoningV-7B)](https://modelscope.cn/models/GipsyAI/ReasoningV-7B)
+
+[![GitHub Stars](https://img.shields.io/github/stars/BUAA-CLab/ReasoningV?style=social)](https://github.com/BUAA-CLab/ReasoningV)
+
+<div>&nbsp;</div>
+
+#### ReasoningV: Efficient Verilog Code Generation with Adaptive Hybrid Reasoning Model
+
+**Additional Resources:**
+- [TC-Bench Dataset](https://huggingface.co/datasets/hyq001/TC-Bench) - Test cases for Verilog code generation and optimization
 
 ### Research Highlights
 
