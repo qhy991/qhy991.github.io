@@ -193,12 +193,16 @@ Please contact me if you are interested in working together on research or educa
     <a href="https://github.com/BUAA-CLab/ReasoningV" class="btn btn-dark">⭐ GitHub</a>
   </div>
 
-**Available Resources:**
-- Dataset: [![Hugging Face](https://img.shields.io/badge/HuggingFace-Dataset-blue)](https://huggingface.co/datasets/GipAI/ReaoningV)
-- Model: [![Hugging Face](https://img.shields.io/badge/HuggingFace-Model-blue)](https://huggingface.co/GipAI/ReasoningV-7B)
-- Dataset: [![ModelScope](https://img.shields.io/badge/ModelScope-Dataset-orange)](https://modelscope.cn/datasets/GipsyAI/ReasoningV)
-- Model: [![ModelScope](https://img.shields.io/badge/ModelScope-Model-orange)](https://modelscope.cn/models/GipsyAI/ReasoningV-7B)
-- Repository: [![GitHub](https://img.shields.io/github/stars/BUAA-CLab/ReasoningV?style=social)](https://github.com/BUAA-CLab/ReasoningV)
+  <div class="project-resources">
+    <strong>Available Resources:</strong>
+    <ul>
+      <li><strong>Dataset:</strong> <a href="https://huggingface.co/datasets/GipAI/ReaoningV"><img src="https://img.shields.io/badge/HuggingFace-Dataset-blue" alt="Hugging Face Dataset"></a></li>
+      <li><strong>Model:</strong> <a href="https://huggingface.co/GipAI/ReasoningV-7B"><img src="https://img.shields.io/badge/HuggingFace-Model-blue" alt="Hugging Face Model"></a></li>
+      <li><strong>Dataset:</strong> <a href="https://modelscope.cn/datasets/GipsyAI/ReasoningV"><img src="https://img.shields.io/badge/ModelScope-Dataset-orange" alt="ModelScope Dataset"></a></li>
+      <li><strong>Model:</strong> <a href="https://modelscope.cn/models/GipsyAI/ReasoningV-7B"><img src="https://img.shields.io/badge/ModelScope-Model-orange" alt="ModelScope Model"></a></li>
+      <li><strong>Repository:</strong> <a href="https://github.com/BUAA-CLab/ReasoningV"><img src="https://img.shields.io/github/stars/BUAA-CLab/ReasoningV?style=social" alt="GitHub Stars"></a></li>
+    </ul>
+  </div>
 </div>
 
 #### 📊 TC-Bench: Verilog Code Generation Benchmark
