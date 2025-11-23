@@ -194,7 +194,7 @@ class AcademicHomepage {
     
     showAbout() {
         const aboutText = [
-            '秦海岩 (Haiyan Qin)',
+            'Haiyan Qin (Haiyan Qin)',
             '===================',
             '北京航空航天大学研究生',
             '研究领域: AI辅助硬件设计、神经网络部署、电路优化',
@@ -328,8 +328,8 @@ class AcademicHomepage {
     }
     
     showWhoami() {
-        this.addTerminalOutput('当前用户: Haiyan_Qin (秦海岩)');
-        this.addTerminalOutput('身份: AI硬件设计研究员');
+        this.addTerminalOutput('当前用户: Haiyan_Qin (Haiyan Qin)');
+        this.addTerminalOutput('身份: AI Hardware Design Researcher');
         this.addTerminalOutput('机构: 北京航空航天大学');
     }
     
