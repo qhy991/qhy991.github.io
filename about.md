@@ -49,27 +49,27 @@ My research focuses on the intersection of AI and hardware design:
 
 #### 🧠 ReasoningV: Efficient Verilog Code Generation with Adaptive Hybrid Reasoning Model
 
-**项目简介**: ReasoningV 是一个专为硬件设计优化的 AI 模型，专注于自动生成高质量的 Verilog 代码。通过结合多种推理策略，模型能够理解电路设计需求并生成符合语法和功能要求的硬件描述代码。
+**Project Overview**: ReasoningV is an AI model specifically optimized for hardware design, focusing on automated generation of high-quality Verilog code. By combining multiple reasoning strategies, the model can understand circuit design requirements and generate hardware description code that meets both syntax and functional specifications.
 
-**核心特性**:
-- 🎯 **专用领域优化**: 针对 Verilog HDL 语言特性进行专项训练
-- 🔄 **混合推理策略**: 结合符号推理和神经网络推理的优势
-- 📊 **高质量输出**: 生成的代码具有更好的可读性和正确性
-- 🚀 **高效部署**: 支持快速的代码生成和迭代优化
+**Key Features**:
+- 🎯 **Domain-Specific Optimization**: Specialized training for Verilog HDL language characteristics
+- 🔄 **Hybrid Reasoning Strategy**: Combines advantages of symbolic reasoning and neural network inference
+- 📊 **High-Quality Output**: Generated code with improved readability and correctness
+- 🚀 **Efficient Deployment**: Supports rapid code generation and iterative optimization
 
-**技术亮点**:
-- 创新的混合推理架构，结合了传统推理方法和深度学习
-- 大规模预训练数据，确保模型对各种电路设计的泛化能力
-- 专门设计的评估指标，更好地衡量硬件代码生成质量
+**Technical Highlights**:
+- Innovative hybrid reasoning architecture combining traditional reasoning methods and deep learning
+- Large-scale pre-training data ensuring model generalization across various circuit designs
+- Specialized evaluation metrics for better measurement of hardware code generation quality
 
-**应用场景**:
-- 数字电路设计自动化
-- FPGA 开发辅助
-- ASIC 设计流程优化
-- 硬件验证代码生成
+**Application Scenarios**:
+- Digital circuit design automation
+- FPGA development assistance
+- ASIC design process optimization
+- Hardware verification code generation
 
 **Additional Resources:**
-- [TC-Bench Dataset](https://huggingface.co/datasets/hyq001/TC-Bench) - 专为 Verilog 代码生成和优化设计的综合测试基准，包含 5,000+ 个多样化的测试案例
+- [TC-Bench Dataset](https://huggingface.co/datasets/hyq001/TC-Bench) - Comprehensive test benchmark designed for Verilog code generation and optimization, containing 5,000+ diverse test cases
 
 ### Research Highlights
 
