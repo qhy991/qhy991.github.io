@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CUDA 并行归约算法 (Parallel Reduction) 图解</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: #0f172a;
+            /* Match blog background */
+            color: #e2e8f0;
+            overflow-x: hidden;
+            /* Prevent horizontal scroll */
+        }
+
+        .code-font {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .array-cell {
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .highlight-green {
+            background-color: #22c55e;
+            /* green-500 */
+            color: white;
+            transform: scale(1.1);
+            box-shadow: 0 0 15px rgba(34, 197, 94, 0.5);
+            border-color: #4ade80;
+        }
+
+        .highlight-blue {
+            background-color: #3b82f6;
+            /* blue-500 */
+            color: white;
+            border-color: #60a5fa;
+        }
+
+        .highlight-dim {
+            opacity: 0.3;
+            transform: scale(0.95);
+            background-color: #1e293b;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1e293b;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #475569;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #64748b;
+        }
+    </style>
+</head>
+
+<body class="flex flex-col">
+
+    <main class="w-full space-y-8 p-4">
+
+        <!-- Intro Section -->
+        <section class="grid md:grid-cols-2 gap-8 items-center">
+            <div class="space-y-4">
+                <h2 class="text-2xl font-bold text-white">从 O(N) 到 O(log N) 的飞跃</h2>
+                <p class="text-slate-300 leading-relaxed text-sm">
+                    在并行计算中，**归约 (Reduction)** 是一项基础操作。
+                    传统的 CPU 串行计算像是一个人从头加到尾。而 GPU 并行归约则像是一场<b>“淘汰赛”</b>：
+                    每两个元素结合，结果进入下一轮，直到只剩下一个最终结果。
+                </p>
+                <div class="flex gap-4 pt-2">
+                    <div class="bg-slate-800 p-3 rounded-lg border-l-4 border-green-500 flex-1">
+                        <h3 class="font-bold text-green-400 text-sm">Shared Memory</h3>
+                        <p class="text-xs text-slate-400 mt-1">利用极速的片上内存进行中间计算。</p>
+                    </div>
+                    <div class="bg-slate-800 p-3 rounded-lg border-l-4 border-blue-500 flex-1">
+                        <h3 class="font-bold text-blue-400 text-sm">Tree Reduction</h3>
+                        <p class="text-xs text-slate-400 mt-1">树形结构折叠数据，减少计算步数。</p>
+                    </div>
+                </div>
+            </div>
+            <div class="relative bg-slate-800 rounded-xl p-4 border border-slate-700 shadow-xl overflow-hidden">
+                <h3 class="text-base font-semibold mb-3 text-green-400">算法核心思想</h3>
+                <ul class="space-y-2 text-xs text-slate-300">
+                    <li class="flex items-start">
+                        <i class="fa-solid fa-check-circle text-green-500 mt-1 mr-2"></i>
+                        <span><b>并行加载：</b> 多个线程同时从 Global Memory 读取数据到 Shared Memory。</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fa-solid fa-check-circle text-green-500 mt-1 mr-2"></i>
+                        <span><b>同步归约：</b> 步长 (Stride) 每次减半，活跃线程数也减半。</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fa-solid fa-check-circle text-green-500 mt-1 mr-2"></i>
+                        <span><b>Warp 优化：</b> 当活跃线程 < 32 时，利用 SIMT 特性省去同步开销。</span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Interactive Visualizer -->
+        <section id="demo" class="bg-slate-900 rounded-2xl border border-slate-700 overflow-hidden shadow-2xl">
+            <div
+                class="bg-slate-800 px-6 py-4 border-b border-slate-700 flex flex-col md:flex-row justify-between items-center gap-4">
+                <div>
+                    <h2 class="text-lg font-bold text-white"><i class="fa-solid fa-eye text-blue-400 mr-2"></i>可视化演示
+                    </h2>
+                    <p class="text-xs text-slate-400">模拟一个 Block 内的归约过程（BlockSize=16）</p>
+                </div>
+                <div class="flex gap-3">
+                    <button onclick="resetSim()"
+                        class="px-3 py-1.5 rounded-lg bg-slate-700 hover:bg-slate-600 text-white transition text-xs font-medium">
+                        <i class="fa-solid fa-rotate-right mr-1"></i> 重置
+                    </button>
+                    <button id="nextBtn" onclick="nextStep()"
+                        class="px-4 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white transition shadow-lg shadow-blue-900/50 text-xs font-bold flex items-center">
+                        下一步 <i class="fa-solid fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Simulation Area -->
+            <div class="p-4 bg-[#0b1120] relative min-h-[250px] flex flex-col items-center justify-center">
+
+                <!-- Status Bar -->
+                <div class="absolute top-4 left-4 right-4 flex justify-between text-xs font-code-font text-slate-400">
+                    <span id="stepDisplay">当前状态: 初始加载</span>
+                    <span id="strideDisplay">Stride: -</span>
+                </div>
+
+                <!-- Visualization Container -->
+                <div id="arrayContainer"
+                    class="flex flex-wrap justify-center gap-2 w-full max-w-4xl transition-all duration-500 mt-6">
+                    <!-- Cells generated by JS -->
+                </div>
+
+                <!-- Legend -->
+                <div class="mt-8 flex gap-4 text-[10px] text-slate-400">
+                    <div class="flex items-center">
+                        <div class="w-2 h-2 bg-green-500 rounded mr-1"></div> 目标 (s[id])
+                    </div>
+                    <div class="flex items-center">
+                        <div class="w-2 h-2 bg-blue-500 rounded mr-1"></div> 来源 (s[id+stride])
+                    </div>
+                    <div class="flex items-center">
+                        <div class="w-2 h-2 bg-slate-800 border border-slate-600 rounded mr-1"></div> 闲置
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step Explanation -->
+            <div class="bg-slate-800 p-3 border-t border-slate-700">
+                <p id="explanationText" class="text-center text-green-300 font-medium text-sm animate-pulse">
+                    点击“下一步”开始将数据加载到共享内存...
+                </p>
+            </div>
+        </section>
+
+        <!-- Code Breakdown Section -->
+        <section class="space-y-6">
+            <h2 class="text-xl font-bold border-l-4 border-blue-500 pl-4 text-white">代码逐步拆解</h2>
+
+            <div class="grid lg:grid-cols-2 gap-6">
+                <!-- Step 1 & 2 -->
+                <div class="bg-slate-800 rounded-xl p-4 border border-slate-700 hover:border-blue-500 transition group">
+                    <div class="flex items-center justify-between mb-2">
+                        <h3 class="text-base font-bold text-white group-hover:text-blue-400 transition">1. 初始化与全局加载</h3>
+                        <span class="bg-blue-900 text-blue-200 text-[10px] px-2 py-1 rounded code-font">Global ->
+                            Shared</span>
+                    </div>
+                    <div class="bg-slate-950 p-3 rounded-lg overflow-x-auto border border-slate-800">
+                        <pre class="text-xs code-font text-gray-300">
+<span class="text-purple-400">__shared__</span> <span class="text-blue-400">int</span> s[blocksize];
+<span class="text-blue-400">int</span> id = threadIdx.x;
+s[id] = 0;
+
+<span class="text-gray-500">// Grid-Stride Loop</span>
+<span class="text-purple-400">for</span> (<span class="text-blue-400">int</span> tid = ...; tid < n; tid += ...) {
+    s[id] += data[tid];
+}
+<span class="text-yellow-400">__syncthreads()</span>;
+</pre>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div
+                    class="bg-slate-800 rounded-xl p-4 border border-slate-700 hover:border-green-500 transition group">
+                    <div class="flex items-center justify-between mb-2">
+                        <h3 class="text-base font-bold text-white group-hover:text-green-400 transition">2. 树形归约</h3>
+                        <span class="bg-green-900 text-green-200 text-[10px] px-2 py-1 rounded code-font">Shared
+                            Memory</span>
+                    </div>
+                    <div class="bg-slate-950 p-3 rounded-lg overflow-x-auto border border-slate-800">
+                        <pre class="text-xs code-font text-gray-300">
+<span class="text-purple-400">for</span> (<span class="text-blue-400">unsigned int</span> s = blockDim.x / 2; s > 32; s >>= 1) {
+    <span class="text-purple-400">if</span> (id < s) {
+        s[id] += s[id + s];
+    }
+    <span class="text-yellow-400">__syncthreads()</span>;
+}
+</pre>
+                    </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div
+                    class="bg-slate-800 rounded-xl p-4 border border-slate-700 hover:border-purple-500 transition group lg:col-span-2">
+                    <div class="flex items-center justify-between mb-2">
+                        <h3 class="text-base font-bold text-white group-hover:text-purple-400 transition">3. Warp 终极优化
+                        </h3>
+                        <span class="bg-purple-900 text-purple-200 text-[10px] px-2 py-1 rounded code-font">Warp
+                            Level</span>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="bg-slate-950 p-3 rounded-lg overflow-x-auto border border-slate-800">
+                            <pre class="text-xs code-font text-gray-300">
+<span class="text-purple-400">if</span> (id < 32) {
+    <span class="text-purple-400">volatile</span> <span class="text-blue-400">int</span>* vsmem = s;
+    vsmem[id] += vsmem[id + 32]; __syncwarp();
+    vsmem[id] += vsmem[id + 16]; __syncwarp();
+    <span class="text-gray-500">// ... unroll until 1</span>
+}
+</pre>
+                        </div>
+                        <div class="flex flex-col justify-center space-y-2">
+                            <div class="flex items-start">
+                                <i class="fa-solid fa-bolt text-yellow-400 mt-1 mr-2 text-xs"></i>
+                                <p class="text-xs text-slate-300"><b>Volatile:</b> 防止编译器缓存到寄存器。</p>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fa-solid fa-layer-group text-purple-400 mt-1 mr-2 text-xs"></i>
+                                <p class="text-xs text-slate-300"><b>Warp Sync:</b> 消除块级同步开销。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // Simulation Configuration
+        const TOTAL_ELEMENTS = 16; // Simplified block size for visualization
+        let data = [];
+        let stepIndex = 0; // 0: Init, 1: Stride 8, 2: Stride 4...
+        let currentStride = 0;
+
+        // Initialize Data
+        function initData() {
+            data = Array.from({ length: TOTAL_ELEMENTS }, () => Math.floor(Math.random() * 5) + 1);
+            renderArray();
+        }
+
+        // Render the array boxes
+        function renderArray(activeIndices = [], sourceIndices = [], highlightAll = false) {
+            const container = document.getElementById('arrayContainer');
+            container.innerHTML = '';
+
+            data.forEach((value, idx) => {
+                const cell = document.createElement('div');
+
+                // Base styles
+                let className = "array-cell w-8 h-8 md:w-12 md:h-12 flex items-center justify-center rounded-lg font-bold border-2 text-xs md:text-base ";
+
+                // Dynamic styling based on state
+                if (highlightAll) {
+                    className += "bg-slate-700 border-slate-500 text-slate-200";
+                } else if (activeIndices.includes(idx)) {
+                    // This is a target cell (receiving sum)
+                    className += "highlight-green z-10";
+                } else if (sourceIndices.includes(idx)) {
+                    // This is a source cell (being added)
+                    className += "highlight-blue z-10";
+                } else if (idx < TOTAL_ELEMENTS && stepIndex > 0 && idx >= currentStride * 2 && currentStride > 0) {
+                    // Already processed in previous steps
+                    className += "highlight-dim border-slate-800 text-slate-600";
+                } else {
+                    // Idle
+                    className += "bg-slate-800 border-slate-600 text-slate-500";
+                }
+
+                // If inactive due to reduction scope
+                if (stepIndex > 1 && idx >= currentStride * 2 && currentStride > 0) {
+                    cell.classList.add('highlight-dim');
+                }
+
+                cell.className = className;
+                cell.innerText = value;
+                cell.id = `cell-${idx}`;
+                container.appendChild(cell);
+            });
+        }
+
+        function resetSim() {
+            stepIndex = 0;
+            currentStride = 0;
+            initData();
+            document.getElementById('stepDisplay').innerText = "当前状态: 数据已加载到共享内存";
+            document.getElementById('strideDisplay').innerText = "Stride: -";
+            document.getElementById('explanationText').innerText = "初始状态：每个线程将数据从 Global Memory 加载到 Shared Memory (s[id])。";
+            document.getElementById('explanationText').className = "text-center text-slate-300 text-sm";
+            document.getElementById('nextBtn').disabled = false;
+            document.getElementById('nextBtn').classList.remove('opacity-50', 'cursor-not-allowed');
+            document.getElementById('nextBtn').innerHTML = '下一步 <i class="fa-solid fa-arrow-right ml-2"></i>';
+        }
+
+        function nextStep() {
+            if (stepIndex === 0) {
+                // Prepare for first reduction
+                currentStride = TOTAL_ELEMENTS / 2;
+                stepIndex = 1;
+                updateVisualsForStep();
+            } else {
+                // Perform math for the previous visual step
+                performAddition();
+
+                // Move to next stride
+                currentStride = currentStride / 2;
+
+                if (currentStride < 1) {
+                    finishSim();
+                    return;
+                }
+                stepIndex++;
+
+                // Update visuals for the NEW stride
+                setTimeout(() => {
+                    updateVisualsForStep();
+                }, 600); // Wait for addition animation
+            }
+        }
+
+        function updateVisualsForStep() {
+            const active = [];
+            const source = [];
+
+            for (let i = 0; i < currentStride; i++) {
+                active.push(i);
+                source.push(i + currentStride);
+            }
+
+            renderArray(active, source);
+
+            document.getElementById('strideDisplay').innerText = `Stride: ${currentStride}`;
+            document.getElementById('stepDisplay').innerText = `归约阶段: ${TOTAL_ELEMENTS} -> ${currentStride}`;
+
+            let explanation = "";
+            if (currentStride >= 4) {
+                explanation = `Thread 0~${currentStride - 1} 处于活跃状态。s[id] += s[id + ${currentStride}]。完成后同步。`;
+            } else if (currentStride < 4) {
+                explanation = `Warp 优化阶段：活跃线程极少，展开循环，无需 __syncthreads()。`;
+            }
+
+            document.getElementById('explanationText').innerText = explanation;
+            document.getElementById('explanationText').className = "text-center text-blue-300 font-bold text-sm";
+        }
+
+        function performAddition() {
+            // Logically update data array
+            for (let i = 0; i < currentStride; i++) {
+                data[i] += data[i + currentStride];
+            }
+            // Re-render to show updated numbers (but keep highlight for a moment)
+            const active = [];
+            for (let i = 0; i < currentStride; i++) active.push(i);
+            renderArray(active, []);
+        }
+
+        function finishSim() {
+            renderArray([0], []); // Highlight result
+            document.getElementById('stepDisplay').innerText = "计算完成";
+            document.getElementById('strideDisplay').innerText = "Stride: 0";
+            document.getElementById('explanationText').innerText = `最终结果保存在 s[0]: ${data[0]}。准备写入 Global Memory。`;
+            document.getElementById('explanationText').className = "text-center text-green-400 font-bold text-sm";
+
+            const btn = document.getElementById('nextBtn');
+            btn.disabled = true;
+            btn.classList.add('opacity-50', 'cursor-not-allowed');
+            btn.innerHTML = '完成 <i class="fa-solid fa-check ml-2"></i>';
+        }
+
+        // Start on load
+        window.onload = resetSim;
+
+    </script>
+</body>
+
+</html>
