@@ -161,6 +161,17 @@ footer {
   color: var(--text-light);
 }
 
+.visitor-stats {
+  font-size: 0.85rem;
+  color: var(--text-light);
+  margin-top: 10px;
+}
+
+.visitor-stats i {
+  margin-right: 4px;
+  color: var(--primary-color);
+}
+
 h1,
 h2,
 h3 {

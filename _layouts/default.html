@@ -27,10 +27,14 @@
                     </li>
                     <li><a href="{{ '/portfolio/' | relative_url }}"><i class="fas fa-briefcase"></i> Portfolio</a>
                     </li>
+                    <li><a href="{{ '/blog/' | relative_url }}"><i class="fas fa-blog"></i> Blog</a></li>
                     <li><a href="{{ '/talks/' | relative_url }}"><i class="fas fa-microphone"></i> Talks</a></li>
                 </ul>
             </nav>
 
+            {% if site.author.email %}
+            <p><a href="mailto:{{ site.author.email }}"><i class="fas fa-envelope"></i> Email</a></p>
+            {% endif %}
             {% if site.author.googlescholar %}
             <p><a href="https://scholar.google.com/citations?user={{ site.author.googlescholar }}" target="_blank"><i
                         class="fas fa-graduation-cap"></i> Google Scholar</a></p>
@@ -47,7 +51,12 @@
 
         <footer>
             <p>&copy; {{ site.time | date: '%Y' }} {{ site.author.name }}. All rights reserved.</p>
+            <p class="visitor-stats">
+                <i class="fas fa-eye"></i> Total Visits: <span id="busuanzi_value_site_pv">--</span> |
+                <i class="fas fa-users"></i> Visitors: <span id="busuanzi_value_site_uv">--</span>
+            </p>
         </footer>
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
     </div>
 </body>
 
