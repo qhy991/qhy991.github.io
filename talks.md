@@ -18,11 +18,11 @@ permalink: /talks/
 *Presented our work on AI-assisted Verilog code generation, showcasing the hybrid reasoning approach for hardware design automation.*
 
 #### 🏗️ **Design Automation Conference (DAC 2025)**
-**Title**: Multi-agent Approaches for Circuit Design Optimization  
-**Type**: Technical Presentation  
-**Status**: Submitted  
-**Date**: 2025  
-**Materials**: [📊 Presentation PPT]({{ site.baseurl }}/assets/presentations/YieldAgent.pptx)  
+**Title**: Multi-agent Approaches for Circuit Design Optimization
+**Type**: Technical Presentation
+**Status**: Accepted
+**Date**: 2025
+**Materials**: [📊 Presentation PPT]({{ site.baseurl }}/assets/presentations/YieldAgent.pptx)
 
 *Exploring the application of multi-agent systems in optimizing circuit design processes and improving yield.*
 
