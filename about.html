@@ -1,21 +1,24 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About - Haiyan Qin</title>
-    
+
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Inter:wght@300;400;500;600;700&family=Press+Start+2P&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Inter:wght@300;400;500;600;700&family=Press+Start+2P&display=swap"
+        rel="stylesheet">
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
+
     <!-- Core Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.3/echarts.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
-    
+
     <!-- Custom Styles -->
     <style>
         :root {
@@ -27,46 +30,46 @@
             --text-light: #f1f5f9;
             --text-muted: #94a3b8;
         }
-        
+
         body {
             font-family: 'Inter', sans-serif;
             background: var(--primary-dark);
             color: var(--text-light);
             overflow-x: hidden;
         }
-        
+
         .pixel-font {
             font-family: 'Press Start 2P', cursive;
         }
-        
+
         .mono-font {
             font-family: 'JetBrains Mono', monospace;
         }
-        
+
         .hero-bg {
             background: linear-gradient(135deg, var(--primary-dark) 0%, #1e1b4b 50%, var(--primary-dark) 100%);
             position: relative;
         }
-        
+
         .pixel-border {
             border: 2px solid var(--accent-cyan);
             box-shadow: 0 0 20px rgba(6, 182, 212, 0.3);
         }
-        
+
         .glow-effect {
             box-shadow: 0 0 30px rgba(6, 182, 212, 0.5);
             transition: all 0.3s ease;
         }
-        
+
         .glow-effect:hover {
             box-shadow: 0 0 40px rgba(6, 182, 212, 0.8);
             transform: translateY(-2px);
         }
-        
+
         .timeline {
             position: relative;
         }
-        
+
         .timeline::before {
             content: '';
             position: absolute;
@@ -77,7 +80,7 @@
             background: linear-gradient(to bottom, var(--accent-cyan), var(--accent-purple));
             transform: translateX(-50%);
         }
-        
+
         .timeline-item {
             position: relative;
             margin-bottom: 40px;
@@ -85,12 +88,12 @@
             transform: translateY(20px);
             transition: all 0.6s ease;
         }
-        
+
         .timeline-item.visible {
             opacity: 1;
             transform: translateY(0);
         }
-        
+
         .timeline-item::before {
             content: '';
             position: absolute;
@@ -103,7 +106,7 @@
             transform: translateX(-50%);
             box-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
         }
-        
+
         .timeline-content {
             background: rgba(30, 41, 59, 0.8);
             border: 1px solid var(--accent-purple);
@@ -112,21 +115,21 @@
             width: 45%;
             position: relative;
         }
-        
+
         .timeline-item:nth-child(odd) .timeline-content {
             margin-left: 55%;
         }
-        
+
         .timeline-item:nth-child(even) .timeline-content {
             margin-right: 55%;
         }
-        
+
         .skill-matrix {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 20px;
         }
-        
+
         .skill-item {
             background: rgba(30, 41, 59, 0.8);
             border: 1px solid var(--accent-purple);
@@ -136,13 +139,13 @@
             transition: all 0.3s ease;
             cursor: pointer;
         }
-        
+
         .skill-item:hover {
             border-color: var(--accent-cyan);
             box-shadow: 0 8px 25px rgba(139, 92, 246, 0.2);
             transform: translateY(-5px);
         }
-        
+
         .skill-icon {
             width: 60px;
             height: 60px;
@@ -155,7 +158,7 @@
             font-size: 24px;
             color: white;
         }
-        
+
         .skill-level {
             width: 100%;
             height: 8px;
@@ -164,14 +167,14 @@
             overflow: hidden;
             margin-top: 12px;
         }
-        
+
         .skill-progress {
             height: 100%;
             background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
             border-radius: 4px;
             transition: width 1s ease;
         }
-        
+
         .contact-card {
             background: rgba(30, 41, 59, 0.8);
             border: 1px solid var(--accent-purple);
@@ -180,13 +183,13 @@
             text-align: center;
             transition: all 0.3s ease;
         }
-        
+
         .contact-card:hover {
             border-color: var(--accent-cyan);
             box-shadow: 0 8px 25px rgba(139, 92, 246, 0.2);
             transform: translateY(-5px);
         }
-        
+
         .contact-icon {
             width: 80px;
             height: 80px;
@@ -199,12 +202,12 @@
             font-size: 32px;
             color: white;
         }
-        
+
         .nav-link {
             position: relative;
             transition: all 0.3s ease;
         }
-        
+
         .nav-link::after {
             content: '';
             position: absolute;
@@ -215,106 +218,118 @@
             background: var(--accent-cyan);
             transition: width 0.3s ease;
         }
-        
+
         .nav-link:hover::after {
             width: 100%;
         }
-        
+
         .content-section {
             padding: 80px 0;
             position: relative;
             z-index: 1;
         }
-        
+
         @media (max-width: 768px) {
             .timeline::before {
                 left: 20px;
             }
-            
+
             .timeline-item::before {
                 left: 20px;
             }
-            
+
             .timeline-content {
                 width: calc(100% - 60px);
                 margin-left: 60px !important;
                 margin-right: 0 !important;
             }
-            
+
             .content-section {
                 padding: 40px 20px;
             }
         }
     </style>
 </head>
+
 <body>
     <!-- Navigation -->
     <nav class="fixed top-0 w-full z-50 bg-slate-900/80 backdrop-blur-md border-b border-cyan-500/30">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <div class="flex items-center">
-                    <span class="pixel-font text-cyan-400 text-sm">HAIYAN.QIN</span>
+                    <a href="index.html"
+                        class="pixel-font text-cyan-400 text-sm hover:text-cyan-300 transition-colors">HAIYAN.QIN</a>
                 </div>
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-8">
-                        <a href="index.html" class="nav-link text-slate-300 hover:text-cyan-300 px-3 py-2 text-sm font-medium">首页</a>
-                        <a href="about.html" class="nav-link text-cyan-400 hover:text-cyan-300 px-3 py-2 text-sm font-medium">关于</a>
-                        <a href="portfolio.html" class="nav-link text-slate-300 hover:text-cyan-300 px-3 py-2 text-sm font-medium">作品集</a>
-                        <a href="publications.html" class="nav-link text-slate-300 hover:text-cyan-300 px-3 py-2 text-sm font-medium">出版物</a>
+                        <a href="index.html"
+                            class="nav-link text-slate-300 hover:text-cyan-300 px-3 py-2 text-sm font-medium">Home</a>
+                        <a href="about.html"
+                            class="nav-link text-cyan-400 hover:text-cyan-300 px-3 py-2 text-sm font-medium">About</a>
+                        <a href="portfolio.html"
+                            class="nav-link text-slate-300 hover:text-cyan-300 px-3 py-2 text-sm font-medium">Portfolio</a>
+                        <a href="publications.html"
+                            class="nav-link text-slate-300 hover:text-cyan-300 px-3 py-2 text-sm font-medium">Publications</a>
                     </div>
                 </div>
                 <div class="md:hidden">
                     <button id="mobile-menu-btn" class="text-slate-300 hover:text-cyan-300">
                         <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16" />
                         </svg>
                     </button>
                 </div>
             </div>
         </div>
-        
+
         <!-- Mobile menu -->
         <div id="mobile-menu" class="md:hidden hidden bg-slate-900/95 backdrop-blur-md">
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <a href="index.html" class="block px-3 py-2 text-slate-300 hover:text-cyan-300 text-base font-medium">首页</a>
-                <a href="about.html" class="block px-3 py-2 text-cyan-400 text-base font-medium">关于</a>
-                <a href="portfolio.html" class="block px-3 py-2 text-slate-300 hover:text-cyan-300 text-base font-medium">作品集</a>
-                <a href="publications.html" class="block px-3 py-2 text-slate-300 hover:text-cyan-300 text-base font-medium">出版物</a>
+                <a href="index.html"
+                    class="block px-3 py-2 text-slate-300 hover:text-cyan-300 text-base font-medium">Home</a>
+                <a href="about.html" class="block px-3 py-2 text-cyan-400 text-base font-medium">About</a>
+                <a href="portfolio.html"
+                    class="block px-3 py-2 text-slate-300 hover:text-cyan-300 text-base font-medium">Portfolio</a>
+                <a href="publications.html"
+                    class="block px-3 py-2 text-slate-300 hover:text-cyan-300 text-base font-medium">Publications</a>
             </div>
         </div>
     </nav>
-    
+
     <!-- Hero Section -->
     <section class="hero-bg pt-20 pb-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center">
                 <h1 class="text-5xl lg:text-6xl font-bold mb-6">
-                    <span class="text-cyan-400">关于</span>
-                    <span class="text-purple-400">我</span>
+                    <span class="text-cyan-400">About</span>
+                    <span class="text-purple-400">Me</span>
                 </h1>
                 <p class="text-xl text-slate-400 max-w-3xl mx-auto">
-                    Exploring the intersection of AI and hardware design, committed to advancing intelligent circuit design technologies
+                    Exploring the intersection of AI and hardware design, committed to advancing intelligent circuit
+                    design technologies
                 </p>
             </div>
         </div>
     </section>
-    
+
     <!-- Personal Info Section -->
     <section class="content-section">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 items-center">
                 <!-- Avatar -->
                 <div class="text-center lg:text-left">
-                    <img src="assets/avatar.png" alt="Haiyan Qin" class="w-64 h-64 mx-auto lg:mx-0 rounded-full pixel-border glow-effect mb-8">
+                    <img src="assets/avatar.png" alt="Haiyan Qin"
+                        class="w-64 h-64 mx-auto lg:mx-0 rounded-full pixel-border glow-effect mb-8">
                 </div>
-                
+
                 <!-- Personal Info -->
                 <div class="lg:col-span-2">
                     <h2 class="text-3xl font-bold mb-6">
                         <span class="text-cyan-400">Haiyan Qin</span>
                         <span class="text-purple-400"> (Haiyan Qin)</span>
                     </h2>
-                    
+
                     <div class="space-y-6">
                         <div class="contact-card">
                             <h3 class="text-xl font-semibold mb-4 text-cyan-400">Basic Information</h3>
@@ -337,7 +352,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="contact-card">
                             <h3 class="text-xl font-semibold mb-4 text-cyan-400">Academic Achievements</h3>
                             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
@@ -364,7 +379,7 @@
             </div>
         </div>
     </section>
-    
+
     <!-- Education Timeline -->
     <section class="content-section bg-slate-900/50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -373,9 +388,9 @@
                     <span class="text-cyan-400">Education</span>
                     <span class="text-purple-400">Background</span>
                 </h2>
-                <p class="text-xl text-slate-400">学术历程与重要里程碑</p>
+                <p class="text-xl text-slate-400">Academic Journey and Key Milestones</p>
             </div>
-            
+
             <div class="timeline">
                 <div class="timeline-item">
                     <div class="timeline-content">
@@ -384,19 +399,25 @@
                             <span class="text-cyan-400 font-semibold">2023 - Present</span>
                         </div>
                         <h3 class="text-xl font-bold mb-2">Ph.D. Candidate</h3>
-                        <h4 class="text-lg text-purple-400 mb-3">Beihang University · Integrated Circuit Engineering</h4>
+                        <h4 class="text-lg text-purple-400 mb-3">Beihang University · Integrated Circuit Engineering
+                        </h4>
                         <p class="text-slate-400 mb-4">
-                            Research focuses on hardware design automation and AI acceleration, with publications in circuit design, FPGA deployment, and computing-in-memory systems.
-                            Research directions include LLM-based circuit generation, multi-agent optimization methods, and other cutting-edge technologies.
+                            Research focuses on hardware design automation and AI acceleration, with publications in
+                            circuit design, FPGA deployment, and computing-in-memory systems.
+                            Research directions include LLM-based circuit generation, multi-agent optimization methods,
+                            and other cutting-edge technologies.
                         </p>
                         <div class="flex flex-wrap gap-2">
-                            <span class="px-3 py-1 bg-cyan-500/20 text-cyan-400 rounded-full text-sm">Hardware Design Automation</span>
-                            <span class="px-3 py-1 bg-purple-500/20 text-purple-400 rounded-full text-sm">AI Acceleration</span>
-                            <span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">LLM Circuit Generation</span>
+                            <span class="px-3 py-1 bg-cyan-500/20 text-cyan-400 rounded-full text-sm">Hardware Design
+                                Automation</span>
+                            <span class="px-3 py-1 bg-purple-500/20 text-purple-400 rounded-full text-sm">AI
+                                Acceleration</span>
+                            <span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">LLM Circuit
+                                Generation</span>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="timeline-item">
                     <div class="timeline-content">
                         <div class="flex items-center mb-4">
@@ -404,180 +425,192 @@
                             <span class="text-purple-400 font-semibold">2019 - 2023</span>
                         </div>
                         <h3 class="text-xl font-bold mb-2">Bachelor's Degree</h3>
-                        <h4 class="text-lg text-purple-400 mb-3">Beihang University · Microelectronics Science and Engineering</h4>
+                        <h4 class="text-lg text-purple-400 mb-3">Beihang University · Microelectronics Science and
+                            Engineering</h4>
                         <p class="text-slate-400 mb-4">
-                            Established a solid foundation in integrated circuit design and semiconductor physics, building a strong background in electronic systems and hardware design.
-                            Participated in multiple research projects, beginning to explore the intersection of AI and hardware design.
+                            Established a solid foundation in integrated circuit design and semiconductor physics,
+                            building a strong background in electronic systems and hardware design.
+                            Participated in multiple research projects, beginning to explore the intersection of AI and
+                            hardware design.
                         </p>
                         <div class="flex flex-wrap gap-2">
-                            <span class="px-3 py-1 bg-cyan-500/20 text-cyan-400 rounded-full text-sm">Integrated Circuit Design</span>
-                            <span class="px-3 py-1 bg-purple-500/20 text-purple-400 rounded-full text-sm">Semiconductor Physics</span>
-                            <span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">Electronic Systems</span>
+                            <span class="px-3 py-1 bg-cyan-500/20 text-cyan-400 rounded-full text-sm">Integrated Circuit
+                                Design</span>
+                            <span class="px-3 py-1 bg-purple-500/20 text-purple-400 rounded-full text-sm">Semiconductor
+                                Physics</span>
+                            <span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">Electronic
+                                Systems</span>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="timeline-item">
                     <div class="timeline-content">
                         <div class="flex items-center mb-4">
                             <div class="w-4 h-4 bg-green-400 rounded mr-3"></div>
                             <span class="text-green-400 font-semibold">2025</span>
                         </div>
-                        <h3 class="text-xl font-bold mb-2">ICAIS 2025论文接收</h3>
-                        <h4 class="text-lg text-purple-400 mb-3">国际AI科学家会议</h4>
+                        <h3 class="text-xl font-bold mb-2">ICAIS 2025 Paper Acceptance</h3>
+                        <h4 class="text-lg text-purple-400 mb-3">International Conference on AI Scientists</h4>
                         <p class="text-slate-400 mb-4">
-                            论文《ReasoningV: Efficient Verilog Code Generation with Adaptive Hybrid Reasoning Model》
-                            Accepted by the 1st International Conference on AI Scientists, marking a breakthrough in AI-assisted circuit design.
+                            Paper "ReasoningV: Efficient Verilog Code Generation with Adaptive Hybrid Reasoning Model"
+                            accepted by the 1st International Conference on AI Scientists, marking a breakthrough in
+                            AI-assisted circuit design.
                         </p>
                         <div class="flex flex-wrap gap-2">
-                            <span class="px-3 py-1 bg-yellow-500/20 text-yellow-400 rounded-full text-sm">最佳论文</span>
-                            <span class="px-3 py-1 bg-cyan-500/20 text-cyan-400 rounded-full text-sm">AI电路设计</span>
+                            <span class="px-3 py-1 bg-yellow-500/20 text-yellow-400 rounded-full text-sm">Best
+                                Paper</span>
+                            <span class="px-3 py-1 bg-cyan-500/20 text-cyan-400 rounded-full text-sm">AI Circuit
+                                Design</span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    
+
     <!-- Skills Matrix -->
     <section class="content-section">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
                 <h2 class="text-4xl font-bold mb-4">
-                    <span class="text-cyan-400">技能</span>
-                    <span class="text-purple-400">矩阵</span>
+                    <span class="text-cyan-400">Skills</span>
+                    <span class="text-purple-400">Matrix</span>
                 </h2>
-                <p class="text-xl text-slate-400">技术能力与专业水平</p>
+                <p class="text-xl text-slate-400">Technical Capabilities and Professional Level</p>
             </div>
-            
+
             <div class="skill-matrix">
                 <div class="skill-item" data-skill="90">
                     <div class="skill-icon">🔧</div>
                     <h3 class="text-lg font-semibold mb-2">Verilog/HDL</h3>
-                    <p class="text-slate-400 text-sm mb-3">硬件描述语言设计</p>
+                    <p class="text-slate-400 text-sm mb-3">Hardware Description Language Design</p>
                     <div class="skill-level">
                         <div class="skill-progress" style="width: 90%"></div>
                     </div>
-                    <div class="text-xs text-slate-500 mt-2">专家级</div>
+                    <div class="text-xs text-slate-500 mt-2">Expert</div>
                 </div>
-                
+
                 <div class="skill-item" data-skill="88">
                     <div class="skill-icon">🐍</div>
                     <h3 class="text-lg font-semibold mb-2">Python/ML</h3>
-                    <p class="text-slate-400 text-sm mb-3">机器学习与数据分析</p>
+                    <p class="text-slate-400 text-sm mb-3">Machine Learning and Data Analysis</p>
                     <div class="skill-level">
                         <div class="skill-progress" style="width: 88%"></div>
                     </div>
-                    <div class="text-xs text-slate-500 mt-2">高级</div>
+                    <div class="text-xs text-slate-500 mt-2">Advanced</div>
                 </div>
-                
+
                 <div class="skill-item" data-skill="85">
                     <div class="skill-icon">🤖</div>
-                    <h3 class="text-lg font-semibold mb-2">AI电路设计</h3>
-                    <p class="text-slate-400 text-sm mb-3">智能电路生成</p>
+                    <h3 class="text-lg font-semibold mb-2">AI Circuit Design</h3>
+                    <p class="text-slate-400 text-sm mb-3">Intelligent Circuit Generation</p>
                     <div class="skill-level">
                         <div class="skill-progress" style="width: 85%"></div>
                     </div>
-                    <div class="text-xs text-slate-500 mt-2">高级</div>
+                    <div class="text-xs text-slate-500 mt-2">Advanced</div>
                 </div>
-                
+
                 <div class="skill-item" data-skill="82">
                     <div class="skill-icon">⚡</div>
                     <h3 class="text-lg font-semibold mb-2">CUDA/GPU</h3>
-                    <p class="text-slate-400 text-sm mb-3">并行计算优化</p>
+                    <p class="text-slate-400 text-sm mb-3">Parallel Computing Optimization</p>
                     <div class="skill-level">
                         <div class="skill-progress" style="width: 82%"></div>
                     </div>
-                    <div class="text-xs text-slate-500 mt-2">高级</div>
+                    <div class="text-xs text-slate-500 mt-2">Advanced</div>
                 </div>
-                
+
                 <div class="skill-item" data-skill="80">
                     <div class="skill-icon">🧠</div>
-                    <h3 class="text-lg font-semibold mb-2">神经网络</h3>
-                    <p class="text-slate-400 text-sm mb-3">深度学习框架</p>
+                    <h3 class="text-lg font-semibold mb-2">Neural Networks</h3>
+                    <p class="text-slate-400 text-sm mb-3">Deep Learning Frameworks</p>
                     <div class="skill-level">
                         <div class="skill-progress" style="width: 80%"></div>
                     </div>
-                    <div class="text-xs text-slate-500 mt-2">高级</div>
+                    <div class="text-xs text-slate-500 mt-2">Advanced</div>
                 </div>
-                
+
                 <div class="skill-item" data-skill="75">
                     <div class="skill-icon">💾</div>
-                    <h3 class="text-lg font-semibold mb-2">存内计算</h3>
-                    <p class="text-slate-400 text-sm mb-3">新型计算架构</p>
+                    <h3 class="text-lg font-semibold mb-2">In-Memory Computing</h3>
+                    <p class="text-slate-400 text-sm mb-3">Novel Computing Architectures</p>
                     <div class="skill-level">
                         <div class="skill-progress" style="width: 75%"></div>
                     </div>
-                    <div class="text-xs text-slate-500 mt-2">中级</div>
+                    <div class="text-xs text-slate-500 mt-2">Intermediate</div>
                 </div>
-                
+
                 <div class="skill-item" data-skill="78">
                     <div class="skill-icon">📊</div>
-                    <h3 class="text-lg font-semibold mb-2">电路优化</h3>
-                    <p class="text-slate-400 text-sm mb-3">性能与功耗优化</p>
+                    <h3 class="text-lg font-semibold mb-2">Circuit Optimization</h3>
+                    <p class="text-slate-400 text-sm mb-3">Performance and Power Optimization</p>
                     <div class="skill-level">
                         <div class="skill-progress" style="width: 78%"></div>
                     </div>
-                    <div class="text-xs text-slate-500 mt-2">中级</div>
+                    <div class="text-xs text-slate-500 mt-2">Intermediate</div>
                 </div>
-                
+
                 <div class="skill-item" data-skill="72">
                     <div class="skill-icon">🔬</div>
                     <h3 class="text-lg font-semibold mb-2">Academic Research</h3>
-                    <p class="text-slate-400 text-sm mb-3">论文写作与发表</p>
+                    <p class="text-slate-400 text-sm mb-3">Paper Writing and Publication</p>
                     <div class="skill-level">
                         <div class="skill-progress" style="width: 72%"></div>
                     </div>
-                    <div class="text-xs text-slate-500 mt-2">中级</div>
+                    <div class="text-xs text-slate-500 mt-2">Intermediate</div>
                 </div>
             </div>
         </div>
     </section>
-    
+
     <!-- Contact Section -->
     <section class="content-section bg-slate-900/50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
                 <h2 class="text-4xl font-bold mb-4">
-                    <span class="text-cyan-400">联系</span>
-                    <span class="text-purple-400">方式</span>
+                    <span class="text-cyan-400">Contact</span>
+                    <span class="text-purple-400">Information</span>
                 </h2>
-                <p class="text-xl text-slate-400">欢迎学术交流与合作</p>
+                <p class="text-xl text-slate-400">Welcome Academic Exchange and Collaboration</p>
             </div>
-            
+
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div class="contact-card">
                     <div class="contact-icon">📧</div>
-                    <h3 class="text-xl font-semibold mb-3">邮箱联系</h3>
-                    <p class="text-slate-400 mb-4">直接发送邮件进行学术交流</p>
-                    <a href="mailto:haiyanq@buaa.edu.cn" class="inline-block px-6 py-2 bg-cyan-500/20 text-cyan-400 rounded-lg hover:bg-cyan-500/30 transition-colors">
-                        发送邮件
+                    <h3 class="text-xl font-semibold mb-3">Email Contact</h3>
+                    <p class="text-slate-400 mb-4">Send email for academic exchange</p>
+                    <a href="mailto:haiyanq@buaa.edu.cn"
+                        class="inline-block px-6 py-2 bg-cyan-500/20 text-cyan-400 rounded-lg hover:bg-cyan-500/30 transition-colors">
+                        Send Email
                     </a>
                 </div>
-                
+
                 <div class="contact-card">
                     <div class="contact-icon">🎓</div>
-                    <h3 class="text-xl font-semibold mb-3">学术主页</h3>
-                    <p class="text-slate-400 mb-4">查看我的学术成果和引用</p>
-                    <a href="https://scholar.google.com/citations?user=zzmYq9QAAAAJ&hl=en" target="_blank" class="inline-block px-6 py-2 bg-purple-500/20 text-purple-400 rounded-lg hover:bg-purple-500/30 transition-colors">
+                    <h3 class="text-xl font-semibold mb-3">Academic Homepage</h3>
+                    <p class="text-slate-400 mb-4">View my academic achievements and citations</p>
+                    <a href="https://scholar.google.com/citations?user=zzmYq9QAAAAJ&hl=en" target="_blank"
+                        class="inline-block px-6 py-2 bg-purple-500/20 text-purple-400 rounded-lg hover:bg-purple-500/30 transition-colors">
                         Google Scholar
                     </a>
                 </div>
-                
+
                 <div class="contact-card">
                     <div class="contact-icon">💻</div>
                     <h3 class="text-xl font-semibold mb-3">Open Source Projects</h3>
                     <p class="text-slate-400 mb-4">Explore my code and projects</p>
-                    <a href="https://github.com/qhy991" target="_blank" class="inline-block px-6 py-2 bg-green-500/20 text-green-400 rounded-lg hover:bg-green-500/30 transition-colors">
+                    <a href="https://github.com/qhy991" target="_blank"
+                        class="inline-block px-6 py-2 bg-green-500/20 text-green-400 rounded-lg hover:bg-green-500/30 transition-colors">
                         GitHub
                     </a>
                 </div>
             </div>
-            
+
             <div class="mt-16 text-center">
                 <div class="contact-card max-w-2xl mx-auto">
-                    <h3 class="text-2xl font-semibold mb-4 text-cyan-400">学术服务</h3>
-                    <p class="text-slate-400 mb-6">我可以为以下学术活动提供支持：</p>
+                    <h3 class="text-2xl font-semibold mb-4 text-cyan-400">Academic Services</h3>
+                    <p class="text-slate-400 mb-6">I can provide support for the following academic activities:</p>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <div class="p-4 bg-slate-800/50 rounded-lg">
                             <div class="text-2xl mb-2">🤝</div>
@@ -585,18 +618,18 @@
                         </div>
                         <div class="p-4 bg-slate-800/50 rounded-lg">
                             <div class="text-2xl mb-2">📋</div>
-                            <div class="font-semibold">学术评审</div>
+                            <div class="font-semibold">Academic Review</div>
                         </div>
                         <div class="p-4 bg-slate-800/50 rounded-lg">
                             <div class="text-2xl mb-2">🎯</div>
-                            <div class="font-semibold">会议参与</div>
+                            <div class="font-semibold">Conference Participation</div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    
+
     <!-- Footer -->
     <footer class="bg-slate-900/80 border-t border-cyan-500/30 py-8">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -608,7 +641,8 @@
                     <a href="mailto:haiyanq@buaa.edu.cn" class="text-cyan-400 hover:text-cyan-300 transition-colors">
                         <span class="mono-font">Email</span>
                     </a>
-                    <a href="https://scholar.google.com/citations?user=zzmYq9QAAAAJ&hl=en" class="text-cyan-400 hover:text-cyan-300 transition-colors">
+                    <a href="https://scholar.google.com/citations?user=zzmYq9QAAAAJ&hl=en"
+                        class="text-cyan-400 hover:text-cyan-300 transition-colors">
                         <span class="mono-font">Scholar</span>
                     </a>
                     <a href="https://github.com/qhy991" class="text-cyan-400 hover:text-cyan-300 transition-colors">
@@ -618,7 +652,7 @@
             </div>
         </div>
     </footer>
-    
+
     <script>
         // Initialize page
         document.addEventListener('DOMContentLoaded', () => {
@@ -627,19 +661,19 @@
             setupSkillAnimations();
             setupContactCards();
         });
-        
+
         // Mobile menu
         function setupMobileMenu() {
             const menuBtn = document.getElementById('mobile-menu-btn');
             const mobileMenu = document.getElementById('mobile-menu');
-            
+
             if (menuBtn && mobileMenu) {
                 menuBtn.addEventListener('click', () => {
                     mobileMenu.classList.toggle('hidden');
                 });
             }
         }
-        
+
         // Timeline animations
         function setupTimelineAnimations() {
             const observer = new IntersectionObserver((entries) => {
@@ -649,33 +683,33 @@
                     }
                 });
             }, { threshold: 0.3 });
-            
+
             document.querySelectorAll('.timeline-item').forEach(item => {
                 observer.observe(item);
             });
         }
-        
+
         // Skill animations
         function setupSkillAnimations() {
             const skillItems = document.querySelectorAll('.skill-item');
-            
+
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         const skillLevel = entry.target.dataset.skill;
                         const progressBar = entry.target.querySelector('.skill-progress');
-                        
+
                         setTimeout(() => {
                             progressBar.style.width = skillLevel + '%';
                         }, 200);
                     }
                 });
             }, { threshold: 0.5 });
-            
+
             skillItems.forEach(item => {
                 observer.observe(item);
             });
-            
+
             // Hover effects
             skillItems.forEach(item => {
                 item.addEventListener('mouseenter', () => {
@@ -686,7 +720,7 @@
                         easing: 'easeOutQuad'
                     });
                 });
-                
+
                 item.addEventListener('mouseleave', () => {
                     anime({
                         targets: item,
@@ -697,11 +731,11 @@
                 });
             });
         }
-        
+
         // Contact card animations
         function setupContactCards() {
             const contactCards = document.querySelectorAll('.contact-card');
-            
+
             contactCards.forEach(card => {
                 card.addEventListener('mouseenter', () => {
                     anime({
@@ -711,7 +745,7 @@
                         easing: 'easeOutQuad'
                     });
                 });
-                
+
                 card.addEventListener('mouseleave', () => {
                     anime({
                         targets: card,
@@ -724,4 +758,5 @@
         }
     </script>
 </body>
+
 </html>
