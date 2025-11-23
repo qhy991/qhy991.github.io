@@ -37,6 +37,7 @@ My research focuses on the intersection of AI and hardware design:
 ### Contact
 
 You can reach me through:
+- <i class="fas fa-envelope"></i> **Email**: [haiyanq@buaa.edu.cn](mailto:haiyanq@buaa.edu.cn)
 - <i class="fas fa-graduation-cap"></i> **Google Scholar**: [View my profile](https://scholar.google.com/citations?user=zzmYq9QAAAAJ&hl=en)
 - <i class="fab fa-github"></i> **GitHub**: [qhy991](https://github.com/qhy991)
 

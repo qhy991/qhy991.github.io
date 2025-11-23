@@ -72,6 +72,7 @@ I am **Haiyan Qin** (秦海岩), a graduate student at **Beihang University** wi
 
 ### <i class="fas fa-link"></i> Connect With Me
 
+- **<i class="fas fa-envelope"></i> [Email](mailto:haiyanq@buaa.edu.cn)** - Send me an email for collaboration or inquiries
 - **<i class="fas fa-graduation-cap"></i> [Google Scholar](https://scholar.google.com/citations?user=zzmYq9QAAAAJ&hl=en)** - View my publications and citation metrics
 - **<i class="fab fa-github"></i> [GitHub](https://github.com/qhy991)** - View my code repositories and projects
 
