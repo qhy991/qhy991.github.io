@@ -227,31 +227,14 @@ Please contact me if you are interested in working together on research or educa
 
 #### 📚 Academic Resource Collections
 
-<div class="academic-collections">
-  <p><strong>Curated repositories tracking the latest advancements in AI-assisted hardware design:</strong></p>
+**Curated repositories tracking the latest advancements in AI-assisted hardware design:**
 
-  <div class="collection-item">
-    <div class="collection-badge">
-      [![Awesome-LLM-Kernel-Agent](https://img.shields.io/github/stars/qhy991/Awesome-LLM-Kernel-Agent?style=social)](https://github.com/qhy991/Awesome-LLM-Kernel-Agent)
-    </div>
-    <div class="collection-info">
-      <strong>Awesome LLM Kernel Agent</strong><br>
-      <em>A comprehensive collection of academic works on GPU kernel generation using LLM agents. Features cutting-edge research in CUDA, Triton, and multi-agent optimization frameworks.</em>
-    </div>
-  </div>
+| Repository | Description | Stars |
+|------------|-------------|-------|
+| [**Awesome-LLM-Kernel-Agent**](https://github.com/qhy991/Awesome-LLM-Kernel-Agent) | A comprehensive collection of academic works on GPU kernel generation using LLM agents. Features cutting-edge research in CUDA, Triton, and multi-agent optimization frameworks. | ![Stars](https://img.shields.io/github/stars/qhy991/Awesome-LLM-Kernel-Agent?style=social) |
+| [**Awesome-LLM-Circuit-Agent**](https://github.com/qhy991/Awesome-LLM-Circuit-Agent) | A curated repository of academic papers on RTL generation and analog circuit design using large language models. Covers Verilog code generation, circuit optimization, and AI-assisted hardware synthesis. | ![Stars](https://img.shields.io/github/stars/qhy991/Awesome-LLM-Circuit-Agent?style=social) |
 
-  <div class="collection-item">
-    <div class="collection-badge">
-      [![Awesome-LLM-Circuit-Agent](https://img.shields.io/github/stars/qhy991/Awesome-LLM-Circuit-Agent?style=social)](https://github.com/qhy991/Awesome-LLM-Circuit-Agent)
-    </div>
-    <div class="collection-info">
-      <strong>Awesome LLM Circuit Agent</strong><br>
-      <em>A curated repository of academic papers on RTL generation and analog circuit design using large language models. Covers Verilog code generation, circuit optimization, and AI-assisted hardware synthesis.</em>
-    </div>
-  </div>
-
-  <p><em>These collections serve as valuable resources for researchers and practitioners working at the intersection of AI and hardware design, providing up-to-date references and implementation insights.</em></p>
-</div>
+*These collections serve as valuable resources for researchers and practitioners working at the intersection of AI and hardware design, providing up-to-date references and implementation insights.*
 
 ---
 
