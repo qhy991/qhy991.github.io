@@ -69,7 +69,11 @@ My research focuses on the intersection of AI and hardware design:
 - Hardware verification code generation
 
 **Additional Resources:**
-- [TC-Bench Dataset](https://huggingface.co/datasets/hyq001/TC-Bench) - Comprehensive test benchmark designed for Verilog code generation and optimization, containing 5,000+ diverse test cases
+- [TC-Bench Dataset](https://huggingface.co/datasets/hyq001/TC-Bench) - **TC-Bench Test Suite & Evaluation Tools**
+
+  This directory contains the complete TC-Bench benchmark dataset for evaluation. The dataset is organized into three difficulty levels: Easy, Medium, and Hard, with subfolders for each problem (problem description, test code, reference solutions). Notably, this directory also includes performance evaluation tools, allowing you to compare the performance of generated circuits (using metrics like SEI) against established human expert tiers. Detailed information about the dataset structure and the use of evaluation tools can be found in the README file within the TC-Bench directory.
+
+  [Click here to browse the TC-Bench dataset and tools](https://huggingface.co/datasets/hyq001/TC-Bench)
 
 ### Research Highlights
 
