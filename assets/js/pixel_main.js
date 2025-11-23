@@ -14,12 +14,12 @@ class AcademicHomepage {
             'date': this.showDate.bind(this),
             'whoami': this.showWhoami.bind(this)
         };
-        
+
         this.commandHistory = [];
         this.historyIndex = -1;
         this.init();
     }
-    
+
     init() {
         this.setupParticleBackground();
         this.setupTerminal();
@@ -28,17 +28,17 @@ class AcademicHomepage {
         this.setupMobileMenu();
         this.setupTypewriter();
     }
-    
+
     // Particle background using p5.js
     setupParticleBackground() {
         new p5((p) => {
             let particles = [];
             const numParticles = 50;
-            
+
             p.setup = () => {
                 const canvas = p.createCanvas(p.windowWidth, p.windowHeight);
                 canvas.parent('particle-bg');
-                
+
                 // Create particles
                 for (let i = 0; i < numParticles; i++) {
                     particles.push({
@@ -51,56 +51,56 @@ class AcademicHomepage {
                     });
                 }
             };
-            
+
             p.draw = () => {
                 p.clear();
-                
+
                 // Update and draw particles
                 particles.forEach(particle => {
                     // Update position
                     particle.x += particle.vx;
                     particle.y += particle.vy;
-                    
+
                     // Wrap around edges
                     if (particle.x < 0) particle.x = p.width;
                     if (particle.x > p.width) particle.x = 0;
                     if (particle.y < 0) particle.y = p.height;
                     if (particle.y > p.height) particle.y = 0;
-                    
+
                     // Draw particle
                     p.fill(6, 182, 212, particle.opacity * 255);
                     p.noStroke();
                     p.rect(particle.x, particle.y, particle.size, particle.size);
                 });
-                
+
                 // Draw connections
                 for (let i = 0; i < particles.length; i++) {
                     for (let j = i + 1; j < particles.length; j++) {
-                        const dist = p.dist(particles[i].x, particles[i].y, 
-                                          particles[j].x, particles[j].y);
+                        const dist = p.dist(particles[i].x, particles[i].y,
+                            particles[j].x, particles[j].y);
                         if (dist < 100) {
                             p.stroke(139, 92, 246, (1 - dist / 100) * 50);
                             p.strokeWeight(1);
-                            p.line(particles[i].x, particles[i].y, 
-                                   particles[j].x, particles[j].y);
+                            p.line(particles[i].x, particles[i].y,
+                                particles[j].x, particles[j].y);
                         }
                     }
                 }
             };
-            
+
             p.windowResized = () => {
                 p.resizeCanvas(p.windowWidth, p.windowHeight);
             };
         });
     }
-    
+
     // Terminal functionality
     setupTerminal() {
         const input = document.getElementById('command-input');
         const terminalBody = document.getElementById('terminal-body');
-        
+
         if (!input || !terminalBody) return;
-        
+
         input.addEventListener('keydown', (e) => {
             if (e.key === 'Enter') {
                 e.preventDefault();
@@ -125,41 +125,41 @@ class AcademicHomepage {
                 }
             }
         });
-        
+
         // Auto-focus on terminal input
         input.focus();
     }
-    
+
     executeCommand(command) {
         const terminalBody = document.getElementById('terminal-body');
         const input = document.getElementById('command-input');
-        
+
         // Add command to terminal
         const commandLine = document.createElement('div');
         commandLine.className = 'output';
         commandLine.innerHTML = `<span class="prompt">></span> ${command}`;
         terminalBody.insertBefore(commandLine, input.parentElement);
-        
+
         // Execute command
         if (this.terminalCommands[command]) {
             this.terminalCommands[command]();
         } else if (command) {
-            this.addTerminalOutput(`命令未找到: ${command}. 输入 'help' 查看可用命令。`);
+            this.addTerminalOutput(`Command not found: ${command}. Type 'help' to see available commands.`);
         }
-        
+
         // Scroll to bottom
         terminalBody.scrollTop = terminalBody.scrollHeight;
     }
-    
+
     addTerminalOutput(text, className = 'output') {
         const terminalBody = document.getElementById('terminal-body');
         const input = document.getElementById('command-input');
-        
+
         const output = document.createElement('div');
         output.className = className;
         output.textContent = text;
         terminalBody.insertBefore(output, input.parentElement);
-        
+
         // Animate text appearance
         anime({
             targets: output,
@@ -169,142 +169,142 @@ class AcademicHomepage {
             easing: 'easeOutQuad'
         });
     }
-    
+
     // Terminal commands
     showHelp() {
         const helpText = [
-            '可用命令:',
-            '  about       - 显示个人信息',
-            '  skills      - 显示研究领域',
-            '  projects    - 显示项目列表',
-            '  publications- 显示论文列表',
-            '  contact     - 显示联系方式',
-            '  date        - 显示当前日期',
-            '  whoami      - 显示当前用户',
-            '  clear       - 清屏',
-            '  help        - 显示此帮助信息',
+            'Available commands:',
+            '  about       - Show personal info',
+            '  skills      - Show research fields',
+            '  projects    - Show project list',
+            '  publications- Show publication list',
+            '  contact     - Show contact info',
+            '  date        - Show current date',
+            '  whoami      - Show current user',
+            '  clear       - Clear screen',
+            '  help        - Show this help message',
             '',
-            '使用上下箭头键浏览命令历史'
+            'Use up/down arrow keys to browse command history'
         ];
-        
+
         helpText.forEach(line => {
             this.addTerminalOutput(line);
         });
     }
-    
+
     showAbout() {
         const aboutText = [
-            'Haiyan Qin (Haiyan Qin)',
+            'Haiyan Qin',
             '===================',
-            '北京航空航天大学研究生',
-            '研究领域: AI辅助硬件设计、神经网络部署、电路优化',
+            'Graduate Student at Beihang University',
+            'Research Fields: AI-Assisted Hardware Design, Neural Network Deployment, Circuit Optimization',
             '',
-            '学术成就:',
-            '- 7篇学术论文',
-            '- 5次引用',
-            '- H指数: 1',
-            '- 30+开源项目',
+            'Academic Achievements:',
+            '- 7 Publications',
+            '- 5 Citations',
+            '- H-Index: 1',
+            '- 30+ Open Source Projects',
             '',
-            '专注于LLM电路生成和高效神经网络研究'
+            'Focusing on LLM Circuit Generation and Efficient Neural Network Research'
         ];
-        
+
         aboutText.forEach(line => {
             this.addTerminalOutput(line);
         });
     }
-    
+
     showSkills() {
         const skillsText = [
-            '研究领域 (熟练度):',
+            'Research Fields (Proficiency):',
             '===================',
-            '🤖 AI辅助电路设计     ████████░░ 85%',
-            '🧠 神经网络部署       ████████░░ 80%',
-            '💾 存内计算          ███████░░░ 75%',
-            '📊 电路优化          ████████░░ 82%',
-            '🔧 Verilog/HDL       █████████░ 90%',
-            '⚡ CUDA/GPU          ████████░░ 80%',
-            '🐍 Python/ML         █████████░ 88%',
+            '🤖 AI Circuit Design     ████████░░ 85%',
+            '🧠 NN Deployment         ████████░░ 80%',
+            '💾 In-Memory Computing   ███████░░░ 75%',
+            '📊 Circuit Optimization  ████████░░ 82%',
+            '🔧 Verilog/HDL           █████████░ 90%',
+            '⚡ CUDA/GPU              ████████░░ 80%',
+            '🐍 Python/ML             █████████░ 88%',
             '',
-            '持续学习和研究中...'
+            'Continuously learning and researching...'
         ];
-        
+
         skillsText.forEach(line => {
             this.addTerminalOutput(line);
         });
     }
-    
+
     showProjects() {
         const projectsText = [
-            '主要项目:',
+            'Main Projects:',
             '===================',
             '1. Awesome-LLM-Circuit-Agent',
-            '   - 基于LLM的RTL生成和模拟电路生成',
+            '   - LLM-based RTL generation and analog circuit generation',
             '   - ⭐ 2 stars, 1 fork',
             '',
             '2. Awesome-LLM-Kernel-Agent',
-            '   - 内核生成的LLM智能体研究',
+            '   - Research on LLM agents for kernel generation',
             '   - ⭐ 3 stars',
             '',
             '3. Digital-CIM',
-            '   - Verilog实现的数字存内计算',
+            '   - Verilog implementation of digital in-memory computing',
             '   - ⭐ 1 star, 1 fork',
             '',
-            '更多项目请访问: https://github.com/qhy991'
+            'More projects at: https://github.com/qhy991'
         ];
-        
+
         projectsText.forEach(line => {
             this.addTerminalOutput(line);
         });
     }
-    
+
     showPublications() {
         const publicationsText = [
-            '主要论文:',
+            'Main Publications:',
             '===================',
             '1. "ReasoningV: Efficient Verilog Code Generation with Adaptive Hybrid Reasoning Model"',
-            '   - ICAIS 2025 (已接收)',
-            '   - 自适应混合推理模型的高效Verilog代码生成',
+            '   - ICAIS 2025 (Accepted)',
+            '   - Efficient Verilog code generation with adaptive hybrid reasoning model',
             '',
             '2. "Multi-agent Approaches for Circuit Design Optimization"',
-            '   - DAC 2025 (已接收)',
-            '   - 电路设计优化的多智能体方法',
+            '   - DAC 2025 (Accepted)',
+            '   - Multi-agent approaches for circuit design optimization',
             '',
-            '总计: 7篇论文，5次引用',
+            'Total: 7 papers, 5 citations',
             '',
             'Google Scholar: https://scholar.google.com/citations?user=zzmYq9QAAAAJ&hl=en'
         ];
-        
+
         publicationsText.forEach(line => {
             this.addTerminalOutput(line);
         });
     }
-    
+
     showContact() {
         const contactText = [
-            '联系方式:',
+            'Contact Info:',
             '===================',
             '📧 Email: haiyanq@buaa.edu.cn',
             '🎓 Google Scholar: zzmYq9QAAAAJ',
             '💻 GitHub: qhy991',
-            '🏫 机构: 北京航空航天大学',
+            '🏫 Institution: Beihang University',
             '',
-            '欢迎学术交流与合作！',
+            'Welcome academic exchange and collaboration!',
             '',
-            '可用服务:',
-            '- 研究合作',
-            '- 学术评审',
-            '- 会议参与'
+            'Available Services:',
+            '- Research Collaboration',
+            '- Academic Review',
+            '- Conference Participation'
         ];
-        
+
         contactText.forEach(line => {
             this.addTerminalOutput(line);
         });
     }
-    
+
     clearTerminal() {
         const terminalBody = document.getElementById('terminal-body');
         const input = document.getElementById('command-input');
-        
+
         // Clear all content except input
         const children = Array.from(terminalBody.children);
         children.forEach(child => {
@@ -313,10 +313,10 @@ class AcademicHomepage {
             }
         });
     }
-    
+
     showDate() {
         const now = new Date();
-        const dateStr = now.toLocaleString('zh-CN', {
+        const dateStr = now.toLocaleString('en-US', {
             year: 'numeric',
             month: '2-digit',
             day: '2-digit',
@@ -324,34 +324,34 @@ class AcademicHomepage {
             minute: '2-digit',
             second: '2-digit'
         });
-        this.addTerminalOutput(`当前时间: ${dateStr}`);
+        this.addTerminalOutput(`Current Time: ${dateStr}`);
     }
-    
+
     showWhoami() {
-        this.addTerminalOutput('当前用户: Haiyan_Qin (Haiyan Qin)');
-        this.addTerminalOutput('身份: AI Hardware Design Researcher');
-        this.addTerminalOutput('机构: 北京航空航天大学');
+        this.addTerminalOutput('Current User: Haiyan_Qin');
+        this.addTerminalOutput('Role: AI Hardware Design Researcher');
+        this.addTerminalOutput('Institution: Beihang University');
     }
-    
+
     // Skills radar chart
     setupSkillsRadar() {
         const chartDom = document.getElementById('skills-radar');
         if (!chartDom) return;
-        
+
         const myChart = echarts.init(chartDom);
-        
+
         const option = {
             backgroundColor: 'transparent',
             radar: {
                 indicator: [
-                    { name: 'AI电路设计', max: 100 },
-                    { name: '神经网络', max: 100 },
-                    { name: '存内计算', max: 100 },
-                    { name: '电路优化', max: 100 },
+                    { name: 'AI Circuit Design', max: 100 },
+                    { name: 'Neural Network', max: 100 },
+                    { name: 'In-Memory Computing', max: 100 },
+                    { name: 'Circuit Optimization', max: 100 },
                     { name: 'Verilog/HDL', max: 100 },
                     { name: 'CUDA/GPU', max: 100 },
                     { name: 'Python/ML', max: 100 },
-                    { name: '学术研究', max: 100 }
+                    { name: 'Academic Research', max: 100 }
                 ],
                 shape: 'polygon',
                 splitNumber: 4,
@@ -374,11 +374,11 @@ class AcademicHomepage {
                 }
             },
             series: [{
-                name: '技能水平',
+                name: 'Skill Level',
                 type: 'radar',
                 data: [{
                     value: [85, 80, 75, 82, 90, 80, 88, 85],
-                    name: '当前水平',
+                    name: 'Current Level',
                     areaStyle: {
                         color: 'rgba(6, 182, 212, 0.2)'
                     },
@@ -394,22 +394,22 @@ class AcademicHomepage {
                 animationEasing: 'cubicOut'
             }]
         };
-        
+
         myChart.setOption(option);
-        
+
         // Resize chart on window resize
         window.addEventListener('resize', () => {
             myChart.resize();
         });
     }
-    
+
     // Scroll animations
     setupScrollAnimations() {
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -50px 0px'
         };
-        
+
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -418,7 +418,7 @@ class AcademicHomepage {
                 }
             });
         }, observerOptions);
-        
+
         // Observe skill cards
         document.querySelectorAll('.skill-card').forEach(card => {
             card.style.opacity = '0';
@@ -427,28 +427,28 @@ class AcademicHomepage {
             observer.observe(card);
         });
     }
-    
+
     // Mobile menu
     setupMobileMenu() {
         const menuBtn = document.getElementById('mobile-menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
-        
+
         if (menuBtn && mobileMenu) {
             menuBtn.addEventListener('click', () => {
                 mobileMenu.classList.toggle('hidden');
             });
         }
     }
-    
+
     // Typewriter effect
     setupTypewriter() {
         const typewriterElements = document.querySelectorAll('.typewriter');
-        
+
         typewriterElements.forEach(element => {
             const text = element.textContent;
             element.textContent = '';
             element.style.borderRight = '2px solid #06b6d4';
-            
+
             let i = 0;
             const typeInterval = setInterval(() => {
                 if (i < text.length) {
@@ -469,9 +469,9 @@ class AcademicHomepage {
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     new AcademicHomepage();
-    
+
     // Add some additional interactive effects
-    
+
     // Achievement badge hover effects
     document.querySelectorAll('.achievement-badge').forEach(badge => {
         badge.addEventListener('mouseenter', () => {
@@ -483,7 +483,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 easing: 'easeOutQuad'
             });
         });
-        
+
         badge.addEventListener('mouseleave', () => {
             anime({
                 targets: badge,
@@ -494,7 +494,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     });
-    
+
     // Navigation link hover effects
     document.querySelectorAll('.nav-link').forEach(link => {
         link.addEventListener('mouseenter', () => {
@@ -505,7 +505,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 easing: 'easeOutQuad'
             });
         });
-        
+
         link.addEventListener('mouseleave', () => {
             anime({
                 targets: link,
@@ -515,7 +515,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     });
-    
+
     // Skill card hover effects
     document.querySelectorAll('.skill-card').forEach(card => {
         card.addEventListener('mouseenter', () => {
@@ -526,7 +526,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 easing: 'easeOutQuad'
             });
         });
-        
+
         card.addEventListener('mouseleave', () => {
             anime({
                 targets: card,
@@ -536,7 +536,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     });
-    
+
     // Floating animation for avatar
     anime({
         targets: '.floating',
@@ -546,7 +546,7 @@ document.addEventListener('DOMContentLoaded', () => {
         direction: 'alternate',
         loop: true
     });
-    
+
     // Pulse glow effect
     anime({
         targets: '.pulse-glow',
@@ -559,7 +559,7 @@ document.addEventListener('DOMContentLoaded', () => {
         easing: 'easeInOutSine',
         loop: true
     });
-    
+
     // News ticker animation
     const newsTicker = document.querySelector('.news-ticker');
     if (newsTicker) {
@@ -575,17 +575,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Utility functions
 function showComingSoon() {
-    alert('功能即将推出，敬请期待！');
+    alert('Feature coming soon, stay tuned!');
 }
 
 function copyToClipboard(text) {
     navigator.clipboard.writeText(text).then(() => {
         // Show success message
         const message = document.createElement('div');
-        message.textContent = '已复制到剪贴板！';
+        message.textContent = 'Copied to clipboard!';
         message.className = 'fixed top-20 right-4 bg-green-500 text-white px-4 py-2 rounded-lg z-50';
         document.body.appendChild(message);
-        
+
         setTimeout(() => {
             message.remove();
         }, 2000);

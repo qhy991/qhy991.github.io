@@ -1,21 +1,24 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio - Haiyan Qin</title>
-    
+
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Inter:wght@300;400;500;600;700&family=Press+Start+2P&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Inter:wght@300;400;500;600;700&family=Press+Start+2P&display=swap"
+        rel="stylesheet">
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
+
     <!-- Core Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.3/echarts.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
-    
+
     <!-- Custom Styles -->
     <style>
         :root {
@@ -27,32 +30,32 @@
             --text-light: #f1f5f9;
             --text-muted: #94a3b8;
         }
-        
+
         body {
             font-family: 'Inter', sans-serif;
             background: var(--primary-dark);
             color: var(--text-light);
             overflow-x: hidden;
         }
-        
+
         .pixel-font {
             font-family: 'Press Start 2P', cursive;
         }
-        
+
         .mono-font {
             font-family: 'JetBrains Mono', monospace;
         }
-        
+
         .hero-bg {
             background: linear-gradient(135deg, var(--primary-dark) 0%, #1e1b4b 50%, var(--primary-dark) 100%);
             position: relative;
         }
-        
+
         .pixel-border {
             border: 2px solid var(--accent-cyan);
             box-shadow: 0 0 20px rgba(6, 182, 212, 0.3);
         }
-        
+
         .project-card {
             background: rgba(30, 41, 59, 0.8);
             border: 1px solid var(--accent-purple);
@@ -63,13 +66,13 @@
             position: relative;
             overflow: hidden;
         }
-        
+
         .project-card:hover {
             border-color: var(--accent-cyan);
             box-shadow: 0 8px 25px rgba(139, 92, 246, 0.2);
             transform: translateY(-5px);
         }
-        
+
         .project-card::before {
             content: '';
             position: absolute;
@@ -80,11 +83,11 @@
             background: linear-gradient(90deg, transparent, rgba(6, 182, 212, 0.1), transparent);
             transition: left 0.5s ease;
         }
-        
+
         .project-card:hover::before {
             left: 100%;
         }
-        
+
         .project-image {
             width: 100%;
             height: 200px;
@@ -99,14 +102,14 @@
             position: relative;
             overflow: hidden;
         }
-        
+
         .project-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             border-radius: 8px;
         }
-        
+
         .tech-tag {
             display: inline-block;
             padding: 4px 12px;
@@ -116,31 +119,31 @@
             font-weight: 500;
             transition: all 0.3s ease;
         }
-        
+
         .tech-tag:hover {
             transform: scale(1.1);
         }
-        
+
         .tag-verilog {
             background: rgba(6, 182, 212, 0.2);
             color: var(--accent-cyan);
         }
-        
+
         .tag-python {
             background: rgba(139, 92, 246, 0.2);
             color: var(--accent-purple);
         }
-        
+
         .tag-cuda {
             background: rgba(16, 185, 129, 0.2);
             color: var(--accent-green);
         }
-        
+
         .tag-jupyter {
             background: rgba(245, 158, 11, 0.2);
             color: #f59e0b;
         }
-        
+
         .filter-btn {
             padding: 8px 16px;
             margin: 4px;
@@ -152,14 +155,14 @@
             transition: all 0.3s ease;
             font-size: 14px;
         }
-        
+
         .filter-btn:hover,
         .filter-btn.active {
             background: var(--accent-purple);
             color: white;
             box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
         }
-        
+
         .search-box {
             background: rgba(30, 41, 59, 0.8);
             border: 1px solid var(--accent-purple);
@@ -171,12 +174,12 @@
             outline: none;
             transition: all 0.3s ease;
         }
-        
+
         .search-box:focus {
             border-color: var(--accent-cyan);
             box-shadow: 0 0 20px rgba(6, 182, 212, 0.3);
         }
-        
+
         .stats-card {
             background: rgba(30, 41, 59, 0.8);
             border: 1px solid var(--accent-purple);
@@ -185,12 +188,12 @@
             text-align: center;
             transition: all 0.3s ease;
         }
-        
+
         .stats-card:hover {
             border-color: var(--accent-cyan);
             box-shadow: 0 8px 25px rgba(139, 92, 246, 0.2);
         }
-        
+
         .modal {
             display: none;
             position: fixed;
@@ -202,7 +205,7 @@
             z-index: 1000;
             backdrop-filter: blur(10px);
         }
-        
+
         .modal-content {
             position: absolute;
             top: 50%;
@@ -217,7 +220,7 @@
             max-height: 80vh;
             overflow-y: auto;
         }
-        
+
         .close-btn {
             position: absolute;
             top: 16px;
@@ -229,16 +232,16 @@
             cursor: pointer;
             transition: color 0.3s ease;
         }
-        
+
         .close-btn:hover {
             color: var(--accent-cyan);
         }
-        
+
         .nav-link {
             position: relative;
             transition: all 0.3s ease;
         }
-        
+
         .nav-link::after {
             content: '';
             position: absolute;
@@ -249,48 +252,48 @@
             background: var(--accent-cyan);
             transition: width 0.3s ease;
         }
-        
+
         .nav-link:hover::after {
             width: 100%;
         }
-        
+
         .content-section {
             padding: 80px 0;
             position: relative;
             z-index: 1;
         }
-        
+
         .github-stats {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 16px;
             margin-top: 24px;
         }
-        
+
         .github-stat {
             text-align: center;
             padding: 16px;
             background: rgba(30, 41, 59, 0.5);
             border-radius: 8px;
         }
-        
+
         .github-stat-value {
             font-size: 24px;
             font-weight: bold;
             color: var(--accent-cyan);
         }
-        
+
         .github-stat-label {
             font-size: 14px;
             color: var(--text-muted);
             margin-top: 4px;
         }
-        
+
         @media (max-width: 768px) {
             .content-section {
                 padding: 40px 20px;
             }
-            
+
             .modal-content {
                 padding: 20px;
                 width: 95%;
@@ -298,113 +301,123 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Navigation -->
     <nav class="fixed top-0 w-full z-50 bg-slate-900/80 backdrop-blur-md border-b border-cyan-500/30">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <div class="flex items-center">
-                    <span class="pixel-font text-cyan-400 text-sm">HAIYAN.QIN</span>
+                    <a href="index.html"
+                        class="pixel-font text-cyan-400 text-sm hover:text-cyan-300 transition-colors">HAIYAN.QIN</a>
                 </div>
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-8">
-                        <a href="index.html" class="nav-link text-slate-300 hover:text-cyan-300 px-3 py-2 text-sm font-medium">首页</a>
-                        <a href="about.html" class="nav-link text-slate-300 hover:text-cyan-300 px-3 py-2 text-sm font-medium">关于</a>
-                        <a href="portfolio.html" class="nav-link text-cyan-400 hover:text-cyan-300 px-3 py-2 text-sm font-medium">作品集</a>
-                        <a href="publications.html" class="nav-link text-slate-300 hover:text-cyan-300 px-3 py-2 text-sm font-medium">出版物</a>
+                        <a href="index.html"
+                            class="nav-link text-slate-300 hover:text-cyan-300 px-3 py-2 text-sm font-medium">Home</a>
+                        <a href="about.html"
+                            class="nav-link text-slate-300 hover:text-cyan-300 px-3 py-2 text-sm font-medium">About</a>
+                        <a href="portfolio.html"
+                            class="nav-link text-cyan-400 hover:text-cyan-300 px-3 py-2 text-sm font-medium">Portfolio</a>
+                        <a href="publications.html"
+                            class="nav-link text-slate-300 hover:text-cyan-300 px-3 py-2 text-sm font-medium">Publications</a>
                     </div>
                 </div>
                 <div class="md:hidden">
                     <button id="mobile-menu-btn" class="text-slate-300 hover:text-cyan-300">
                         <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16" />
                         </svg>
                     </button>
                 </div>
             </div>
         </div>
-        
+
         <!-- Mobile menu -->
         <div id="mobile-menu" class="md:hidden hidden bg-slate-900/95 backdrop-blur-md">
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <a href="index.html" class="block px-3 py-2 text-slate-300 hover:text-cyan-300 text-base font-medium">首页</a>
-                <a href="about.html" class="block px-3 py-2 text-slate-300 hover:text-cyan-300 text-base font-medium">关于</a>
-                <a href="portfolio.html" class="block px-3 py-2 text-cyan-400 text-base font-medium">作品集</a>
-                <a href="publications.html" class="block px-3 py-2 text-slate-300 hover:text-cyan-300 text-base font-medium">出版物</a>
+                <a href="index.html"
+                    class="block px-3 py-2 text-slate-300 hover:text-cyan-300 text-base font-medium">Home</a>
+                <a href="about.html"
+                    class="block px-3 py-2 text-slate-300 hover:text-cyan-300 text-base font-medium">About</a>
+                <a href="portfolio.html" class="block px-3 py-2 text-cyan-400 text-base font-medium">Portfolio</a>
+                <a href="publications.html"
+                    class="block px-3 py-2 text-slate-300 hover:text-cyan-300 text-base font-medium">Publications</a>
             </div>
         </div>
     </nav>
-    
+
     <!-- Hero Section -->
     <section class="hero-bg pt-20 pb-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center">
                 <h1 class="text-5xl lg:text-6xl font-bold mb-6">
-                    <span class="text-cyan-400">我的</span>
-                    <span class="text-purple-400">作品集</span>
+                    <span class="text-cyan-400">My</span>
+                    <span class="text-purple-400">Portfolio</span>
                 </h1>
                 <p class="text-xl text-slate-400 max-w-3xl mx-auto">
-                    探索我的开源项目、研究成果和技术创新
+                    Explore my open source projects, research achievements, and technical innovations
                 </p>
             </div>
         </div>
     </section>
-    
+
     <!-- GitHub Stats Section -->
     <section class="content-section">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
                 <h2 class="text-4xl font-bold mb-4">
                     <span class="text-cyan-400">GitHub</span>
-                    <span class="text-purple-400">统计</span>
+                    <span class="text-purple-400">Stats</span>
                 </h2>
-                <p class="text-xl text-slate-400">开源贡献和项目活跃度</p>
+                <p class="text-xl text-slate-400">Open Source Contributions and Project Activity</p>
             </div>
-            
+
             <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
                 <div class="stats-card">
                     <div class="github-stat-value">30+</div>
-                    <div class="github-stat-label">公开仓库</div>
+                    <div class="github-stat-label">Public Repos</div>
                 </div>
                 <div class="stats-card">
                     <div class="github-stat-value">50+</div>
-                    <div class="github-stat-label">提交次数</div>
+                    <div class="github-stat-label">Commits</div>
                 </div>
                 <div class="stats-card">
                     <div class="github-stat-value">15+</div>
-                    <div class="github-stat-label">星标总数</div>
+                    <div class="github-stat-label">Total Stars</div>
                 </div>
                 <div class="stats-card">
                     <div class="github-stat-value">8+</div>
-                    <div class="github-stat-label">分支总数</div>
+                    <div class="github-stat-label">Total Forks</div>
                 </div>
             </div>
         </div>
     </section>
-    
+
     <!-- Projects Section -->
     <section class="content-section bg-slate-900/50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
                 <h2 class="text-4xl font-bold mb-4">
-                    <span class="text-cyan-400">特色</span>
-                    <span class="text-purple-400">项目</span>
+                    <span class="text-cyan-400">Featured</span>
+                    <span class="text-purple-400">Projects</span>
                 </h2>
-                <p class="text-xl text-slate-400">精选的开源项目和研究成果</p>
+                <p class="text-xl text-slate-400">Selected Open Source Projects and Research Achievements</p>
             </div>
-            
+
             <!-- Search and Filter -->
             <div class="mb-12 text-center">
-                <input type="text" id="search-input" class="search-box" placeholder="搜索项目...">
+                <input type="text" id="search-input" class="search-box" placeholder="Search projects...">
                 <div class="mt-6">
-                    <button class="filter-btn active" data-filter="all">全部</button>
+                    <button class="filter-btn active" data-filter="all">All</button>
                     <button class="filter-btn" data-filter="verilog">Verilog</button>
                     <button class="filter-btn" data-filter="python">Python</button>
                     <button class="filter-btn" data-filter="cuda">CUDA</button>
                     <button class="filter-btn" data-filter="jupyter">Jupyter</button>
                 </div>
             </div>
-            
+
             <!-- Projects Grid -->
             <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Project 1: Awesome-LLM-Circuit-Agent -->
@@ -414,7 +427,8 @@
                     </div>
                     <h3 class="text-xl font-bold mb-2 text-cyan-400">Awesome-LLM-Circuit-Agent</h3>
                     <p class="text-slate-400 mb-4 text-sm">
-                        基于大语言模型的RTL生成和模拟电路生成的学术作品仓库，汇集了最新的研究成果和方法。
+                        Academic repository for LLM-based RTL generation and analog circuit generation, collecting the
+                        latest research results and methods.
                     </p>
                     <div class="mb-4">
                         <span class="tech-tag tag-python">Python</span>
@@ -427,7 +441,7 @@
                         <span>📅 2025</span>
                     </div>
                 </div>
-                
+
                 <!-- Project 2: Awesome-LLM-Kernel-Agent -->
                 <div class="project-card" data-tags="python" data-project="kernel-agent">
                     <div class="project-image">
@@ -435,7 +449,8 @@
                     </div>
                     <h3 class="text-xl font-bold mb-2 text-cyan-400">Awesome-LLM-Kernel-Agent</h3>
                     <p class="text-slate-400 mb-4 text-sm">
-                        内核生成的LLM智能体学术研究仓库，专注于使用大语言模型自动生成和优化CUDA内核代码。
+                        Academic research repository for LLM agents in kernel generation, focusing on using large
+                        language models to automatically generate and optimize CUDA kernel code.
                     </p>
                     <div class="mb-4">
                         <span class="tech-tag tag-python">Python</span>
@@ -448,7 +463,7 @@
                         <span>📅 2025</span>
                     </div>
                 </div>
-                
+
                 <!-- Project 3: Digital-CIM -->
                 <div class="project-card" data-tags="verilog" data-project="digital-cim">
                     <div class="project-image">
@@ -456,12 +471,13 @@
                     </div>
                     <h3 class="text-xl font-bold mb-2 text-cyan-400">Digital-CIM</h3>
                     <p class="text-slate-400 mb-4 text-sm">
-                        Verilog实现的数字存内计算系统，为AI边缘推理提供高效的硬件解决方案。
+                        Verilog implementation of digital in-memory computing system, providing efficient hardware
+                        solutions for AI edge inference.
                     </p>
                     <div class="mb-4">
                         <span class="tech-tag tag-verilog">Verilog</span>
                         <span class="tech-tag tag-python">FPGA</span>
-                        <span class="tech-tag tag-cuda">AI加速</span>
+                        <span class="tech-tag tag-cuda">AI Acceleration</span>
                     </div>
                     <div class="flex justify-between items-center text-sm text-slate-500">
                         <span>⭐ 1 star</span>
@@ -469,17 +485,19 @@
                         <span>📅 2024</span>
                     </div>
                 </div>
-                
+
                 <!-- Project 4: Chat-CPU -->
                 <div class="project-card" data-tags="verilog" data-project="chat-cpu">
                     <div class="project-image">
-                        <div style="background: linear-gradient(135deg, #06b6d4, #8b5cf6); width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+                        <div
+                            style="background: linear-gradient(135deg, #06b6d4, #8b5cf6); width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
                             💻
                         </div>
                     </div>
                     <h3 class="text-xl font-bold mb-2 text-cyan-400">Chat-CPU</h3>
                     <p class="text-slate-400 mb-4 text-sm">
-                        具有对话界面的CPU设计项目，结合了处理器设计和自然语言处理技术。
+                        CPU design project with conversational interface, combining processor design and natural
+                        language processing technology.
                     </p>
                     <div class="mb-4">
                         <span class="tech-tag tag-verilog">Verilog</span>
@@ -492,17 +510,19 @@
                         <span>📅 2024</span>
                     </div>
                 </div>
-                
+
                 <!-- Project 5: GRPO-Clean -->
                 <div class="project-card" data-tags="python" data-project="grpo-clean">
                     <div class="project-image">
-                        <div style="background: linear-gradient(135deg, #10b981, #06b6d4); width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+                        <div
+                            style="background: linear-gradient(135deg, #10b981, #06b6d4); width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
                             🧹
                         </div>
                     </div>
                     <h3 class="text-xl font-bold mb-2 text-cyan-400">GRPO-Clean</h3>
                     <p class="text-slate-400 mb-4 text-sm">
-                        组相对策略优化的清洁实现，用于强化学习和策略优化研究。
+                        Clean implementation of Group Relative Policy Optimization for reinforcement learning and policy
+                        optimization research.
                     </p>
                     <div class="mb-4">
                         <span class="tech-tag tag-python">Python</span>
@@ -515,17 +535,19 @@
                         <span>📅 2024</span>
                     </div>
                 </div>
-                
+
                 <!-- Project 6: Blog-Note -->
                 <div class="project-card" data-tags="jupyter" data-project="blog-note">
                     <div class="project-image">
-                        <div style="background: linear-gradient(135deg, #f59e0b, #8b5cf6); width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+                        <div
+                            style="background: linear-gradient(135deg, #f59e0b, #8b5cf6); width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
                             📝
                         </div>
                     </div>
                     <h3 class="text-xl font-bold mb-2 text-cyan-400">Blog-Note</h3>
                     <p class="text-slate-400 mb-4 text-sm">
-                        研究笔记和技术博客内容，记录学术思考和技术探索过程。
+                        Research notes and technical blog content, documenting academic thinking and technical
+                        exploration process.
                     </p>
                     <div class="mb-4">
                         <span class="tech-tag tag-jupyter">Jupyter</span>
@@ -538,17 +560,19 @@
                         <span>📅 2024</span>
                     </div>
                 </div>
-                
+
                 <!-- Project 7: Book-CUDA -->
                 <div class="project-card" data-tags="cuda jupyter" data-project="book-cuda">
                     <div class="project-image">
-                        <div style="background: linear-gradient(135deg, #10b981, #06b6d4); width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+                        <div
+                            style="background: linear-gradient(135deg, #10b981, #06b6d4); width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
                             📚
                         </div>
                     </div>
                     <h3 class="text-xl font-bold mb-2 text-cyan-400">Book-CUDA</h3>
                     <p class="text-slate-400 mb-4 text-sm">
-                        CUDA编程学习笔记和示例代码，系统整理CUDA编程知识和最佳实践。
+                        CUDA programming learning notes and example code, systematically organizing CUDA programming
+                        knowledge and best practices.
                     </p>
                     <div class="mb-4">
                         <span class="tech-tag tag-cuda">CUDA</span>
@@ -561,17 +585,19 @@
                         <span>📅 2023</span>
                     </div>
                 </div>
-                
+
                 <!-- Project 8: ReasoningV -->
                 <div class="project-card" data-tags="python" data-project="reasoningv">
                     <div class="project-image">
-                        <div style="background: linear-gradient(135deg, #06b6d4, #8b5cf6); width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+                        <div
+                            style="background: linear-gradient(135deg, #06b6d4, #8b5cf6); width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
                             🧠
                         </div>
                     </div>
                     <h3 class="text-xl font-bold mb-2 text-cyan-400">ReasoningV</h3>
                     <p class="text-slate-400 mb-4 text-sm">
-                        自适应混合推理模型的高效Verilog代码生成，ICAIS 2025接收论文的实现代码。
+                        Efficient Verilog code generation with adaptive hybrid reasoning model, implementation code for
+                        ICAIS 2025 accepted paper.
                     </p>
                     <div class="mb-4">
                         <span class="tech-tag tag-python">Python</span>
@@ -584,17 +610,19 @@
                         <span>📅 2025</span>
                     </div>
                 </div>
-                
+
                 <!-- Project 9: Multi-Agent-Circuit -->
                 <div class="project-card" data-tags="python verilog" data-project="multi-agent">
                     <div class="project-image">
-                        <div style="background: linear-gradient(135deg, #8b5cf6, #10b981); width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+                        <div
+                            style="background: linear-gradient(135deg, #8b5cf6, #10b981); width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
                             🤖
                         </div>
                     </div>
                     <h3 class="text-xl font-bold mb-2 text-cyan-400">Multi-Agent-Circuit</h3>
                     <p class="text-slate-400 mb-4 text-sm">
-                        电路设计优化的多智能体方法，DAC 2025接收论文的实现代码和实验数据。
+                        Multi-agent approaches for circuit design optimization, implementation code and experimental
+                        data for DAC 2025 accepted paper.
                     </p>
                     <div class="mb-4">
                         <span class="tech-tag tag-python">Python</span>
@@ -610,7 +638,7 @@
             </div>
         </div>
     </section>
-    
+
     <!-- Project Detail Modal -->
     <div id="project-modal" class="modal">
         <div class="modal-content">
@@ -620,7 +648,7 @@
             </div>
         </div>
     </div>
-    
+
     <!-- Footer -->
     <footer class="bg-slate-900/80 border-t border-cyan-500/30 py-8">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -632,7 +660,8 @@
                     <a href="mailto:haiyanq@buaa.edu.cn" class="text-cyan-400 hover:text-cyan-300 transition-colors">
                         <span class="mono-font">Email</span>
                     </a>
-                    <a href="https://scholar.google.com/citations?user=zzmYq9QAAAAJ&hl=en" class="text-cyan-400 hover:text-cyan-300 transition-colors">
+                    <a href="https://scholar.google.com/citations?user=zzmYq9QAAAAJ&hl=en"
+                        class="text-cyan-400 hover:text-cyan-300 transition-colors">
                         <span class="mono-font">Scholar</span>
                     </a>
                     <a href="https://github.com/qhy991" class="text-cyan-400 hover:text-cyan-300 transition-colors">
@@ -642,7 +671,7 @@
             </div>
         </div>
     </footer>
-    
+
     <script>
         // Project data
         const projectDetails = {
@@ -695,7 +724,7 @@
                 image: 'assets/project-fpga.png'
             }
         };
-        
+
         // Initialize page
         document.addEventListener('DOMContentLoaded', () => {
             setupMobileMenu();
@@ -704,19 +733,19 @@
             setupProjectCards();
             setupAnimations();
         });
-        
+
         // Mobile menu
         function setupMobileMenu() {
             const menuBtn = document.getElementById('mobile-menu-btn');
             const mobileMenu = document.getElementById('mobile-menu');
-            
+
             if (menuBtn && mobileMenu) {
                 menuBtn.addEventListener('click', () => {
                     mobileMenu.classList.toggle('hidden');
                 });
             }
         }
-        
+
         // Search functionality
         function setupSearch() {
             const searchInput = document.getElementById('search-input');
@@ -724,7 +753,7 @@
                 filterProjects();
             });
         }
-        
+
         // Filter functionality
         function setupFilters() {
             const filterBtns = document.querySelectorAll('.filter-btn');
@@ -733,26 +762,26 @@
                     // Update active state
                     filterBtns.forEach(b => b.classList.remove('active'));
                     btn.classList.add('active');
-                    
+
                     filterProjects();
                 });
             });
         }
-        
+
         // Filter projects based on search and category
         function filterProjects() {
             const searchTerm = document.getElementById('search-input').value.toLowerCase();
             const activeFilter = document.querySelector('.filter-btn.active').dataset.filter;
             const projectCards = document.querySelectorAll('.project-card');
-            
+
             projectCards.forEach(card => {
                 const title = card.querySelector('h3').textContent.toLowerCase();
                 const description = card.querySelector('p').textContent.toLowerCase();
                 const tags = card.dataset.tags;
-                
+
                 const matchesSearch = title.includes(searchTerm) || description.includes(searchTerm);
                 const matchesFilter = activeFilter === 'all' || tags.includes(activeFilter);
-                
+
                 if (matchesSearch && matchesFilter) {
                     card.style.display = 'block';
                     anime({
@@ -767,11 +796,11 @@
                 }
             });
         }
-        
+
         // Project card interactions
         function setupProjectCards() {
             const projectCards = document.querySelectorAll('.project-card');
-            
+
             projectCards.forEach(card => {
                 card.addEventListener('click', () => {
                     const projectId = card.dataset.project;
@@ -781,7 +810,7 @@
                         showComingSoon();
                     }
                 });
-                
+
                 // Hover effects
                 card.addEventListener('mouseenter', () => {
                     anime({
@@ -791,7 +820,7 @@
                         easing: 'easeOutQuad'
                     });
                 });
-                
+
                 card.addEventListener('mouseleave', () => {
                     anime({
                         targets: card,
@@ -802,12 +831,12 @@
                 });
             });
         }
-        
+
         // Show project modal
         function showProjectModal(project) {
             const modal = document.getElementById('project-modal');
             const modalBody = document.getElementById('modal-body');
-            
+
             modalBody.innerHTML = `
                 <div class="text-center mb-6">
                     <img src="${project.image}" alt="${project.title}" class="w-full h-48 object-cover rounded-lg mb-4">
@@ -841,7 +870,7 @@
                     ${project.demo ? `<a href="${project.demo}" target="_blank" class="flex-1 bg-purple-500/20 text-purple-400 py-2 px-4 rounded-lg text-center hover:bg-purple-500/30 transition-colors">在线演示</a>` : ''}
                 </div>
             `;
-            
+
             modal.style.display = 'block';
             anime({
                 targets: modal,
@@ -850,7 +879,7 @@
                 easing: 'easeOutQuad'
             });
         }
-        
+
         // Close modal
         function closeModal() {
             const modal = document.getElementById('project-modal');
@@ -864,14 +893,14 @@
                 }
             });
         }
-        
+
         // Click outside modal to close
         document.getElementById('project-modal').addEventListener('click', (e) => {
             if (e.target.id === 'project-modal') {
                 closeModal();
             }
         });
-        
+
         // Setup animations
         function setupAnimations() {
             // Animate project cards on scroll
@@ -889,12 +918,12 @@
                     }
                 });
             }, { threshold: 0.1 });
-            
+
             document.querySelectorAll('.project-card').forEach(card => {
                 card.style.opacity = '0';
                 observer.observe(card);
             });
-            
+
             // Animate stats cards
             document.querySelectorAll('.stats-card').forEach(card => {
                 card.addEventListener('mouseenter', () => {
@@ -905,7 +934,7 @@
                         easing: 'easeOutQuad'
                     });
                 });
-                
+
                 card.addEventListener('mouseleave', () => {
                     anime({
                         targets: card,
@@ -916,11 +945,12 @@
                 });
             });
         }
-        
+
         // Coming soon function
         function showComingSoon() {
             alert('项目详情即将推出，敬请期待！');
         }
     </script>
 </body>
+
 </html>
