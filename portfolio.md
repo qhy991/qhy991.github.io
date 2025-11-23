@@ -234,10 +234,10 @@ Please contact me if you are interested in working together on research or educa
 
 | Repository | Description | Stars |
 |------------|-------------|-------|
-| [**Awesome-LLM-Kernel-Agent**](https://github.com/qhy991/Awesome-LLM-Kernel-Agent) | A comprehensive collection of academic works on GPU kernel generation using LLM agents. Features cutting-edge research in CUDA, Triton, and multi-agent optimization frameworks. | ![Stars](https://img.shields.io/github/stars/qhy991/Awesome-LLM-Kernel-Agent?style=social) |
-| [**Awesome-LLM-Circuit-Agent**](https://github.com/qhy991/Awesome-LLM-Circuit-Agent) | A curated repository of academic papers on RTL generation and analog circuit design using large language models. Covers Verilog code generation, circuit optimization, and AI-assisted hardware synthesis. | ![Stars](https://img.shields.io/github/stars/qhy991/Awesome-LLM-Circuit-Agent?style=social) |
+| [**Awesome-LLM-Kernel-Agent**](https://github.com/qhy991/Awesome-LLM-Kernel-Agent) | Comprehensive collection of GPU kernel generation research using LLM agents. Features CUDA, Triton, and multi-agent frameworks. | ![Stars](https://img.shields.io/github/stars/qhy991/Awesome-LLM-Kernel-Agent?style=social) |
+| [**Awesome-LLM-Circuit-Agent**](https://github.com/qhy991/Awesome-LLM-Circuit-Agent) | Curated papers on RTL and analog circuit design with LLMs. Covers Verilog generation and AI-assisted synthesis. | ![Stars](https://img.shields.io/github/stars/qhy991/Awesome-LLM-Circuit-Agent?style=social) |
 
-*These collections serve as valuable resources for researchers and practitioners working at the intersection of AI and hardware design, providing up-to-date references and implementation insights.*
+*These collections provide up-to-date references and insights for AI-assisted hardware design research.*
 
 ---
 
