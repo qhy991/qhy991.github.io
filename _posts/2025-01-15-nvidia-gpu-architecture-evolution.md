@@ -5,6 +5,7 @@ date: 2025-01-15
 author: Haiyan Qin
 tags: [GPU, NVIDIA, Architecture, CUDA, AI]
 reading_time: 10
+cover_image: /assets/blog-nvidia-gpu-evolution.png
 excerpt: "A comprehensive overview of NVIDIA GPU architecture evolution, exploring the key innovations from Tesla to the latest Hopper architecture."
 ---
 
