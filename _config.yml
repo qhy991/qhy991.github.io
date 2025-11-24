@@ -1,0 +1,41 @@
+# Site settings
+title: Haiyan Qin
+email: haiyanq@buaa.edu.cn
+description: >-
+  AI Infra Researcher at Beihang University. 
+  Research interests: AI-assisted hardware design, neural network deployment, and circuit optimization.
+baseurl: ""
+url: "https://qhy991.github.io"
+github_username: qhy991
+
+# Build settings
+markdown: kramdown
+theme: minima
+plugins:
+  - jekyll-feed
+
+# Collections
+collections:
+  posts:
+    output: true
+    permalink: /:year/:month/:day/:title/
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+      author: "Haiyan Qin"
+
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - .gemini/

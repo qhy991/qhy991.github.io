@@ -1,7 +1,3 @@
----
-layout: default
-title: Blog
----
 <!DOCTYPE html>
 <html lang="en">
 
@@ -35,6 +31,7 @@ title: Blog
             border-radius: 12px;
             padding: 24px;
             transition: all 0.3s ease;
+            cursor: pointer;
         }
 
         .blog-card:hover {
@@ -52,6 +49,14 @@ title: Blog
             font-size: 0.875rem;
             margin-right: 0.5rem;
             margin-bottom: 0.5rem;
+        }
+
+        .blog-cover-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 16px;
         }
     </style>
 </head>
@@ -101,49 +106,13 @@ title: Blog
     <!-- Blog Posts -->
     <section class="pb-16 px-4">
         <div class="max-w-7xl mx-auto">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {% for post in site.posts %}
-                <article class="blog-card">
-                    <div class="mb-4">
-                        {% if post.image %}
-                        <img src="{{ post.image }}" alt="{{ post.title }}"
-                            class="w-full h-48 object-cover rounded-lg mb-4">
-                        {% endif %}
-                        <h2 class="text-2xl font-bold mb-2">
-                            <a href="{{ post.url }}" class="text-cyan-400 hover:text-cyan-300">{{ post.title }}</a>
-                        </h2>
-                        <div class="text-sm text-slate-400 mb-3">
-                            <span>📅 {{ post.date | date: "%B %d, %Y" }}</span>
-                            {% if post.reading_time %}
-                            <span class="ml-4">⏱️ {{ post.reading_time }} min</span>
-                            {% endif %}
-                        </div>
-                    </div>
-
-                    <p class="text-slate-300 mb-4">
-                        {{ post.excerpt | strip_html | truncatewords: 30 }}
-                    </p>
-
-                    {% if post.tags %}
-                    <div class="mb-4">
-                        {% for tag in post.tags %}
-                        <span class="tag">{{ tag }}</span>
-                        {% endfor %}
-                    </div>
-                    {% endif %}
-
-                    <a href="{{ post.url }}" class="inline-flex items-center text-purple-400 hover:text-purple-300">
-                        Read More →
-                    </a>
-                </article>
-                {% endfor %}
-
-                <!-- Placeholder if no posts -->
-                {% if site.posts.size == 0 %}
+            <div id="blog-posts-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Posts will be loaded here by JavaScript -->
                 <div class="col-span-full text-center py-16">
-                    <p class="text-slate-400 text-xl">No blog posts yet. Stay tuned!</p>
+                    <div class="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-cyan-400">
+                    </div>
+                    <p class="text-slate-400 mt-4">Loading blog posts...</p>
                 </div>
-                {% endif %}
             </div>
         </div>
     </section>
@@ -158,6 +127,120 @@ title: Blog
             </div>
         </div>
     </footer>
+
+    <script>
+        // Blog posts data (manually maintained or could be loaded from JSON)
+        const blogPosts = [
+            {
+                title: "AI Image Generation Prompts Showcase: Creating Technical Cover Images",
+                date: "2025-11-24",
+                excerpt: "A comprehensive showcase of AI image generation prompts used to create professional cover images for technical projects and blog posts, with detailed analysis of what makes an effective prompt.",
+                tags: ["AI", "Image Generation", "Prompt Engineering", "Design", "Portfolio"],
+                reading_time: 12,
+                url: "_posts/2025-11-24-ai-image-generation-prompts-showcase.html",
+                cover_image: "/assets/blog-ai-prompts-showcase.png"
+            },
+            {
+                title: "CUDA Reduce: 完整代码实现与测试指南",
+                date: "2025-11-24",
+                excerpt: "本文档汇总了 Cooperative Groups Demo、Reduce 5 以及 Reduce 6-8 的完整可编译代码、测试 Harness 及编译命令，方便开发者直接复制运行。",
+                tags: ["CUDA", "Optimization", "C++", "Source Code"],
+                reading_time: 10,
+                url: "_posts/2025-11-24-cuda-reduce-complete-code.html",
+                cover_image: "/assets/blog-cuda-reduce-complete.png"
+            },
+            {
+                title: "CUDA Parallel Reduction: Deep Dive into Reduce 5 Optimization",
+                date: "2025-11-23",
+                excerpt: "A detailed analysis of the 'Reduce 5' optimization technique in CUDA parallel reduction, explaining warp unrolling, template metaprogramming, and memory coalescing.",
+                tags: ["CUDA", "GPU", "Parallel Computing", "Optimization", "C++"],
+                reading_time: 15,
+                url: "_posts/2025-11-23-reduce5.html",
+                cover_image: "/assets/blog-reduce5-deep-dive.png"
+            },
+            {
+                title: "CUDA Cooperative Groups: Deep Dive into Thread Hierarchy",
+                date: "2025-11-23",
+                excerpt: "A comprehensive guide to CUDA Cooperative Groups, explaining explicit synchronization, thread tiling, and how to use 'Russian Doll' style thread partitioning for efficient parallel algorithms.",
+                tags: ["CUDA", "GPU", "Cooperative Groups", "Optimization", "C++"],
+                reading_time: 12,
+                url: "_posts/2025-11-23-reduce-v0.2.html",
+                cover_image: "/assets/blog-reduce-v02.png"
+            },
+            {
+                title: "CUDA Reduction Evolution: From Modern C++ to Extreme Performance",
+                date: "2025-11-23",
+                excerpt: "A three-stage guide to evolving your CUDA reduction kernels: modernizing with Cooperative Groups, optimizing with Warp Shuffle, and simplifying with standard libraries.",
+                tags: ["CUDA", "GPU", "Optimization", "Cooperative Groups", "C++"],
+                reading_time: 15,
+                url: "_posts/2025-11-23-reduce-v0.3.html",
+                cover_image: "/assets/blog-reduce-v03.png"
+            },
+            {
+                title: "NVIDIA GPU Architecture Evolution: From Tesla to Hopper",
+                date: "2025-01-15",
+                excerpt: "A comprehensive overview of NVIDIA GPU architecture evolution, exploring the key innovations from Tesla to the latest Hopper architecture.",
+                tags: ["GPU", "NVIDIA", "Architecture", "CUDA", "AI"],
+                reading_time: 10,
+                url: "_posts/2025-01-15-nvidia-gpu-architecture-evolution.html",
+                cover_image: "/assets/blog-nvidia-gpu-evolution.png"
+            }
+        ];
+
+        // Format date
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+        }
+
+        // Render blog posts
+        function renderBlogPosts() {
+            const container = document.getElementById('blog-posts-container');
+
+            if (blogPosts.length === 0) {
+                container.innerHTML = `
+                    <div class="col-span-full text-center py-16">
+                        <p class="text-slate-400 text-xl">No blog posts yet. Stay tuned!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = blogPosts.map(post => `
+                <article class="blog-card" onclick="window.location.href='${post.url}'">
+                    ${post.cover_image ? `
+                        <img src="${post.cover_image}" alt="${post.title}" class="blog-cover-image">
+                    ` : ''}
+                    <h2 class="text-2xl font-bold mb-2">
+                        <a href="${post.url}" class="text-cyan-400 hover:text-cyan-300">${post.title}</a>
+                    </h2>
+                    <div class="text-sm text-slate-400 mb-3">
+                        <span>📅 ${formatDate(post.date)}</span>
+                        ${post.reading_time ? `<span class="ml-4">⏱️ ${post.reading_time} min</span>` : ''}
+                    </div>
+                    <p class="text-slate-300 mb-4">
+                        ${post.excerpt}
+                    </p>
+                    ${post.tags && post.tags.length > 0 ? `
+                        <div class="mb-4">
+                            ${post.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                        </div>
+                    ` : ''}
+                    <a href="${post.url}" class="inline-flex items-center text-purple-400 hover:text-purple-300">
+                        Read More →
+                    </a>
+                </article>
+            `).join('');
+
+            // Track blog page visit for achievements
+            if (window.achievementSystem) {
+                window.achievementSystem.trackPageVisit('blog');
+            }
+        }
+
+        // Load posts when page loads
+        document.addEventListener('DOMContentLoaded', renderBlogPosts);
+    </script>
 </body>
 
 </html>

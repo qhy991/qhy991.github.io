@@ -533,6 +533,21 @@
         </div>
     </section>
 
+    <!-- GitHub Activity Feed Section -->
+    <section class="content-section">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold mb-4">
+                    <span class="text-cyan-400">Recent</span>
+                    <span class="text-purple-400">Activity</span>
+                </h2>
+                <p class="text-lg text-slate-400">Live updates from my GitHub</p>
+            </div>
+
+            <div id="github-activity"></div>
+        </div>
+    </section>
+
     <!-- Skills Radar Section -->
     <section class="content-section bg-slate-900/50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -545,10 +560,8 @@
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <!-- Radar Chart -->
-                <div class="skill-card">
-                    <div id="skills-radar" style="height: 400px;"></div>
-                </div>
+                <!-- Skill Tree Visualization -->
+                <div id="skill-tree-container"></div>
 
                 <!-- Skills Description -->
                 <div class="space-y-6">
@@ -615,6 +628,11 @@
         </div>
     </footer>
 
+    <!-- Interactive Features Scripts -->
+    <script src="assets/js/achievements.js"></script>
+    <script src="assets/js/interactive-features.js"></script>
+    <script src="assets/js/skill-tree.js"></script>
+    <script src="assets/js/init.js"></script>
     <script src="main.js"></script>
 </body>
 
