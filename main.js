@@ -265,17 +265,17 @@ class AcademicHomepage {
     
     showPublications() {
         const publicationsText = [
-            '主要论文:',
+            '主要论文 (Google Scholar, 7篇):',
             '===================',
-            '1. "ReasoningV: Efficient Verilog Code Generation with Adaptive Hybrid Reasoning Model"',
-            '   - ICAIS 2025 (已接收)',
-            '   - 自适应混合推理模型的高效Verilog代码生成',
+            '1. ReasoningV: Efficient Verilog Code Generation... (ICAIS 2025, 8 cites)',
+            '2. SOT CIM Macro for AI Edge Inference (ICS 2025, 3 cites)',
+            '3. Towards Optimal Circuit Generation / CircuitMind (arXiv, 1 cite)',
+            '4. Multi-Agent Yield Analysis For Circuit Design (DAC 2025)',
+            '5. Precision-Aware Bayesian Yield Optimization (DAC 2025)',
+            '6. Weight Mapping on Multi-core CIM Systems (DAC 2025)',
+            '7. Searching Tiny Neural Networks on FPGA (AICAS 2023, 3 cites)',
             '',
-            '2. "Multi-agent Approaches for Circuit Design Optimization"',
-            '   - DAC 2025 (已接收)',
-            '   - 电路设计优化的多智能体方法',
-            '',
-            '总计: 7篇论文，15次引用',
+            '总计: 7篇论文，15次引用，h-index 3',
             '',
             'Google Scholar: https://scholar.google.com/citations?user=zzmYq9QAAAAJ&hl=en'
         ];

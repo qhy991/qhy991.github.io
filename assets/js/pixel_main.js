@@ -263,22 +263,19 @@ class AcademicHomepage {
 
     showPublications() {
         const publicationsText = [
-            'Main Publications:',
+            'Publications (Google Scholar, 7 papers):',
             '===================',
-            '1. "ReasoningV: Efficient Verilog Code Generation with Adaptive Hybrid Reasoning Model"',
-            '   - 2 citations',
+            '1. ReasoningV — ICAIS 2025 / arXiv (8 cites)',
+            '2. SOT CIM Macro — ICS Journal 2025 (3 cites)',
+            '3. CircuitMind — arXiv:2504.14625 (1 cite)',
+            '4. Multi-Agent Yield Analysis — DAC 2025',
+            '5. Precision-Aware Bayesian Yield — DAC 2025',
+            '6. Weight Mapping Multi-core CIM — DAC 2025',
+            '7. Tiny NN on FPGA — AICAS 2023 (3 cites)',
             '',
-            '2. "Searching Tiny Neural Networks for Deployment on Embedded FPGA"',
-            '   - 2 citations',
+            'Total: 15 citations, h-index 3',
             '',
-            '3. "Multi-Agent Yield Analysis For Circuit Design"',
-            '',
-            '4. "A High-Resistance SOT Device Based Computing-in-Memory Macro..."',
-            '   - 1 citation',
-            '',
-            'Total: 7 papers, 5 citations',
-            '',
-            'Google Scholar: https://scholar.google.com/citations?user=zzmYq9QAAAAJ&hl=en'
+            'Scholar: https://scholar.google.com/citations?user=zzmYq9QAAAAJ&hl=en'
         ];
 
         publicationsText.forEach(line => {

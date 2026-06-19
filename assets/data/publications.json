@@ -1,0 +1,161 @@
+{
+  "source": "Google Scholar",
+  "scholarUrl": "https://scholar.google.com/citations?user=zzmYq9QAAAAJ&hl=en",
+  "updated": "2026-06",
+  "metrics": {
+    "papers": 7,
+    "citations": 15,
+    "hIndex": 3,
+    "topVenues": 3
+  },
+  "publications": [
+    {
+      "year": 2025,
+      "citations": 8,
+      "title": "ReasoningV: Efficient Verilog Code Generation with Adaptive Hybrid Reasoning Model",
+      "authors": [
+        { "name": "Haiyan Qin", "highlight": true },
+        { "name": "Zhiwei Xie" },
+        { "name": "Jingjing Li" },
+        { "name": "Liangchen Li" },
+        { "name": "Xiaotong Feng" },
+        { "name": "Junzhan Liu" },
+        { "name": "Wang Kang" }
+      ],
+      "venue": "ICAIS 2025 — 1st International Conference on AI Scientists",
+      "type": "conference",
+      "badges": ["ICAIS 2025", "Accepted"],
+      "abstract": "Hybrid reasoning model for Verilog generation with ReasoningV-5K dataset, two-stage training, and adaptive reasoning that cuts token use by up to 75% while reaching 57.8% pass@1 on VerilogEval-Human.",
+      "keywords": ["Verilog Generation", "LLM", "Hybrid Reasoning", "Hardware Design"],
+      "links": [
+        { "label": "arXiv", "url": "https://arxiv.org/abs/2504.14560" },
+        { "label": "Code", "url": "https://github.com/BUAA-CLab/ReasoningV" },
+        { "label": "PDF", "url": "assets/presentations/ICAIS-ReasoningV.pdf" }
+      ]
+    },
+    {
+      "year": 2025,
+      "citations": 3,
+      "title": "A High-Resistance SOT Device Based Computing-in-Memory Macro With High Sensing Margin and Multi-Bit MAC Operations for AI Edge Inference",
+      "authors": [
+        { "name": "Junzhan Liu" },
+        { "name": "Jinyao Mi" },
+        { "name": "Yang Liu" },
+        { "name": "Liang Zhang" },
+        { "name": "He Zhang" },
+        { "name": "Haiyan Qin", "highlight": true },
+        { "name": "Wang Kang" }
+      ],
+      "venue": "Integrated Circuits and Systems, Vol. 2, No. 3, 2025",
+      "type": "journal",
+      "badges": ["Journal", "ICS 2025"],
+      "abstract": "High-resistance spin-orbit torque (SOT) based computing-in-memory macro for AI edge inference with high sensing margin and multi-bit MAC operations.",
+      "keywords": ["Computing-in-Memory", "SOT-MRAM", "Edge AI", "MAC"],
+      "links": [
+        { "label": "DOI", "url": "https://doi.org/10.23919/ICS.2025.3567939" }
+      ]
+    },
+    {
+      "year": 2025,
+      "citations": 1,
+      "title": "Towards Optimal Circuit Generation: Multi-Agent Collaboration Meets Collective Intelligence",
+      "authors": [
+        { "name": "Haiyan Qin", "highlight": true },
+        { "name": "Jiahao Feng" },
+        { "name": "Xiaotong Feng" },
+        { "name": "Wei W. Xing" },
+        { "name": "Wang Kang" }
+      ],
+      "venue": "arXiv:2504.14625 (CircuitMind)",
+      "type": "preprint",
+      "badges": ["arXiv", "CircuitMind"],
+      "abstract": "CircuitMind multi-agent framework for gate-level circuit generation with syntax locking, RAG, and dual-reward optimization; evaluated on TC-Bench from the TuringComplete ecosystem.",
+      "keywords": ["Multi-Agent", "Circuit Design", "LLM", "Gate-Level"],
+      "links": [
+        { "label": "arXiv", "url": "https://arxiv.org/abs/2504.14625" },
+        { "label": "Code", "url": "https://github.com/BUAA-CLab/CircuitMind" }
+      ]
+    },
+    {
+      "year": 2025,
+      "citations": 0,
+      "title": "Multi-Agent Yield Analysis For Circuit Design",
+      "authors": [
+        { "name": "Haiyan Qin", "highlight": true },
+        { "name": "Jing Kou" },
+        { "name": "Liang Zhang" },
+        { "name": "Wang Kang" },
+        { "name": "Wei W. Xing" }
+      ],
+      "venue": "DAC 2025 — 62nd ACM/IEEE Design Automation Conference",
+      "type": "conference",
+      "badges": ["DAC 2025", "Accepted"],
+      "abstract": "Multi-agent methodology for yield analysis in circuit design, presented at DAC 2025.",
+      "keywords": ["Yield Analysis", "Multi-Agent", "Circuit Design", "EDA"],
+      "links": [
+        { "label": "DBLP", "url": "https://researchr.org/publication/QinKZKX25" }
+      ]
+    },
+    {
+      "year": 2025,
+      "citations": 0,
+      "title": "Accuracy Is Not Always We Need: Precision-Aware Bayesian Yield Optimization",
+      "authors": [
+        { "name": "Jing Kou" },
+        { "name": "Zidong Chen" },
+        { "name": "Liang Zhang" },
+        { "name": "Haiyan Qin", "highlight": true },
+        { "name": "Wang Kang" },
+        { "name": "Wei W. Xing" }
+      ],
+      "venue": "DAC 2025 — 62nd ACM/IEEE Design Automation Conference",
+      "type": "conference",
+      "badges": ["DAC 2025", "Accepted"],
+      "abstract": "Precision-aware Bayesian yield optimization for circuit design — balancing accuracy requirements with optimization efficiency.",
+      "keywords": ["Yield Optimization", "Bayesian", "Circuit Design"],
+      "links": []
+    },
+    {
+      "year": 2025,
+      "citations": 0,
+      "title": "Efficient Weight Mapping and Resource Scheduling on Crossbar-based Multi-core CIM Systems",
+      "authors": [
+        { "name": "Hanjie Liu" },
+        { "name": "Sifan Sun" },
+        { "name": "Aifei Zhang" },
+        { "name": "Haiyan Qin", "highlight": true },
+        { "name": "Yutong Wu" },
+        { "name": "Minhao Gu" },
+        { "name": "Shihang Fu" },
+        { "name": "Shuaikai Liu" },
+        { "name": "Baosen Liu" },
+        { "name": "Wang Kang" }
+      ],
+      "venue": "DAC 2025 — 62nd ACM/IEEE Design Automation Conference",
+      "type": "conference",
+      "badges": ["DAC 2025", "Accepted"],
+      "abstract": "Weight mapping and resource scheduling techniques for crossbar-based multi-core computing-in-memory systems.",
+      "keywords": ["CIM", "Crossbar", "Scheduling", "Multi-core"],
+      "links": []
+    },
+    {
+      "year": 2023,
+      "citations": 3,
+      "title": "Searching Tiny Neural Networks for Deployment on Embedded FPGA",
+      "authors": [
+        { "name": "Haiyan Qin", "highlight": true },
+        { "name": "Yejun Zeng" },
+        { "name": "Jinyu Bai" },
+        { "name": "Wang Kang" }
+      ],
+      "venue": "AICAS 2023 — 5th IEEE Intl. Conf. on AI Circuits and Systems",
+      "type": "conference",
+      "badges": ["AICAS 2023"],
+      "abstract": "Co-design framework for searching and deploying tiny neural networks on embedded FPGA platforms.",
+      "keywords": ["Neural Networks", "FPGA", "NAS", "Embedded"],
+      "links": [
+        { "label": "DBLP", "url": "https://researchr.org/publication/QinZBK23" }
+      ]
+    }
+  ]
+}

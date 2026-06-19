@@ -392,23 +392,23 @@
             <div class="impact-metrics">
                 <div class="metric-card">
                     <div class="metric-icon">📄</div>
-                    <div class="metric-value">7</div>
+                    <div class="metric-value" data-metric="papers">7</div>
                     <div class="metric-label">Published Papers</div>
                 </div>
                 <div class="metric-card">
                     <div class="metric-icon">📊</div>
-                    <div class="metric-value">15</div>
+                    <div class="metric-value" data-metric="citations">15</div>
                     <div class="metric-label">Total Citations</div>
                 </div>
                 <div class="metric-card">
                     <div class="metric-icon">📈</div>
-                    <div class="metric-value">3</div>
+                    <div class="metric-value" data-metric="hIndex">3</div>
                     <div class="metric-label">H-Index</div>
                 </div>
                 <div class="metric-card">
                     <div class="metric-icon">🎯</div>
-                    <div class="metric-value">2</div>
-                    <div class="metric-label">Top Conferences</div>
+                    <div class="metric-value" data-metric="topVenues">3</div>
+                    <div class="metric-label">Top Venues (DAC/ICAIS/AICAS)</div>
                 </div>
             </div>
         </div>
@@ -425,214 +425,8 @@
                 <p class="text-xl text-slate-400">My Research Achievements in Chronological Order</p>
             </div>
 
-            <div class="timeline">
-                <!-- Publication 1: ReasoningV -->
-                <div class="timeline-item">
-                    <div class="publication-card">
-                        <div class="flex flex-wrap items-center mb-4">
-                            <span class="achievement-badge badge-conference">ICAIS 2025</span>
-                            <span class="achievement-badge badge-accepted">Accepted</span>
-                            <span class="achievement-badge badge-best-paper">Best Paper Candidate</span>
-                        </div>
-
-                        <h3 class="text-xl font-bold mb-3 text-cyan-400">
-                            ReasoningV: Efficient Verilog Code Generation with Adaptive Hybrid Reasoning Model
-                        </h3>
-
-                        <div class="mb-4">
-                            <span class="author-tag highlight">Haiyan Qin</span>
-                            <span class="author-tag">Z Xie</span>
-                            <span class="author-tag">J Li</span>
-                            <span class="author-tag">L Li</span>
-                            <span class="author-tag">X Feng</span>
-                            <span class="author-tag">J Liu</span>
-                            <span class="author-tag">W Kang</span>
-                        </div>
-
-                        <p class="text-slate-400 mb-4 leading-relaxed">
-                            本文提出了一种自适应混合推理模型，用于高效的Verilog代码生成。该方法结合了符号推理和神经推理的优势，
-                            能够根据电路设计的复杂性动态调整推理策略。实验结果表明，我们的方法在代码质量、生成速度和资源利用率方面
-                            都优于现有的基线方法。
-                        </p>
-
-                        <div class="mb-4">
-                            <h4 class="text-sm font-semibold text-purple-400 mb-2">Keywords</h4>
-                            <div class="flex flex-wrap gap-2">
-                                <span class="px-2 py-1 bg-cyan-500/20 text-cyan-400 rounded text-xs">Verilog
-                                    Generation</span>
-                                <span class="px-2 py-1 bg-purple-500/20 text-purple-400 rounded text-xs">Hybrid
-                                    Reasoning</span>
-                                <span class="px-2 py-1 bg-green-500/20 text-green-400 rounded text-xs">Adaptive
-                                    Learning</span>
-                                <span class="px-2 py-1 bg-yellow-500/20 text-yellow-400 rounded text-xs">Hardware
-                                    Design</span>
-                            </div>
-                        </div>
-
-                        <div class="citation-stats">
-                            <div class="citation-stat">
-                                <div class="citation-stat-value">8</div>
-                                <div class="citation-stat-label">Citations</div>
-                            </div>
-                            <div class="citation-stat">
-                                <div class="citation-stat-value">4.8</div>
-                                <div class="citation-stat-label">影响因子</div>
-                            </div>
-                            <div class="citation-stat">
-                                <div class="citation-stat-value">95%</div>
-                                <div class="citation-stat-label">接受率</div>
-                            </div>
-                        </div>
-
-                        <div class="mt-4 flex flex-wrap gap-2">
-                            <a href="#" class="download-btn" onclick="showComingSoon()">
-                                📄 PDF Download
-                            </a>
-                            <a href="#" class="download-btn" onclick="showComingSoon()">
-                                📊 Experimental Data
-                            </a>
-                            <a href="#" class="download-btn" onclick="showComingSoon()">
-                                💻 Code Repository
-                            </a>
-                            <a href="#" class="download-btn" onclick="showComingSoon()">
-                                📚 BibTeX
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Publication 2: Multi-Agent Circuit Design -->
-                <div class="timeline-item">
-                    <div class="publication-card">
-                        <div class="flex flex-wrap items-center mb-4">
-                            <span class="achievement-badge badge-conference">DAC 2025</span>
-                            <span class="achievement-badge badge-accepted">Accepted</span>
-                        </div>
-
-                        <h3 class="text-xl font-bold mb-3 text-cyan-400">
-                            Multi-agent Approaches for Circuit Design Optimization
-                        </h3>
-
-                        <div class="mb-4">
-                            <span class="author-tag highlight">Haiyan Qin</span>
-                            <span class="author-tag">Co-author 1</span>
-                            <span class="author-tag">Co-author 2</span>
-                        </div>
-
-                        <p class="text-slate-400 mb-4 leading-relaxed">
-                            本文探索了多智能体系统在电路设计优化中的应用。我们设计了一个协作式多智能体框架，其中不同的智能体
-                            负责电路的不同方面（如面积、功耗、速度），通过协商和协作找到最优的设计方案。该方法在处理复杂
-                            的多目标优化问题时表现出色。
-                        </p>
-
-                        <div class="mb-4">
-                            <h4 class="text-sm font-semibold text-purple-400 mb-2">关键词</h4>
-                            <div class="flex flex-wrap gap-2">
-                                <span class="px-2 py-1 bg-cyan-500/20 text-cyan-400 rounded text-xs">多智能体</span>
-                                <span class="px-2 py-1 bg-purple-500/20 text-purple-400 rounded text-xs">电路优化</span>
-                                <span class="px-2 py-1 bg-green-500/20 text-green-400 rounded text-xs">协作学习</span>
-                                <span class="px-2 py-1 bg-yellow-500/20 text-yellow-400 rounded text-xs">多目标优化</span>
-                            </div>
-                        </div>
-
-                        <div class="citation-stats">
-                            <div class="citation-stat">
-                                <div class="citation-stat-value">1</div>
-                                <div class="citation-stat-label">引用次数</div>
-                            </div>
-                            <div class="citation-stat">
-                                <div class="citation-stat-value">5.2</div>
-                                <div class="citation-stat-label">影响因子</div>
-                            </div>
-                            <div class="citation-stat">
-                                <div class="citation-stat-value">92%</div>
-                                <div class="citation-stat-label">接受率</div>
-                            </div>
-                        </div>
-
-                        <div class="mt-4 flex flex-wrap gap-2">
-                            <a href="#" class="download-btn" onclick="showComingSoon()">
-                                📄 PDF下载
-                            </a>
-                            <a href="#" class="download-btn" onclick="showComingSoon()">
-                                📊 实验数据
-                            </a>
-                            <a href="#" class="download-btn" onclick="showComingSoon()">
-                                💻 代码仓库
-                            </a>
-                            <a href="#" class="download-btn" onclick="showComingSoon()">
-                                📚 BibTeX
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Publication 3: Digital CIM Architecture -->
-                <div class="timeline-item">
-                    <div class="publication-card">
-                        <div class="flex flex-wrap items-center mb-4">
-                            <span class="achievement-badge badge-journal">IEEE TCAD</span>
-                            <span class="achievement-badge badge-accepted">审稿中</span>
-                        </div>
-
-                        <h3 class="text-xl font-bold mb-3 text-cyan-400">
-                            A Novel Digital Computing-in-Memory Architecture for AI Edge Inference
-                        </h3>
-
-                        <div class="mb-4">
-                            <span class="author-tag">Co-author 1</span>
-                            <span class="author-tag highlight">Haiyan Qin</span>
-                            <span class="author-tag">Co-author 2</span>
-                            <span class="author-tag">Co-author 3</span>
-                        </div>
-
-                        <p class="text-slate-400 mb-4 leading-relaxed">
-                            本文提出了一种新型的数字存内计算架构，专门为AI边缘推理设计。该架构通过创新的数据流设计和计算单元布局，
-                            在保证计算精度的同时显著降低了功耗和延迟。我们还设计了相应的编译器工具链，可以自动将神经网络模型
-                            映射到我们的硬件架构上。
-                        </p>
-
-                        <div class="mb-4">
-                            <h4 class="text-sm font-semibold text-purple-400 mb-2">关键词</h4>
-                            <div class="flex flex-wrap gap-2">
-                                <span class="px-2 py-1 bg-cyan-500/20 text-cyan-400 rounded text-xs">存内计算</span>
-                                <span class="px-2 py-1 bg-purple-500/20 text-purple-400 rounded text-xs">边缘AI</span>
-                                <span class="px-2 py-1 bg-green-500/20 text-green-400 rounded text-xs">低功耗</span>
-                                <span class="px-2 py-1 bg-yellow-500/20 text-yellow-400 rounded text-xs">数字架构</span>
-                            </div>
-                        </div>
-
-                        <div class="citation-stats">
-                            <div class="citation-stat">
-                                <div class="citation-stat-value">0</div>
-                                <div class="citation-stat-label">引用次数</div>
-                            </div>
-                            <div class="citation-stat">
-                                <div class="citation-stat-value">4.5</div>
-                                <div class="citation-stat-label">预期影响</div>
-                            </div>
-                            <div class="citation-stat">
-                                <div class="citation-stat-value">85%</div>
-                                <div class="citation-stat-label">接受概率</div>
-                            </div>
-                        </div>
-
-                        <div class="mt-4 flex flex-wrap gap-2">
-                            <a href="#" class="download-btn" onclick="showComingSoon()">
-                                📄 预印本
-                            </a>
-                            <a href="#" class="download-btn" onclick="showComingSoon()">
-                                📊 实验数据
-                            </a>
-                            <a href="#" class="download-btn" onclick="showComingSoon()">
-                                💻 代码仓库
-                            </a>
-                            <a href="#" class="download-btn" onclick="showComingSoon()">
-                                📚 BibTeX
-                            </a>
-                        </div>
-                    </div>
-                </div>
+            <div class="timeline" id="publications-timeline">
+                <p class="text-slate-400 text-center py-8">Loading publications from Google Scholar…</p>
             </div>
         </div>
     </section>
@@ -775,7 +569,10 @@
         document.addEventListener('DOMContentLoaded', () => {
             setupMobileMenu();
             setupAnimations();
-            setupPublicationCards();
+            document.addEventListener('publications-rendered', () => {
+                setupPublicationCards();
+                setupTimelineAnimations();
+            });
         });
 
         // Mobile menu
@@ -792,7 +589,6 @@
 
         // Setup animations
         function setupAnimations() {
-            // Animate metric cards
             const metricCards = document.querySelectorAll('.metric-card');
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -813,8 +609,9 @@
                 card.style.opacity = '0';
                 observer.observe(card);
             });
+        }
 
-            // Animate timeline items
+        function setupTimelineAnimations() {
             const timelineItems = document.querySelectorAll('.timeline-item');
             const timelineObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -836,7 +633,6 @@
             });
         }
 
-        // Setup publication cards
         function setupPublicationCards() {
             const publicationCards = document.querySelectorAll('.publication-card');
 
@@ -860,55 +656,30 @@
                 });
             });
 
-            // Animate citation stats
-            const citationStats = document.querySelectorAll('.citation-stat');
-            citationStats.forEach(stat => {
+            document.querySelectorAll('.citation-stat').forEach(stat => {
                 stat.addEventListener('mouseenter', () => {
-                    anime({
-                        targets: stat,
-                        scale: 1.1,
-                        duration: 300,
-                        easing: 'easeOutQuad'
-                    });
+                    anime({ targets: stat, scale: 1.1, duration: 300, easing: 'easeOutQuad' });
                 });
-
                 stat.addEventListener('mouseleave', () => {
-                    anime({
-                        targets: stat,
-                        scale: 1,
-                        duration: 300,
-                        easing: 'easeOutQuad'
-                    });
+                    anime({ targets: stat, scale: 1, duration: 300, easing: 'easeOutQuad' });
+                });
+            });
+
+            document.querySelectorAll('.download-btn').forEach(btn => {
+                btn.addEventListener('mouseenter', () => {
+                    anime({ targets: btn, scale: 1.05, duration: 200, easing: 'easeOutQuad' });
+                });
+                btn.addEventListener('mouseleave', () => {
+                    anime({ targets: btn, scale: 1, duration: 200, easing: 'easeOutQuad' });
                 });
             });
         }
 
-        // Coming soon function
         function showComingSoon() {
             alert('功能即将推出，敬请期待！');
         }
-
-        // Animate download buttons
-        document.querySelectorAll('.download-btn').forEach(btn => {
-            btn.addEventListener('mouseenter', () => {
-                anime({
-                    targets: btn,
-                    scale: 1.05,
-                    duration: 200,
-                    easing: 'easeOutQuad'
-                });
-            });
-
-            btn.addEventListener('mouseleave', () => {
-                anime({
-                    targets: btn,
-                    scale: 1,
-                    duration: 200,
-                    easing: 'easeOutQuad'
-                });
-            });
-        });
     </script>
+    <script src="assets/js/publications.js"></script>
     <script src="assets/js/achievements.js"></script>
     <script src="assets/js/fancy-features.js"></script>
     <script src="assets/js/visitor-map-config.js"></script>
