@@ -36,6 +36,9 @@ yarn-error.log*
 ehthumbs.db
 Thumbs.db
 
+# Visitor map secrets (local dev only; production uses GitHub Actions secrets)
+assets/js/visitor-map-config.js
+
 # IDE files
 .vscode/
 .idea/

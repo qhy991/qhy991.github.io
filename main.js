@@ -26,7 +26,9 @@ class AcademicHomepage {
         this.setupSkillsRadar();
         this.setupScrollAnimations();
         this.setupMobileMenu();
-        this.setupTypewriter();
+        if (!window.EnhancedTypewriter) {
+            this.setupTypewriter();
+        }
     }
     
     // Particle background using p5.js
@@ -201,9 +203,9 @@ class AcademicHomepage {
             '',
             '学术成就:',
             '- 7篇学术论文',
-            '- 5次引用',
-            '- H指数: 1',
-            '- 30+开源项目',
+            '- 15次引用 (Google Scholar)',
+            '- H指数: 3',
+            '- 88个 GitHub 开源仓库',
             '',
             '专注于LLM电路生成和高效神经网络研究'
         ];
@@ -239,15 +241,19 @@ class AcademicHomepage {
             '===================',
             '1. Awesome-LLM-Circuit-Agent',
             '   - 基于LLM的RTL生成和模拟电路生成',
-            '   - ⭐ 2 stars, 1 fork',
+            '   - ⭐ 17 stars, 5 forks',
             '',
             '2. Awesome-LLM-Kernel-Agent',
             '   - 内核生成的LLM智能体研究',
-            '   - ⭐ 3 stars',
+            '   - ⭐ 10 stars',
             '',
-            '3. Digital-CIM',
+            '3. Awesome-Kernel-Workflows',
+            '   - GPU/NPU kernel 优化工作流精选',
+            '   - ⭐ 7 stars, 2 forks',
+            '',
+            '4. Digital-CIM',
             '   - Verilog实现的数字存内计算',
-            '   - ⭐ 1 star, 1 fork',
+            '   - ⭐ 2 stars, 1 fork',
             '',
             '更多项目请访问: https://github.com/qhy991'
         ];
@@ -269,7 +275,7 @@ class AcademicHomepage {
             '   - DAC 2025 (已接收)',
             '   - 电路设计优化的多智能体方法',
             '',
-            '总计: 7篇论文，5次引用',
+            '总计: 7篇论文，15次引用',
             '',
             'Google Scholar: https://scholar.google.com/citations?user=zzmYq9QAAAAJ&hl=en'
         ];

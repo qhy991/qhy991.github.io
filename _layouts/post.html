@@ -19,6 +19,8 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 
+    <link rel="stylesheet" href="{{ '/assets/css/fancy.css' | relative_url }}">
+
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -202,9 +204,13 @@
     </footer>
 
     <script>
-        // Initialize syntax highlighting
         hljs.highlightAll();
     </script>
+    <script src="{{ '/assets/js/achievements.js' | relative_url }}"></script>
+    <script src="{{ '/assets/js/fancy-features.js' | relative_url }}"></script>
+    <script src="{{ '/assets/js/visitor-map-config.js' | relative_url }}"></script>
+    <script src="{{ '/assets/js/visitor-map.js' | relative_url }}"></script>
+    <script src="{{ '/assets/js/init.js' | relative_url }}"></script>
 </body>
 
 </html>

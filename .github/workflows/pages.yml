@@ -21,6 +21,23 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Inject visitor map config
+        env:
+          JSONBIN_BIN_ID: ${{ secrets.JSONBIN_BIN_ID }}
+          JSONBIN_ACCESS_KEY: ${{ secrets.JSONBIN_ACCESS_KEY }}
+        run: |
+          if [ -n "$JSONBIN_BIN_ID" ] && [ -n "$JSONBIN_ACCESS_KEY" ]; then
+            cat > assets/js/visitor-map-config.js << EOF
+          window.VISITOR_MAP_CONFIG = {
+              jsonBinId: '${JSONBIN_BIN_ID}',
+              jsonBinAccessKey: '${JSONBIN_ACCESS_KEY}',
+          };
+          EOF
+            echo "Visitor map: global sync enabled"
+          else
+            echo "Visitor map: JSONBIN secrets not set, local-only mode"
+          fi
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
 

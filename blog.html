@@ -14,6 +14,8 @@
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
 
+    <link rel="stylesheet" href="assets/css/fancy.css">
+
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -132,6 +134,15 @@
         // Blog posts data (manually maintained or could be loaded from JSON)
         const blogPosts = [
             {
+                title: "量化GEMM深度解析：从Naive实现到llama.cpp MMQ优化",
+                date: "2026-01-28",
+                excerpt: "详细介绍LLM推理中量化矩阵乘法(Quantized GEMM)的实现原理，从最基础的Naive实现逐步分析到llama.cpp高度优化的MMQ kernel。",
+                tags: ["CUDA", "GPU", "Quantization", "LLM", "GEMM", "Optimization"],
+                reading_time: 25,
+                url: "_posts/2026-01-28-quantized-gemm-deep-dive.html",
+                cover_image: "assets/blog-nvidia-gpu-evolution.png"
+            },
+            {
                 title: "AI Image Generation Prompts Showcase: Creating Technical Cover Images",
                 date: "2025-11-24",
                 excerpt: "A comprehensive showcase of AI image generation prompts used to create professional cover images for technical projects and blog posts, with detailed analysis of what makes an effective prompt.",
@@ -236,11 +247,18 @@
             if (window.achievementSystem) {
                 window.achievementSystem.trackPageVisit('blog');
             }
+
+            if (window.reinitFancyCards) window.reinitFancyCards();
         }
 
         // Load posts when page loads
         document.addEventListener('DOMContentLoaded', renderBlogPosts);
     </script>
+    <script src="assets/js/achievements.js"></script>
+    <script src="assets/js/fancy-features.js"></script>
+    <script src="assets/js/visitor-map-config.js"></script>
+    <script src="assets/js/visitor-map.js"></script>
+    <script src="assets/js/init.js"></script>
 </body>
 
 </html>

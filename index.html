@@ -23,6 +23,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/7.3.2/pixi.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/glfx-js/0.0.1/glfx.min.js"></script>
 
+    <!-- Fancy Features CSS -->
+    <link rel="stylesheet" href="assets/css/fancy.css">
+
     <!-- Custom Styles -->
     <style>
         :root {
@@ -385,14 +388,14 @@
                             <div class="achievement-badge" title="7 Publications">
                                 <span class="text-xs">7PUB</span>
                             </div>
-                            <div class="achievement-badge" title="5 Citations">
-                                <span class="text-xs">5CIT</span>
+                            <div class="achievement-badge" title="15 Citations">
+                                <span class="text-xs">15CIT</span>
                             </div>
-                            <div class="achievement-badge" title="30+ Projects">
-                                <span class="text-xs">30+PRJ</span>
+                            <div class="achievement-badge" title="88 GitHub Repos">
+                                <span class="text-xs">88PRJ</span>
                             </div>
-                            <div class="achievement-badge" title="H-index 1">
-                                <span class="text-xs">H1</span>
+                            <div class="achievement-badge" title="H-index 3">
+                                <span class="text-xs">H3</span>
                             </div>
                         </div>
                     </div>
@@ -482,7 +485,7 @@
                             </svg>
                         </div>
                     </div>
-                    <h3 class="text-2xl font-bold text-white mb-2">7</h3>
+                    <h3 class="text-2xl font-bold text-white mb-2"><span class="count-up" data-count="7">0</span></h3>
                     <p class="text-cyan-400 font-medium">Publications</p>
                     <p class="text-slate-400 text-sm mt-1">Academic Publications</p>
                 </div>
@@ -497,7 +500,7 @@
                             </svg>
                         </div>
                     </div>
-                    <h3 class="text-2xl font-bold text-white mb-2">5</h3>
+                    <h3 class="text-2xl font-bold text-white mb-2"><span class="count-up" data-count="15">0</span></h3>
                     <p class="text-purple-400 font-medium">Citations</p>
                     <p class="text-slate-400 text-sm mt-1">Paper Citations</p>
                 </div>
@@ -513,7 +516,7 @@
                             </svg>
                         </div>
                     </div>
-                    <h3 class="text-2xl font-bold text-white mb-2">1</h3>
+                    <h3 class="text-2xl font-bold text-white mb-2"><span class="count-up" data-count="3">0</span></h3>
                     <p class="text-green-400 font-medium">h-index</p>
                     <p class="text-slate-400 text-sm mt-1">Academic Impact Metric</p>
                 </div>
@@ -529,6 +532,26 @@
                     </svg>
                     View All Publications
                 </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- GEMM Visualizer Section -->
+    <section class="content-section gemm-section">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold mb-4">
+                    <span class="text-cyan-400">Live</span>
+                    <span class="text-purple-400">GEMM</span>
+                </h2>
+                <p class="text-lg text-slate-400">Tile-based matrix multiplication — the heart of AI inference kernels</p>
+            </div>
+
+            <canvas id="gemm-canvas"></canvas>
+            <div class="gemm-stats">
+                <div class="gemm-stat">FLOPs computed: <span id="gemm-ops">0</span></div>
+                <div class="gemm-stat">Active tile: <span id="gemm-tile">(0, 0)</span></div>
+                <div class="gemm-stat">Precision: <span>INT8 simulated</span></div>
             </div>
         </div>
     </section>
@@ -632,6 +655,10 @@
     <script src="assets/js/achievements.js"></script>
     <script src="assets/js/interactive-features.js"></script>
     <script src="assets/js/skill-tree.js"></script>
+    <script src="assets/js/fancy-features.js"></script>
+    <script src="assets/js/visitor-map-config.js"></script>
+    <script src="assets/js/visitor-map.js"></script>
+    <script src="assets/js/gemm-visualizer.js"></script>
     <script src="assets/js/init.js"></script>
     <script src="main.js"></script>
 </body>

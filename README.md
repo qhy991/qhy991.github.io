@@ -17,6 +17,21 @@ A static HTML website showcasing AI-assisted hardware design research, featuring
 - 🎯 Modern responsive layout
 - 🚀 Fast loading with CDN resources
 - 📱 Mobile-friendly interface
+- 🌍 Visitor map with optional global aggregation (JSONBin.io)
+
+## Visitor Map (Global Sync)
+
+The site includes an interactive world map showing visitor locations. To enable **global aggregation** (all visitors, not just your current session):
+
+1. Create a free account at [jsonbin.io](https://jsonbin.io)
+2. Create a new bin with initial content: `{ "visitors": [] }`
+3. Copy the **Bin ID** and **X-Master-Key** (Access Key)
+4. In this GitHub repo, go to **Settings → Secrets and variables → Actions** and add:
+   - `JSONBIN_BIN_ID` — your bin ID
+   - `JSONBIN_ACCESS_KEY` — your X-Master-Key
+5. Push to `master` — the deploy workflow injects credentials automatically
+
+For local testing, paste the same values into `assets/js/visitor-map-config.js`.
 
 ## Technology Stack
 
