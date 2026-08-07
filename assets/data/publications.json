@@ -1,14 +1,33 @@
 {
   "source": "Google Scholar",
   "scholarUrl": "https://scholar.google.com/citations?user=zzmYq9QAAAAJ&hl=en",
-  "updated": "2026-06",
+  "updated": "2026-08",
   "metrics": {
-    "papers": 7,
+    "papers": 8,
     "citations": 15,
     "hIndex": 3,
     "topVenues": 3
   },
   "publications": [
+    {
+      "year": 2026,
+      "citations": 0,
+      "title": "CircuitWeave: Topology-Behavior Alignment for Executable Multimodal RTL Generation",
+      "authors": [
+        { "name": "Jiahao Feng" },
+        { "name": "Haiyan Qin", "highlight": true },
+        { "name": "Zhiwei Xie" },
+        { "name": "Wang Kang" }
+      ],
+      "venue": "arXiv:2607.23523 (CircuitWeave)",
+      "type": "preprint",
+      "badges": ["arXiv", "CircuitWeave"],
+      "abstract": "Contract-mediated multimodal framework for executable RTL generation that pairs natural-language specifications with schematics, extracting separate topology and behavior contracts and fusing them into a single circuit contract for topology-behavior aligned code generation.",
+      "keywords": ["RTL Generation", "Multimodal", "LLM", "Hardware Design"],
+      "links": [
+        { "label": "arXiv", "url": "https://arxiv.org/abs/2607.23523" }
+      ]
+    },
     {
       "year": 2025,
       "citations": 8,
