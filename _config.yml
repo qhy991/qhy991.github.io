@@ -6,6 +6,7 @@ description: >-
   Research interests: AI-assisted hardware design, neural network deployment, and circuit optimization.
 baseurl: ""
 url: "https://qhy991.github.io"
+timezone: Asia/Shanghai
 github_username: qhy991
 
 # Build settings
