@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "KerSor：在多个 Kernel 优化工作流之间做出下一步决策"
-date: 2026-08-09
+date: 2026-08-09 00:00:00 +0800
 author: Haiyan Qin
 tags: [KerSor, Kernel Optimization, Workflow Orchestration, Multi-Agent, CUDA, NPU]
 reading_time: 9
@@ -58,4 +58,3 @@ KerSor 的冻结端点回放不是等成本 live search。一次 dispatch 不等
 当优化方法越来越多时，“让所有工作流都跑一遍”并不可扩展。KerSor 把选择、状态交接和停止从隐式人工决策变成显式控制平面，为跨 GPU、NPU、语言和 Harness 的方法组合提供了基础。
 
 > KerSor 当前为 DAI 2026 Research Track 研究预览。匿名投稿原稿暂不公开上传。
-

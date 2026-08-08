@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "TARO：用 Post-PnR 趋势反馈驱动 RTL 优化"
-date: 2026-08-09
+date: 2026-08-09 00:00:00 +0800
 author: Haiyan Qin
 tags: [TARO, RTL Optimization, Post-PnR, PPA, OpenROAD, LLM Agent]
 reading_time: 8
@@ -60,4 +60,3 @@ TARO 强调，RTL 优化智能体的能力不仅来自更强的代码模型，�
 这让 post-PnR 不再只是最终验收工具，而成为搜索过程本身的一部分。对于任何高成本工程反馈——综合、布局布线、功耗仿真甚至制造良率——这种轨迹感知方法都具有进一步扩展的可能。
 
 > TARO 当前为研究预览稿。本文仅介绍论文中已经完成验证的设计与实验结果，本地匿名稿件暂不公开上传。
-

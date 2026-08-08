@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "ReasoningV：让 Verilog 生成学会按问题难度思考"
-date: 2026-08-09
+date: 2026-08-09 00:00:00 +0800
 author: Haiyan Qin
 tags: [ReasoningV, Verilog, LLM, Reasoning, Dataset, Hardware Design]
 reading_time: 8
@@ -59,4 +59,3 @@ ReasoningV 可以被视为后续硬件智能体的一块基础能力：
 
 论文：[arXiv:2504.14560](https://arxiv.org/abs/2504.14560)  
 代码：[BUAA-CLab/ReasoningV](https://github.com/BUAA-CLab/ReasoningV)
-

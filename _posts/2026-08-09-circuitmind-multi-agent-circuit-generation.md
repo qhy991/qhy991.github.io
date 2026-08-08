@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "CircuitMind：当多智能体协作遇见门级电路优化"
-date: 2026-08-09
+date: 2026-08-09 00:00:00 +0800
 author: Haiyan Qin
 tags: [CircuitMind, Multi-Agent, Circuit Generation, LLM, EDA, Optimization]
 reading_time: 8
@@ -58,4 +58,3 @@ CircuitMind 想表达的更大观点是：AI 硬件设计的瓶颈未必只能�
 
 论文：[arXiv:2504.14625](https://arxiv.org/abs/2504.14625)  
 代码：[BUAA-CLab/CircuitMind](https://github.com/BUAA-CLab/CircuitMind)
-

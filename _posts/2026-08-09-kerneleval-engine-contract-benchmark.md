@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "KernelEval：生成的 Kernel 能否真正替换推理引擎算子？"
-date: 2026-08-09
+date: 2026-08-09 00:00:00 +0800
 author: Haiyan Qin
 tags: [KernelEval, GPU Kernel, Benchmark, Quantized LLM, CUDA, HIP, Metal]
 reading_time: 9
@@ -67,4 +67,3 @@ KernelEval 不是为了降低自动 kernel 生成系统的分数，而是为了�
 当“能生成更快代码”被进一步约束为“能替换真实引擎算子”，agentic kernel optimization 才拥有可审计的部署终点。
 
 > KernelEval 当前为 DAI 2026 Research Track 研究预览。匿名投稿原稿暂不公开上传。
-

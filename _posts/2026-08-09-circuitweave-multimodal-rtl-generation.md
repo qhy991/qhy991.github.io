@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "CircuitWeave：让多模态 RTL 生成真正理解拓扑与行为"
-date: 2026-08-09
+date: 2026-08-09 00:00:00 +0800
 author: Haiyan Qin
 tags: [CircuitWeave, RTL, Multimodal, LLM, Verilog, Hardware Design]
 reading_time: 8

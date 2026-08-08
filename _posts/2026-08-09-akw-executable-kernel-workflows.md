@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "AKW：把 GPU Kernel 优化方法变成可执行策略"
-date: 2026-08-09
+date: 2026-08-09 00:00:00 +0800
 author: Haiyan Qin
 tags: [AKW, GPU Kernel, Agentic Workflow, CUDA, Optimization, Reproducibility]
 reading_time: 9
@@ -60,4 +60,3 @@ AKW 的结果表明，社区方法不是可以被一个固定模板替代的同�
 这为后续工作提供了基础：智能体可以选择、组合或调度已有工作流；失败经验可以按类型传递；跨平台执行可以明确区分方法与绑定；性能结果也能够回到完整证据链中审计。
 
 > AKW 当前为 DAI 2026 Research Track 研究预览。匿名投稿原稿暂不公开上传。
-

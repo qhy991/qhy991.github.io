@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "EngineTailor：为 Agent 构造最小但完整的推理引擎"
-date: 2026-08-09
+date: 2026-08-09 00:00:00 +0800
 author: Haiyan Qin
 tags: [EngineTailor, LLM Inference, Edge AI, Agent Optimization, vLLM, SGLang]
 reading_time: 9
@@ -64,4 +64,3 @@ EngineTailor 希望同时避免两个极端：
 EngineTailor 的重点并不是用更小的框架替代生产框架，而是为自动优化构造更合适的对象。生产系统可以继续保持广度；目标引擎负责提供一个边界清晰、端到端完整、可独立验收的优化平面。
 
 > EngineTailor 当前为 DAI 2026 Research Track 研究预览。匿名投稿原稿暂不公开上传。
-
