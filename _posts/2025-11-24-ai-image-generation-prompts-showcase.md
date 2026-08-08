@@ -32,7 +32,7 @@ Modern tech illustration of a CPU processor chip with chat bubbles and AI conver
 
 **生成结果:**
 
-![Chat-CPU Cover](/Users/haiyan/Documents/qhy991.github.io/assets/project-chat-cpu.png)
+![Chat-CPU Cover](/assets/project-chat-cpu.png)
 
 **分析:**
 - ✅ **主题明确**: CPU芯片 + 对话气泡的组合清晰传达了项目主题
@@ -51,7 +51,7 @@ Abstract visualization of reinforcement learning and policy optimization. Show n
 
 **生成结果:**
 
-![GRPO-Clean Cover](/Users/haiyan/Documents/qhy991.github.io/assets/project-grpo.png)
+![GRPO-Clean Cover](/assets/project-grpo.png)
 
 **分析:**
 - ✅ **抽象表达**: 使用几何图形和网络节点表现算法概念
@@ -70,7 +70,7 @@ Creative illustration of a digital notebook with code snippets, mathematical for
 
 **生成结果:**
 
-![Blog-Note Cover](/Users/haiyan/Documents/qhy991.github.io/assets/project-blog.png)
+![Blog-Note Cover](/assets/project-blog.png)
 
 **分析:**
 - ✅ **场景构建**: 笔记本为中心,周围漂浮元素营造学习氛围
@@ -89,7 +89,7 @@ Professional book cover design for CUDA programming and GPU computing. Show a mo
 
 **生成结果:**
 
-![Book-CUDA Cover](/Users/haiyan/Documents/qhy991.github.io/assets/project-book-cuda.png)
+![Book-CUDA Cover](/assets/project-book-cuda.png)
 
 **分析:**
 - ✅ **并行可视化**: 光流效果完美展现并行计算概念
@@ -108,7 +108,7 @@ Futuristic illustration showing multiple AI agents collaborating on electronic c
 
 **生成结果:**
 
-![Multi-Agent-Circuit Cover](/Users/haiyan/Documents/qhy991.github.io/assets/project-multi-agent.png)
+![Multi-Agent-Circuit Cover](/assets/project-multi-agent.png)
 
 **分析:**
 - ✅ **协作可视化**: 多个智能体节点围绕中心展现协作概念
@@ -129,7 +129,7 @@ Professional tech illustration showing the evolution of NVIDIA GPU architectures
 
 **生成结果:**
 
-![NVIDIA GPU Evolution Cover](/Users/haiyan/Documents/qhy991.github.io/assets/blog-nvidia-gpu-evolution.png)
+![NVIDIA GPU Evolution Cover](/assets/blog-nvidia-gpu-evolution.png)
 
 **分析:**
 - ✅ **时间线概念**: 演进、变化的视觉表达
@@ -148,7 +148,7 @@ Technical illustration of CUDA parallel reduction algorithm. Show a tree-like st
 
 **生成结果:**
 
-![CUDA Reduce Complete Cover](/Users/haiyan/Documents/qhy991.github.io/assets/blog-cuda-reduce-complete.png)
+![CUDA Reduce Complete Cover](/assets/blog-cuda-reduce-complete.png)
 
 **分析:**
 - ✅ **算法可视化**: 树状结构完美展现归约过程
@@ -167,7 +167,7 @@ Abstract visualization of CUDA warp-level optimization and template metaprogramm
 
 **生成结果:**
 
-![Reduce 5 Deep Dive Cover](/Users/haiyan/Documents/qhy991.github.io/assets/blog-reduce5-deep-dive.png)
+![Reduce 5 Deep Dive Cover](/assets/blog-reduce5-deep-dive.png)
 
 **分析:**
 - ✅ **Warp同步**: 32线程的完美同步可视化
@@ -186,7 +186,7 @@ Advanced CUDA optimization visualization for reduction version 0.3. Show coopera
 
 **生成结果:**
 
-![Reduce v0.3 Cover](/Users/haiyan/Documents/qhy991.github.io/assets/blog-reduce-v03.png)
+![Reduce v0.3 Cover](/assets/blog-reduce-v03.png)
 
 **分析:**
 - ✅ **现代特性**: Cooperative Groups、Shuffle等新特性

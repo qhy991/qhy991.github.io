@@ -1,216 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ page.title }} - Haiyan Qin</title>
-
-    <!-- Fonts -->
-    <link
-        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Inter:wght@300;400;500;600;700&family=Press+Start+2P&display=swap"
-        rel="stylesheet">
-
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- Syntax Highlighting -->
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-
-    <link rel="stylesheet" href="{{ '/assets/css/fancy.css' | relative_url }}">
-
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background: #0f172a;
-            color: #f1f5f9;
-        }
-
-        .pixel-font {
-            font-family: 'Press Start 2P', cursive;
-        }
-
-        .mono-font {
-            font-family: 'JetBrains Mono', monospace;
-        }
-
-        .blog-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .blog-content h1,
-        .blog-content h2,
-        .blog-content h3 {
-            margin-top: 2rem;
-            margin-bottom: 1rem;
-            font-weight: 700;
-        }
-
-        .blog-content h1 {
-            font-size: 2.5rem;
-            color: #06b6d4;
-        }
-
-        .blog-content h2 {
-            font-size: 2rem;
-            color: #8b5cf6;
-        }
-
-        .blog-content h3 {
-            font-size: 1.5rem;
-            color: #10b981;
-        }
-
-        .blog-content p {
-            margin-bottom: 1.5rem;
-            line-height: 1.8;
-            color: #cbd5e1;
-        }
-
-        .blog-content img {
-            max-width: 100%;
-            border-radius: 8px;
-            margin: 2rem 0;
-            border: 2px solid #06b6d4;
-        }
-
-        .blog-content pre {
-            background: #1e293b;
-            border: 1px solid #334155;
-            border-radius: 8px;
-            padding: 1.5rem;
-            overflow-x: auto;
-            margin: 1.5rem 0;
-        }
-
-        .blog-content code {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.9rem;
-        }
-
-        .blog-content ul,
-        .blog-content ol {
-            margin-left: 2rem;
-            margin-bottom: 1.5rem;
-            color: #cbd5e1;
-        }
-
-        .blog-content li {
-            margin-bottom: 0.5rem;
-        }
-
-        .blog-meta {
-            color: #94a3b8;
-            font-size: 0.9rem;
-            margin-bottom: 2rem;
-        }
-
-        .tag {
-            display: inline-block;
-            padding: 0.25rem 0.75rem;
-            background: rgba(6, 182, 212, 0.2);
-            color: #06b6d4;
-            border-radius: 9999px;
-            font-size: 0.875rem;
-            margin-right: 0.5rem;
-        }
-    </style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#0a0d0f">
+    <meta name="description" content="{{ page.excerpt | default: site.description | strip_html | strip_newlines | escape }}">
+    <link rel="canonical" href="{{ page.url | absolute_url }}">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="{{ page.title | escape }} — Haiyan Qin">
+    <meta property="og:description" content="{{ page.excerpt | default: site.description | strip_html | strip_newlines | escape }}">
+    <meta property="og:url" content="{{ page.url | absolute_url }}">
+    {% if page.cover_image %}<meta property="og:image" content="{{ page.cover_image | absolute_url }}">{% else %}<meta property="og:image" content="{{ '/assets/og.png' | absolute_url }}">{% endif %}
+    <meta name="twitter:card" content="summary_large_image">
+    <title>{{ page.title }} — Haiyan Qin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wdth,wght@75..100,400..700&amp;family=Space+Mono:wght@400;700&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <link rel="stylesheet" href="{{ '/assets/css/home.css' | relative_url }}">
+    <link rel="stylesheet" href="{{ '/assets/css/page.css' | relative_url }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" defer></script>
 </head>
-
 <body>
-    <!-- Navigation -->
-    <nav class="fixed top-0 w-full z-50 bg-slate-900/80 backdrop-blur-md border-b border-cyan-500/30">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <div class="flex items-center">
-                    <a href="{{ site.baseurl }}/"
-                        class="pixel-font text-cyan-400 text-sm hover:text-cyan-300 transition-colors">HAIYAN.QIN</a>
-                </div>
-                <div class="hidden md:block">
-                    <div class="ml-10 flex items-baseline space-x-8">
-                        <a href="{{ site.baseurl }}/"
-                            class="text-slate-300 hover:text-cyan-300 px-3 py-2 text-sm font-medium">Home</a>
-                        <a href="{{ site.baseurl }}/about.html"
-                            class="text-slate-300 hover:text-cyan-300 px-3 py-2 text-sm font-medium">About</a>
-                        <a href="{{ site.baseurl }}/blog.html"
-                            class="text-cyan-400 hover:text-cyan-300 px-3 py-2 text-sm font-medium">Blog</a>
-                        <a href="{{ site.baseurl }}/portfolio.html"
-                            class="text-slate-300 hover:text-cyan-300 px-3 py-2 text-sm font-medium">Portfolio</a>
-                        <a href="{{ site.baseurl }}/publications.html"
-                            class="text-slate-300 hover:text-cyan-300 px-3 py-2 text-sm font-medium">Publications</a>
-                    </div>
-                </div>
+    <a class="skip-link" href="#article">Skip to article</a>
+    <header class="site-header" data-header><div class="shell nav-wrap">
+        <a class="brand" href="{{ '/' | relative_url }}" aria-label="Haiyan Qin, home"><span class="brand-mark" aria-hidden="true">HQ</span><span class="brand-copy"><strong>Haiyan Qin</strong><small>AI Infra Researcher</small></span></a>
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-menu-toggle><span></span><span></span><span class="sr-only">Toggle navigation</span></button>
+        <nav class="site-nav" id="site-nav" aria-label="Primary navigation" data-menu>
+            <a href="{{ '/' | relative_url }}">Home</a><a href="{{ '/about.html' | relative_url }}">About</a><a href="{{ '/portfolio.html' | relative_url }}">Projects</a><a href="{{ '/publications.html' | relative_url }}">Publications</a><a class="is-active" href="{{ '/blog.html' | relative_url }}">Notes</a>
+        </nav>
+        <a class="header-contact" href="mailto:haiyanq@buaa.edu.cn">Let's talk <span aria-hidden="true">↗</span></a>
+    </div></header>
+
+    <main id="article">
+        <header class="post-header">
+            <div class="post-shell" data-reveal>
+                <p class="section-index">TECHNICAL NOTE</p>
+                <h1>{{ page.title }}</h1>
+                {% if page.excerpt %}<p class="post-deck">{{ page.excerpt }}</p>{% endif %}
+                <div class="post-meta"><time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %d, %Y" }}</time>{% if page.author %}<span>{{ page.author }}</span>{% endif %}{% if page.reading_time %}<span>{{ page.reading_time }} min read</span>{% endif %}</div>
+                {% if page.tags %}<div class="tag-list">{% for tag in page.tags %}<span class="tag">{{ tag }}</span>{% endfor %}</div>{% endif %}
             </div>
-        </div>
-    </nav>
+            {% if page.cover_image %}<img class="post-cover" src="{{ page.cover_image | relative_url }}" alt="Cover image for {{ page.title | escape }}">{% endif %}
+        </header>
 
-    <!-- Blog Post Content -->
-    <main class="pt-24 pb-16 px-4">
-        <article class="blog-content">
-            <!-- Post Header -->
-            <header class="mb-12">
-                <h1 class="text-4xl font-bold mb-4">{{ page.title }}</h1>
-                <div class="blog-meta flex items-center gap-4 mb-4">
-                    <span>📅 {{ page.date | date: "%B %d, %Y" }}</span>
-                    {% if page.author %}
-                    <span>✍️ {{ page.author }}</span>
-                    {% endif %}
-                    {% if page.reading_time %}
-                    <span>⏱️ {{ page.reading_time }} min read</span>
-                    {% endif %}
-                </div>
-                {% if page.tags %}
-                <div class="flex flex-wrap gap-2">
-                    {% for tag in page.tags %}
-                    <span class="tag">{{ tag }}</span>
-                    {% endfor %}
-                </div>
-                {% endif %}
-            </header>
-
-            <!-- Post Content -->
-            <div class="prose prose-invert max-w-none">
-                {{ content }}
-            </div>
-
-            <!-- Post Footer -->
-            <footer class="mt-16 pt-8 border-t border-slate-700">
-                <div class="flex justify-between items-center">
-                    <a href="{{ site.baseurl }}/blog.html"
-                        class="inline-flex items-center px-6 py-3 bg-cyan-500/20 text-cyan-400 rounded-lg hover:bg-cyan-500/30 transition-colors">
-                        ← Back to Blog
-                    </a>
-                    <div class="flex gap-4">
-                        <a href="https://twitter.com/intent/tweet?text={{ page.title }}&url={{ site.url }}{{ page.url }}"
-                            target="_blank" class="text-cyan-400 hover:text-cyan-300">Share on Twitter</a>
-                    </div>
-                </div>
-            </footer>
+        <article class="post-shell article-content">
+            {{ content }}
         </article>
+
+        <nav class="post-shell post-footer-nav" aria-label="Article navigation">
+            <a href="{{ '/blog.html' | relative_url }}">← Back to all notes</a>
+            <a href="https://twitter.com/intent/tweet?text={{ page.title | uri_escape }}&amp;url={{ page.url | absolute_url | uri_escape }}" target="_blank" rel="noreferrer">Share on X ↗</a>
+        </nav>
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-slate-900/80 border-t border-cyan-500/30 py-8">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center">
-                <p class="text-slate-400">
-                    © 2025 Haiyan Qin. Built with passion for AI and hardware design.
-                </p>
-            </div>
-        </div>
-    </footer>
+    <footer class="site-footer"><div class="shell footer-grid"><div><strong>Haiyan Qin</strong><p>AI infrastructure researcher at Beihang University.</p></div><div class="footer-links"><a href="https://github.com/qhy991" target="_blank" rel="noreferrer">GitHub</a><a href="https://scholar.google.com/citations?user=zzmYq9QAAAAJ&amp;hl=en" target="_blank" rel="noreferrer">Google Scholar</a><a href="mailto:haiyanq@buaa.edu.cn">Email</a></div><p class="copyright">© <span data-year>2026</span> Haiyan Qin</p></div></footer>
 
-    <script>
-        hljs.highlightAll();
-    </script>
-    <script src="{{ '/assets/js/achievements.js' | relative_url }}"></script>
-    <script src="{{ '/assets/js/fancy-features.js' | relative_url }}"></script>
-    <script src="{{ '/assets/js/visitor-map-config.js' | relative_url }}"></script>
-    <script src="{{ '/assets/js/visitor-map.js' | relative_url }}"></script>
-    <script src="{{ '/assets/js/init.js' | relative_url }}"></script>
+    <script src="{{ '/assets/js/home.js' | relative_url }}" defer></script>
+    <script>window.addEventListener('DOMContentLoaded', function () { if (window.hljs) window.hljs.highlightAll(); });</script>
 </body>
-
 </html>
