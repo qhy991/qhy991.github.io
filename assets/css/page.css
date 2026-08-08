@@ -675,6 +675,16 @@
     margin-top: 16px;
 }
 
+.research-post-grid {
+    margin-bottom: 0;
+}
+
+.notes-divider {
+    height: 1px;
+    margin: clamp(90px, 12vw, 150px) 0;
+    background: var(--line);
+}
+
 .post-card {
     display: flex;
     flex-direction: column;
