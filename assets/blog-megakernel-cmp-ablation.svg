@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">Two-by-two ablation of branch scheduling and programmatic dependent launch</title>
+  <desc id="desc">With identical kernels and math, the linear baseline is 61.631 microseconds, PDL alone 54.208, branch DAG alone 44.432, and branch DAG plus PDL 36.992.</desc>
+  <rect width="1200" height="720" fill="#0b111c"/>
+  <text x="70" y="78" fill="#f5f7fb" font-family="Arial, sans-serif" font-size="38" font-weight="700">SAME KERNELS; ONLY THE SCHEDULE CHANGES</text>
+  <text x="70" y="116" fill="#9fb1c8" font-family="Arial, sans-serif" font-size="21">M=16 GPU execution interval p50 · lower is better</text>
+  <g font-family="Arial, sans-serif">
+    <text x="70" y="204" fill="#c9d5e5" font-size="20">Linear · no PDL</text><rect x="330" y="172" width="740" height="50" rx="12" fill="#233147"/><rect x="330" y="172" width="740" height="50" rx="12" fill="#59677a"/><text x="1090" y="205" fill="#f5f7fb" font-size="21" font-weight="700">61.631 µs</text>
+    <text x="70" y="304" fill="#c9d5e5" font-size="20">Linear · PDL</text><rect x="330" y="272" width="740" height="50" rx="12" fill="#233147"/><rect x="330" y="272" width="651" height="50" rx="12" fill="#bc9cff"/><text x="1001" y="305" fill="#bc9cff" font-size="21" font-weight="700">54.208 µs</text>
+    <text x="70" y="404" fill="#c9d5e5" font-size="20">Branch DAG · no PDL</text><rect x="330" y="372" width="740" height="50" rx="12" fill="#233147"/><rect x="330" y="372" width="533" height="50" rx="12" fill="#56d8ff"/><text x="883" y="405" fill="#56d8ff" font-size="21" font-weight="700">44.432 µs</text>
+    <text x="70" y="504" fill="#c9d5e5" font-size="20">Branch DAG · PDL</text><rect x="330" y="472" width="740" height="50" rx="12" fill="#233147"/><rect x="330" y="472" width="444" height="50" rx="12" fill="#a8ff60"/><text x="794" y="505" fill="#a8ff60" font-size="21" font-weight="700">36.992 µs</text>
+    <path d="M1070 570H774" stroke="#a8ff60" stroke-width="5"/><path d="M786 557L762 570 786 583Z" fill="#a8ff60"/>
+    <text x="916" y="610" text-anchor="middle" fill="#a8ff60" font-size="25" font-weight="700">−24.639 µs · ≈40.0%</text>
+    <text x="600" y="667" text-anchor="middle" fill="#9fb1c8" font-size="19">Branch parallelism contributes the largest step; PDL removes more dependent preparation</text>
+  </g>
+</svg>

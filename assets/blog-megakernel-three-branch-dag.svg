@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">The GLM-5.2 attention-pre kernels form a three-branch dependency graph</title>
+  <desc id="desc">After A0, QKV-A, head-gate, and indexer-K branches can proceed independently before downstream joins, so a single stream creates artificial serialization.</desc>
+  <rect width="1200" height="720" fill="#0b111c"/>
+  <text x="70" y="78" fill="#f5f7fb" font-family="Arial, sans-serif" font-size="38" font-weight="700">LAUNCH ORDER IS NOT THE DATA DAG</text>
+  <text x="70" y="116" fill="#9fb1c8" font-family="Arial, sans-serif" font-size="21">After A0, three independent branches can share the machine</text>
+  <g fill="none" stroke="#52677f" stroke-width="5">
+    <path d="M210 350H310"/><path d="M470 350C540 350 525 212 600 212"/><path d="M470 350H600"/><path d="M470 350C540 350 525 488 600 488"/>
+    <path d="M790 212C855 212 840 350 920 350"/><path d="M790 350H920"/><path d="M790 488C855 488 840 350 920 350"/>
+  </g>
+  <g font-family="Arial, sans-serif" font-weight="700">
+    <rect x="70" y="300" width="140" height="100" rx="20" fill="#14263b" stroke="#56d8ff" stroke-width="3"/><text x="140" y="342" text-anchor="middle" fill="#56d8ff" font-size="24">INPUT</text><text x="140" y="374" text-anchor="middle" fill="#f5f7fb" font-size="19">attention-pre</text>
+    <rect x="310" y="300" width="160" height="100" rx="20" fill="#183125" stroke="#a8ff60" stroke-width="3"/><text x="390" y="342" text-anchor="middle" fill="#a8ff60" font-size="26">A0</text><text x="390" y="374" text-anchor="middle" fill="#f5f7fb" font-size="18">add / norm</text>
+    <rect x="600" y="162" width="190" height="100" rx="20" fill="#14263b" stroke="#56d8ff" stroke-width="3"/><text x="695" y="205" text-anchor="middle" fill="#56d8ff" font-size="22">QKV-A</text><text x="695" y="236" text-anchor="middle" fill="#f5f7fb" font-size="17">main-Q path</text>
+    <rect x="600" y="300" width="190" height="100" rx="20" fill="#2c2540" stroke="#bc9cff" stroke-width="3"/><text x="695" y="343" text-anchor="middle" fill="#bc9cff" font-size="22">HEAD-GATE</text><text x="695" y="374" text-anchor="middle" fill="#f5f7fb" font-size="17">independent branch</text>
+    <rect x="600" y="438" width="190" height="100" rx="20" fill="#3b291a" stroke="#ffad4d" stroke-width="3"/><text x="695" y="481" text-anchor="middle" fill="#ffad4d" font-size="22">INDEXER-K</text><text x="695" y="512" text-anchor="middle" fill="#f5f7fb" font-size="17">score path</text>
+    <rect x="920" y="300" width="210" height="100" rx="20" fill="#183125" stroke="#a8ff60" stroke-width="3"/><text x="1025" y="342" text-anchor="middle" fill="#a8ff60" font-size="22">DOWNSTREAM</text><text x="1025" y="374" text-anchor="middle" fill="#f5f7fb" font-size="17">joins / consumers</text>
+  </g>
+  <rect x="190" y="600" width="820" height="58" rx="16" fill="#2c2540" stroke="#bc9cff" stroke-width="2"/>
+  <text x="600" y="637" text-anchor="middle" fill="#bc9cff" font-family="Arial, sans-serif" font-size="22" font-weight="700">MULTISTREAM RESTORES INDEPENDENCE; PDL ADVANCES DEPENDENT PREPARATION</text>
+</svg>

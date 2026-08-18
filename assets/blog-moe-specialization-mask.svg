@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">GPU-only expert specialization with problem-size masks</title>
+  <desc id="desc">The router produces token counts on GPU, three fixed-length problem arrays mask inactive experts with zero shapes, and three specialized grouped GEMMs run without a CPU readback.</desc>
+  <rect width="1200" height="720" fill="#0b111c"/>
+  <text x="70" y="78" fill="#f5f7fb" font-family="Arial, sans-serif" font-size="38" font-weight="700">SPECIALIZE WITHOUT A CPU ROUND TRIP</text>
+  <text x="70" y="116" fill="#9fb1c8" font-family="Arial, sans-serif" font-size="21">Fixed group_count; zero-sized problems are the mask</text>
+  <g font-family="Arial, sans-serif">
+    <rect x="70" y="180" width="225" height="112" rx="20" fill="#14263b" stroke="#56d8ff" stroke-width="3"/>
+    <text x="182" y="225" text-anchor="middle" fill="#56d8ff" font-size="23" font-weight="700">GPU ROUTER</text><text x="182" y="262" text-anchor="middle" fill="#f5f7fb" font-size="19">M₀ … M₂₅₅</text>
+    <path d="M295 236H405" stroke="#a8ff60" stroke-width="5"/><path d="M393 223L417 236 393 249Z" fill="#a8ff60"/>
+    <rect x="420" y="155" width="350" height="162" rx="20" fill="#111b2a" stroke="#a8ff60" stroke-width="3"/>
+    <text x="595" y="194" text-anchor="middle" fill="#a8ff60" font-size="23" font-weight="700">THREE PROBLEM ARRAYS</text>
+    <text x="453" y="235" fill="#56d8ff" font-size="19">LOW</text><text x="538" y="235" fill="#c9d5e5" font-size="18">[M₀,0,0,…]</text>
+    <text x="453" y="270" fill="#bc9cff" font-size="19">MID</text><text x="538" y="270" fill="#c9d5e5" font-size="18">[0,M₁,0,…]</text>
+    <text x="453" y="305" fill="#ffad4d" font-size="19">HIGH</text><text x="538" y="305" fill="#c9d5e5" font-size="18">[0,0,0,M₃,…]</text>
+    <path d="M770 236H862" stroke="#bc9cff" stroke-width="5"/><path d="M850 223L874 236 850 249Z" fill="#bc9cff"/>
+    <rect x="878" y="160" width="252" height="152" rx="20" fill="#2c2540" stroke="#bc9cff" stroke-width="3"/>
+    <text x="1004" y="205" text-anchor="middle" fill="#bc9cff" font-size="23" font-weight="700">GROUP_COUNT</text><text x="1004" y="247" text-anchor="middle" fill="#f5f7fb" font-size="34" font-weight="700">256</text><text x="1004" y="282" text-anchor="middle" fill="#9fb1c8" font-size="18">for every launch</text>
+    <g>
+      <rect x="90" y="420" width="280" height="118" rx="20" fill="#14263b" stroke="#56d8ff" stroke-width="3"/><text x="230" y="466" text-anchor="middle" fill="#56d8ff" font-size="24" font-weight="700">LOW-M GEMM</text><text x="230" y="504" text-anchor="middle" fill="#c9d5e5" font-size="18">wide TMA · memory path</text>
+      <rect x="460" y="420" width="280" height="118" rx="20" fill="#2c2540" stroke="#bc9cff" stroke-width="3"/><text x="600" y="466" text-anchor="middle" fill="#bc9cff" font-size="24" font-weight="700">MID-M GEMM</text><text x="600" y="504" text-anchor="middle" fill="#c9d5e5" font-size="18">balanced tile</text>
+      <rect x="830" y="420" width="280" height="118" rx="20" fill="#3b291a" stroke="#ffad4d" stroke-width="3"/><text x="970" y="466" text-anchor="middle" fill="#ffad4d" font-size="24" font-weight="700">HIGH-M GEMM</text><text x="970" y="504" text-anchor="middle" fill="#c9d5e5" font-size="18">compute-oriented tile</text>
+    </g>
+    <path d="M485 317L260 408M595 317V408M705 317L940 408" fill="none" stroke="#546a87" stroke-width="4"/>
+    <rect x="360" y="600" width="480" height="58" rx="16" fill="#183125" stroke="#a8ff60" stroke-width="2"/><text x="600" y="637" text-anchor="middle" fill="#a8ff60" font-size="22" font-weight="700">NO D2H COPY · NO HOST SYNC · GRAPH-FRIENDLY</text>
+  </g>
+</svg>

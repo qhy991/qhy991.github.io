@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Original MoE router postprocessing versus N6 fused path</title>
+  <desc id="desc">The original path performs remap, padded mask, and dtype conversion after Top-K. N6 produces final physical int64 IDs in one canonical router store.</desc>
+  <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0a0d0f"/><stop offset="1" stop-color="#142035"/></linearGradient><filter id="g"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#6f829a"/></marker></defs>
+  <rect width="1200" height="675" fill="url(#bg)" rx="24"/>
+  <g font-family="Inter,Arial,'PingFang SC',sans-serif">
+    <text x="70" y="68" fill="#ffb15c" font-size="26" font-weight="700">原始路径：多个阶段共同解释“最终 ID”</text>
+    <text x="70" y="103" fill="#9aacbf" font-size="16">每个小步骤都不重，但会增加物化、launch 和 dispatch 前等待。</text>
+    <g transform="translate(70 145)" text-anchor="middle">
+      <g><rect width="178" height="92" rx="15" fill="#15263a" stroke="#70e6ff" stroke-width="2"/><text x="89" y="38" fill="#70e6ff" font-size="19" font-weight="700">Router / Top-K</text><text x="89" y="66" fill="#d9e7f5" font-size="14">logical int32</text></g>
+      <path d="M178 46H232" stroke="#6f829a" stroke-width="3" marker-end="url(#a)"/>
+      <g transform="translate(242)"><rect width="178" height="92" rx="15" fill="#2b2020" stroke="#ff927f" stroke-width="2"/><text x="89" y="38" fill="#ff927f" font-size="18" font-weight="700">ID Remap</text><text x="89" y="66" fill="#d9e7f5" font-size="14">logical → physical</text></g>
+      <path d="M420 46H474" stroke="#6f829a" stroke-width="3" marker-end="url(#a)"/>
+      <g transform="translate(484)"><rect width="178" height="92" rx="15" fill="#2b2020" stroke="#ff927f" stroke-width="2"/><text x="89" y="38" fill="#ff927f" font-size="18" font-weight="700">Pad Mask</text><text x="89" y="66" fill="#d9e7f5" font-size="14">invalid rows → −1</text></g>
+      <path d="M662 46H716" stroke="#6f829a" stroke-width="3" marker-end="url(#a)"/>
+      <g transform="translate(726)"><rect width="178" height="92" rx="15" fill="#2b2020" stroke="#ff927f" stroke-width="2"/><text x="89" y="38" fill="#ff927f" font-size="18" font-weight="700">Cast</text><text x="89" y="66" fill="#d9e7f5" font-size="14">int32 → int64</text></g>
+      <path d="M904 46H958" stroke="#6f829a" stroke-width="3" marker-end="url(#a)"/>
+      <g transform="translate(968)"><rect width="150" height="92" rx="15" fill="#182d24" stroke="#b8ff5b" stroke-width="2"/><text x="75" y="38" fill="#b8ff5b" font-size="18" font-weight="700">DeepEP</text><text x="75" y="66" fill="#d9e7f5" font-size="14">dispatch</text></g>
+    </g>
+    <line x1="70" y1="310" x2="1130" y2="310" stroke="#36465a"/>
+    <text x="70" y="375" fill="#b8ff5b" font-size="26" font-weight="700">N6 路径：Producer 直接写 Consumer 的最终格式</text>
+    <text x="70" y="410" fill="#9aacbf" font-size="16">Top-K 数学保持 logical 语义；仅在最终 store 前完成 map、mask 和 ABI。</text>
+    <g transform="translate(110 460)" text-anchor="middle" filter="url(#g)">
+      <g><rect width="260" height="116" rx="18" fill="#15263a" stroke="#70e6ff" stroke-width="3"/><text x="130" y="44" fill="#70e6ff" font-size="21" font-weight="700">Router / Top-K</text><text x="130" y="78" fill="#d9e7f5" font-size="15">logical winner preserved</text></g>
+      <path d="M260 58H370" stroke="#b8ff5b" stroke-width="6" marker-end="url(#a)"/>
+      <g transform="translate(390)"><rect width="390" height="116" rx="18" fill="#182d24" stroke="#b8ff5b" stroke-width="3"/><text x="195" y="39" fill="#b8ff5b" font-size="21" font-weight="700">ONE CANONICAL STORE</text><text x="195" y="70" fill="#d9e7f5" font-size="15">static map · padded −1 · int64 ABI</text><text x="195" y="95" fill="#9aacbf" font-size="14">shared-expert semantics unchanged</text></g>
+      <path d="M780 58H890" stroke="#b8ff5b" stroke-width="6" marker-end="url(#a)"/>
+      <g transform="translate(910)"><rect width="150" height="116" rx="18" fill="#182d24" stroke="#b8ff5b" stroke-width="3"/><text x="75" y="49" fill="#b8ff5b" font-size="19" font-weight="700">DeepEP</text><text x="75" y="80" fill="#d9e7f5" font-size="14">dispatch</text></g>
+    </g>
+    <text x="600" y="635" text-anchor="middle" fill="#ffb15c" font-size="18" font-weight="700">优化不是“多做一步”，而是让旧的三步真正消失。</text>
+  </g>
+</svg>

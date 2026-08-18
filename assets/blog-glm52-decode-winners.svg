@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" role="img" aria-labelledby="title desc">
+  <title id="title">GLM-5.2 decode winner oracle</title>
+  <desc id="desc">A multidimensional oracle selects attention, projection, and MoE candidates for the correct local M and CUDA Graph mode, reducing median ITL from 33.116 to 31.243 milliseconds.</desc>
+  <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#080b10"/><stop offset="1" stop-color="#111c30"/></linearGradient><filter id="glow"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+  <rect width="1024" height="1024" fill="url(#bg)"/>
+  <g opacity=".12" stroke="#8fa2bd"><path d="M0 170H1024M0 340H1024M0 510H1024M0 680H1024M0 850H1024"/><path d="M170 0V1024M340 0V1024M510 0V1024M680 0V1024M850 0V1024"/></g>
+  <g font-family="Inter,Arial,'PingFang SC',sans-serif" text-anchor="middle">
+    <text x="512" y="72" fill="#eef7ff" font-size="36" font-weight="700">DECODE WINNER ORACLE</text>
+    <text x="512" y="108" fill="#8fa2bd" font-size="17" letter-spacing="2">OP · PHASE · LOCAL M · ABI · GRAPH</text>
+    <g transform="translate(104 165)" font-size="18" font-weight="700">
+      <rect width="190" height="92" rx="16" fill="#13283c" stroke="#70e6ff" stroke-width="3"/><text x="95" y="38" fill="#70e6ff">FlashMLA</text><text x="95" y="66" fill="#d9e7f5" font-size="14">P1 + c2</text>
+      <g transform="translate(208)"><rect width="190" height="92" rx="16" fill="#182d24" stroke="#b8ff5b" stroke-width="3"/><text x="95" y="38" fill="#b8ff5b">O Projection</text><text x="95" y="66" fill="#d9e7f5" font-size="14">fixed N / K</text></g>
+      <g transform="translate(416)"><rect width="190" height="92" rx="16" fill="#24243a" stroke="#b699ff" stroke-width="3"/><text x="95" y="38" fill="#b699ff">Indexer Q</text><text x="95" y="66" fill="#d9e7f5" font-size="14">fixed N / K</text></g>
+      <g transform="translate(624)"><rect width="190" height="92" rx="16" fill="#34271b" stroke="#ffb15c" stroke-width="3"/><text x="95" y="38" fill="#ffb15c">MoE</text><text x="95" y="66" fill="#d9e7f5" font-size="14">M-tile align</text></g>
+    </g>
+    <g filter="url(#glow)"><path d="M199 257C199 350 430 330 465 430M407 257C407 350 470 348 490 430M615 257C615 350 550 348 530 430M823 257C823 350 590 330 555 430" fill="none" stroke="#70e6ff" stroke-width="5" opacity=".8"/><rect x="355" y="430" width="314" height="156" rx="24" fill="#15263a" stroke="#70e6ff" stroke-width="4"/><text x="512" y="480" fill="#70e6ff" font-size="26" font-weight="700">CUDA GRAPH · M16</text><text x="512" y="520" fill="#eef7ff" font-size="20">TP8 / DP8 / EP8</text><text x="512" y="554" fill="#b8ff5b" font-size="18">path-hit verified</text></g>
+    <path d="M512 586V684" stroke="#b8ff5b" stroke-width="9" filter="url(#glow)"/><polygon points="512,706 498,680 526,680" fill="#b8ff5b"/>
+    <rect x="150" y="720" width="724" height="150" rx="26" fill="#121b29" stroke="#b8ff5b" stroke-width="3"/>
+    <text x="330" y="778" fill="#8fa2bd" font-size="19">OPT0 MEDIAN ITL</text><text x="330" y="830" fill="#eef7ff" font-size="39" font-weight="700">33.116 ms</text>
+    <path d="M450 796H574" stroke="#b8ff5b" stroke-width="7"/><polygon points="590,796 568,784 568,808" fill="#b8ff5b"/>
+    <text x="694" y="778" fill="#8fa2bd" font-size="19">WINNERS</text><text x="694" y="830" fill="#b8ff5b" font-size="39" font-weight="700">31.243 ms</text>
+    <text x="512" y="925" fill="#ffb15c" font-size="24" font-weight="700">5.66% · BOUNDED BS128 DEVELOPMENT RESULT</text>
+    <text x="512" y="960" fill="#8fa2bd" font-size="16">A winner is a coordinate, not a kernel name.</text>
+  </g>
+</svg>

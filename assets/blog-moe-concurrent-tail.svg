@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">Concurrent streams reclaim the tails of specialized persistent kernels</title>
+  <desc id="desc">Sequential specialized kernels leave idle SM capacity during their tails, while concurrent streams let CTAs from another bucket use newly released SMs.</desc>
+  <rect width="1200" height="720" fill="#0b111c"/>
+  <text x="70" y="80" fill="#f5f7fb" font-family="Arial, sans-serif" font-size="32" font-weight="700">SPECIALIZATION CREATES TAILS; CONCURRENCY RECLAIMS THEM</text>
+  <text x="70" y="118" fill="#9fb1c8" font-family="Arial, sans-serif" font-size="21">Illustrative SM-time occupancy—not a profiler trace</text>
+  <g font-family="Arial, sans-serif">
+    <text x="70" y="188" fill="#ffad4d" font-size="24" font-weight="700">SERIAL STREAM</text>
+    <text x="70" y="228" fill="#9fb1c8" font-size="18">SM capacity</text>
+    <rect x="190" y="198" width="860" height="150" rx="14" fill="#111b2a" stroke="#33445c" stroke-width="2"/>
+    <rect x="190" y="198" width="300" height="115" rx="10" fill="#1687a7"/><path d="M490 198H560V313H490Z" fill="#1687a7" opacity=".45"/>
+    <rect x="560" y="198" width="210" height="92" rx="10" fill="#7a5ab6"/><path d="M770 198H830V290H770Z" fill="#7a5ab6" opacity=".45"/>
+    <rect x="830" y="198" width="150" height="68" rx="10" fill="#b96c24"/><path d="M980 198H1050V266H980Z" fill="#b96c24" opacity=".45"/>
+    <text x="330" y="260" text-anchor="middle" fill="#fff" font-size="20" font-weight="700">LOW</text><text x="665" y="250" text-anchor="middle" fill="#fff" font-size="20" font-weight="700">MID</text><text x="905" y="240" text-anchor="middle" fill="#fff" font-size="20" font-weight="700">HIGH</text>
+    <text x="525" y="337" text-anchor="middle" fill="#ffad4d" font-size="17">idle tail</text><text x="800" y="315" text-anchor="middle" fill="#ffad4d" font-size="17">idle tail</text><text x="1015" y="290" text-anchor="middle" fill="#ffad4d" font-size="17">idle tail</text>
+    <text x="1050" y="372" text-anchor="end" fill="#9fb1c8" font-size="18">time →</text>
+    <text x="70" y="430" fill="#a8ff60" font-size="24" font-weight="700">THREE CONCURRENT STREAMS</text>
+    <text x="70" y="470" fill="#9fb1c8" font-size="18">SM capacity</text>
+    <rect x="190" y="440" width="860" height="150" rx="14" fill="#111b2a" stroke="#33445c" stroke-width="2"/>
+    <rect x="190" y="440" width="330" height="112" rx="10" fill="#1687a7"/>
+    <rect x="360" y="502" width="350" height="60" rx="10" fill="#7a5ab6"/>
+    <rect x="520" y="440" width="270" height="52" rx="10" fill="#b96c24"/>
+    <text x="325" y="484" text-anchor="middle" fill="#fff" font-size="20" font-weight="700">LOW CTAs</text><text x="535" y="541" text-anchor="middle" fill="#fff" font-size="18" font-weight="700">MID CTAs fill released SMs</text><text x="655" y="474" text-anchor="middle" fill="#fff" font-size="18" font-weight="700">HIGH CTAs</text>
+    <path d="M790 440H838" stroke="#a8ff60" stroke-width="4"/><path d="M826 427L850 440 826 453Z" fill="#a8ff60"/>
+    <rect x="850" y="448" width="180" height="92" rx="16" fill="#183125" stroke="#a8ff60" stroke-width="2"/><text x="940" y="484" text-anchor="middle" fill="#a8ff60" font-size="20" font-weight="700">EARLIER</text><text x="940" y="515" text-anchor="middle" fill="#f5f7fb" font-size="18">round finish</text>
+    <text x="1050" y="612" text-anchor="end" fill="#9fb1c8" font-size="18">time →</text>
+    <text x="600" y="664" text-anchor="middle" fill="#c9d5e5" font-size="21">No preemption required: the scheduler places waiting CTAs when an SM becomes free</text>
+  </g>
+</svg>

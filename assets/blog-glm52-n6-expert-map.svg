@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" role="img" aria-labelledby="title desc">
+  <title id="title">GLM-5.2 N6 expert placement and DeepEP routing</title>
+  <desc id="desc">A router produces logical expert IDs, a static map converts them to physical owners, and DeepEP distributes tokens across eight GPU ranks.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#080b10"/><stop offset="1" stop-color="#10182a"/></linearGradient>
+    <linearGradient id="route" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#70e6ff"/><stop offset="1" stop-color="#b8ff5b"/></linearGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="7" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="1024" height="1024" fill="url(#bg)"/>
+  <g opacity=".12" stroke="#8fa2bd"><path d="M0 156H1024M0 332H1024M0 508H1024M0 684H1024M0 860H1024"/><path d="M164 0V1024M340 0V1024M516 0V1024M692 0V1024M868 0V1024"/></g>
+  <g font-family="Inter,Arial,'PingFang SC',sans-serif" text-anchor="middle">
+    <text x="512" y="76" fill="#eef7ff" font-size="36" font-weight="700">ROUTER → MAP → DEEPEP</text>
+    <text x="512" y="112" fill="#8fa2bd" font-size="18" letter-spacing="2">ONE CANONICAL EXPERT-ID PATH</text>
+    <g filter="url(#glow)">
+      <rect x="370" y="160" width="284" height="104" rx="22" fill="#12253a" stroke="#70e6ff" stroke-width="3"/>
+      <text x="512" y="205" fill="#70e6ff" font-size="22" font-weight="700">ROUTER / TOP-K</text>
+      <text x="512" y="238" fill="#d9e7f5" font-size="17">logical expert IDs</text>
+      <path d="M512 264V334" stroke="#70e6ff" stroke-width="8"/>
+      <polygon points="512,348 500,328 524,328" fill="#70e6ff"/>
+      <rect x="342" y="350" width="340" height="118" rx="22" fill="#182d24" stroke="#b8ff5b" stroke-width="3"/>
+      <text x="512" y="397" fill="#b8ff5b" font-size="22" font-weight="700">STATIC PLACEMENT MAP</text>
+      <text x="512" y="430" fill="#d9e7f5" font-size="17">physical ID · padded −1 · int64</text>
+    </g>
+    <path d="M512 468V548" stroke="url(#route)" stroke-width="10" filter="url(#glow)"/>
+    <circle cx="512" cy="557" r="18" fill="#b8ff5b" filter="url(#glow)"/>
+    <text x="512" y="615" fill="#eef7ff" font-size="21" font-weight="700">DEEPEP DISPATCH</text>
+    <g fill="none" stroke="url(#route)" stroke-width="5" opacity=".9">
+      <path d="M512 557C512 640 110 622 110 724"/><path d="M512 557C512 650 225 630 225 724"/><path d="M512 557C512 660 340 638 340 724"/><path d="M512 557C512 670 455 646 455 724"/>
+      <path d="M512 557C512 670 569 646 569 724"/><path d="M512 557C512 660 684 638 684 724"/><path d="M512 557C512 650 799 630 799 724"/><path d="M512 557C512 640 914 622 914 724"/>
+    </g>
+    <g font-size="17" font-weight="700">
+      <g transform="translate(58 724)"><rect width="104" height="122" rx="16" fill="#12253a" stroke="#70e6ff" stroke-width="2"/><text x="52" y="46" fill="#70e6ff">GPU 0</text><text x="52" y="82" fill="#d9e7f5">experts</text></g>
+      <g transform="translate(173 724)"><rect width="104" height="122" rx="16" fill="#12253a" stroke="#70e6ff" stroke-width="2"/><text x="52" y="46" fill="#70e6ff">GPU 1</text><text x="52" y="82" fill="#d9e7f5">experts</text></g>
+      <g transform="translate(288 724)"><rect width="104" height="122" rx="16" fill="#12253a" stroke="#70e6ff" stroke-width="2"/><text x="52" y="46" fill="#70e6ff">GPU 2</text><text x="52" y="82" fill="#d9e7f5">experts</text></g>
+      <g transform="translate(403 724)"><rect width="104" height="122" rx="16" fill="#12253a" stroke="#70e6ff" stroke-width="2"/><text x="52" y="46" fill="#70e6ff">GPU 3</text><text x="52" y="82" fill="#d9e7f5">experts</text></g>
+      <g transform="translate(517 724)"><rect width="104" height="122" rx="16" fill="#182d24" stroke="#b8ff5b" stroke-width="2"/><text x="52" y="46" fill="#b8ff5b">GPU 4</text><text x="52" y="82" fill="#d9e7f5">experts</text></g>
+      <g transform="translate(632 724)"><rect width="104" height="122" rx="16" fill="#182d24" stroke="#b8ff5b" stroke-width="2"/><text x="52" y="46" fill="#b8ff5b">GPU 5</text><text x="52" y="82" fill="#d9e7f5">experts</text></g>
+      <g transform="translate(747 724)"><rect width="104" height="122" rx="16" fill="#182d24" stroke="#b8ff5b" stroke-width="2"/><text x="52" y="46" fill="#b8ff5b">GPU 6</text><text x="52" y="82" fill="#d9e7f5">experts</text></g>
+      <g transform="translate(862 724)"><rect width="104" height="122" rx="16" fill="#182d24" stroke="#b8ff5b" stroke-width="2"/><text x="52" y="46" fill="#b8ff5b">GPU 7</text><text x="52" y="82" fill="#d9e7f5">experts</text></g>
+    </g>
+    <text x="512" y="916" fill="#ffb15c" font-size="23" font-weight="700">BALANCE THE TAIL · DELETE THE EXTRA PATH</text>
+    <text x="512" y="951" fill="#8fa2bd" font-size="17">8×B300 · GLM-5.2 FP8 · bounded cached-prefill cell</text>
+  </g>
+</svg>

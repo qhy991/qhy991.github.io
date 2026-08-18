@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ page.lang | default: 'en' }}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,6 +20,17 @@
     <link rel="stylesheet" href="{{ '/assets/css/home.css' | relative_url }}">
     <link rel="stylesheet" href="{{ '/assets/css/page.css' | relative_url }}">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" defer></script>
+    {% if page.math %}
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: { '[+]': [['$', '$']] },
+                processEscapes: true
+            }
+        };
+    </script>
+    <script id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" defer></script>
+    {% endif %}
 </head>
 <body>
     <a class="skip-link" href="#article">Skip to article</a>
@@ -49,7 +60,7 @@
         </article>
 
         <nav class="post-shell post-footer-nav" aria-label="Article navigation">
-            <a href="{{ '/blog.html' | relative_url }}">← Back to all notes</a>
+            {% if page.series == 'gpu-systems' %}<a href="{{ '/gpu-systems-series.html' | relative_url }}">← GPU systems series</a><a href="{{ '/gpu-systems-evidence.html' | relative_url }}">Evidence register ↗</a>{% else %}<a href="{{ '/blog.html' | relative_url }}">← Back to all notes</a>{% endif %}
             <a href="https://twitter.com/intent/tweet?text={{ page.title | uri_escape }}&amp;url={{ page.url | absolute_url | uri_escape }}" target="_blank" rel="noreferrer">Share on X ↗</a>
         </nav>
     </main>

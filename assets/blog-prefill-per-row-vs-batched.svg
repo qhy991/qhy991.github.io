@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Per-row serial prefill versus one true batched GPU DAG</title>
+  <desc id="desc">The old path runs one eager model and KV copy per request in a Python loop; the new path flattens B by T for shared GEMMs, restores batch identity for causal attention, and writes KV once.</desc>
+  <rect width="1200" height="675" rx="24" fill="#0b111c"/>
+  <text x="65" y="70" fill="#eef7ff" font-family="Arial, sans-serif" font-size="34" font-weight="700">BATCH IN THE API IS NOT BATCH IN THE EXECUTION DAG</text>
+  <text x="65" y="108" fill="#9fb1c8" font-family="Arial, sans-serif" font-size="19">B16×T128 example</text>
+  <g font-family="Arial, sans-serif">
+    <g transform="translate(65 165)">
+      <rect width="500" height="390" rx="24" fill="#361c21" stroke="#ff927f" stroke-width="3"/>
+      <text x="250" y="45" text-anchor="middle" fill="#ff927f" font-size="24" font-weight="700">PYTHON ROW LOOP</text>
+      <g transform="translate(55 90)" font-size="16" font-weight="700" text-anchor="middle">
+        <rect width="390" height="48" rx="12" fill="#361c21" stroke="#ff927f"/><text x="195" y="31" fill="#ff927f">row 0 forward + 72-layer KV copy</text>
+        <rect y="65" width="390" height="48" rx="12" fill="#361c21" stroke="#ff927f"/><text x="195" y="96" fill="#ff927f">row 1 forward + 72-layer KV copy</text>
+        <rect y="130" width="390" height="48" rx="12" fill="#361c21" stroke="#ff927f"/><text x="195" y="161" fill="#ff927f">…</text>
+        <rect y="195" width="390" height="48" rx="12" fill="#361c21" stroke="#ff927f"/><text x="195" y="226" fill="#ff927f">row 15 forward + 72-layer KV copy</text>
+      </g>
+      <text x="250" y="350" text-anchor="middle" fill="#ff927f" font-size="27" font-weight="700">409 ms</text>
+    </g>
+    <g transform="translate(635 165)">
+      <rect width="500" height="390" rx="24" fill="#183125" stroke="#a8ff60" stroke-width="3"/>
+      <text x="250" y="45" text-anchor="middle" fill="#a8ff60" font-size="24" font-weight="700">ONE BATCHED DAG</text>
+      <g transform="translate(55 90)" font-size="16" font-weight="700" text-anchor="middle">
+        <rect width="390" height="48" rx="12" fill="#14263b" stroke="#70e6ff"/><text x="195" y="31" fill="#70e6ff">flatten N = B×T = 2048</text>
+        <rect y="65" width="390" height="48" rx="12" fill="#14263b" stroke="#70e6ff"/><text x="195" y="96" fill="#70e6ff">one set of batched GEMMs</text>
+        <rect y="130" width="390" height="48" rx="12" fill="#14263b" stroke="#70e6ff"/><text x="195" y="161" fill="#70e6ff">QKV → [B,H,T,D] causal attention</text>
+        <rect y="195" width="390" height="48" rx="12" fill="#14263b" stroke="#70e6ff"/><text x="195" y="226" fill="#70e6ff">batched MLP + real-last logits + KV</text>
+      </g>
+      <text x="250" y="350" text-anchor="middle" fill="#a8ff60" font-size="27" font-weight="700">15.5 ms after Graph + fusion</text>
+    </g>
+    <rect x="180" y="590" width="840" height="50" rx="14" fill="#24243a" stroke="#b699ff" stroke-width="2"/>
+    <text x="600" y="622" text-anchor="middle" fill="#b699ff" font-size="19" font-weight="700">REQUESTS STAY SEMANTICALLY INDEPENDENT INSIDE THE BATCH DIMENSION</text>
+  </g>
+</svg>

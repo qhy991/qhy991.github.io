@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#0a0d0f">
+    <meta name="description" content="GPU Systems Series 的证据索引：为每篇文章登记来源快照、workload cell、证据等级、声明边界与重开条件。">
+    <link rel="canonical" href="https://qhy991.github.io/gpu-systems-evidence.html">
+    <meta property="og:type" content="website"><meta property="og:title" content="GPU Systems Evidence Register — Haiyan Qin"><meta property="og:description" content="文章负责解释机制，证据索引负责约束结论。"><meta property="og:image" content="https://qhy991.github.io/assets/blog-stop-optimization.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <title>GPU Systems Evidence Register — Haiyan Qin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wdth,wght@75..100,400..700&amp;family=Space+Mono:wght@400;700&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/home.css"><link rel="stylesheet" href="assets/css/page.css">
+</head>
+<body>
+    <a class="skip-link" href="#main">Skip to evidence register</a>
+    <header class="site-header" data-header><div class="shell nav-wrap">
+        <a class="brand" href="index.html" aria-label="Haiyan Qin, home"><span class="brand-mark" aria-hidden="true">HQ</span><span class="brand-copy"><strong>Haiyan Qin</strong><small>AI Infra Researcher</small></span></a>
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-menu-toggle><span></span><span></span><span class="sr-only">Toggle navigation</span></button>
+        <nav class="site-nav" id="site-nav" aria-label="Primary navigation" data-menu><a href="index.html">Home</a><a href="about.html">About</a><a href="portfolio.html">Projects</a><a href="publications.html">Publications</a><a class="is-active" href="blog.html">Notes</a></nav>
+        <a class="header-contact" href="mailto:haiyanq@buaa.edu.cn">Let's talk <span aria-hidden="true">↗</span></a>
+    </div></header>
+
+    <main id="main" class="inner-main">
+        <section class="inner-hero" data-code="EVD"><div class="shell inner-hero-grid">
+            <div data-reveal><p class="section-index">EVIDENCE REGISTER</p><h1>Claims.<br><em>Bounded.</em></h1></div>
+            <div class="inner-hero-copy" data-reveal data-delay="1"><p>文章负责解释机制；这里负责回答每个数字来自哪里、在哪个 workload cell 成立、证据走到了哪一层，以及什么变化会迫使我们重新测试。</p><div class="hero-facts"><span>Snapshot: 2026-08-17</span><span>24 notes</span><span>Accepted + rejected + planned</span><a class="tag" href="gpu-systems-series.html">Reading path ↗</a></div></div>
+        </div></section>
+
+        <section class="page-section shell">
+            <div class="page-title-row" data-reveal><div><p class="section-index">HOW TO READ</p><h2>结论不是<br>一个百分比。</h2></div><p>同一个 kernel 名称在 GPU、dtype、phase、batch、rank-local shape、ABI、Graph 状态或 timing boundary 改变后，已经是另一个实验。索引因此把“结论”写成带坐标的记录。</p></div>
+            <div class="metric-strip" data-reveal>
+                <div><strong>01</strong><span>Source identity</span></div>
+                <div><strong>02</strong><span>Workload cell</span></div>
+                <div><strong>03</strong><span>Evidence level</span></div>
+                <div><strong>04</strong><span>Reopen condition</span></div>
+            </div>
+            <div class="evidence-principles" data-reveal>
+                <p><strong>Accepted bounded</strong> 表示结论只在登记的 cell 内通过对应 gate；它不是 deployment-wide 默认值。</p>
+                <p><strong>Development / archive</strong> 表示机制信号真实存在，但 formal pairs、独立 holdout、公开 artifact 或完整 serving 边界仍不完整。</p>
+                <p><strong>Rejected / stopped</strong> 保存已经证明的负结论和重开条件；它不会被改写成“还可以继续调一调”。</p>
+                <p><strong>Planned</strong> 只是可证伪设计，没有实现、正确性或性能结果。</p>
+            </div>
+        </section>
+
+        <section class="page-section dark-section"><div class="shell">
+            <div class="page-title-row" data-reveal><div><p class="section-index">SOURCE SNAPSHOTS</p><h2>三个仓库，<br>四类来源。</h2></div><p>公开 permalink 优先；尚未公开的 raw bundle 只登记仓库与 commit，不伪装成读者可以独立下载的 artifact。外部文章仅作为教学重构来源，不升级为本地复现实验。</p></div>
+            <div class="journey-grid evidence-source-grid">
+                <article class="journey-card evidence-source" data-reveal><span class="journey-date">SGLANG-DGMK</span><h3><code>9e439b4</code></h3><h4>Public commit snapshot</h4><p>N6 的 contract、formal/holdout evidence 与公开复现入口。B300-M2 后续 development 结果另行标为 local snapshot，不回写到这个 commit。</p><a class="text-link" href="https://github.com/qhy991/SGLang-DGMK/commit/9e439b4a9bdb6339a9ede363b19d18d4f3192b8f" target="_blank" rel="noreferrer">Open commit ↗</a></article>
+                <article class="journey-card evidence-source" data-reveal><span class="journey-date">SUBCUDA</span><h3><code>d1db18f</code></h3><h4>Machine-readable case snapshot</h4><p>PTX/CUDA counterfactual、barrier、FP8 fusion、symmetric memory、register cliff 与 STOP cases 的结构化来源；各 case 仍保留自己的 workload 与 verdict。</p><a class="text-link" href="https://github.com/qhy991/SubCUDA/commit/d1db18fbc46f873d827bc7d276988d5cef3199ab" target="_blank" rel="noreferrer">Open commit ↗</a></article>
+                <article class="journey-card evidence-source" data-reveal><span class="journey-date">AGENTIC-MEGAKERNEL</span><h3><code>fdf4898</code></h3><h4>Evidence-hub snapshot · public artifact pending</h4><p>保存 LS18R、Hazy、Split-KV 与 non-GEMM boundary 的 contract、manifest 和 scoped verdict。部分 measured revision 与 raw bundle 仍为 local-only。</p></article>
+                <article class="journey-card evidence-source" data-reveal><span class="journey-date">ATTRIBUTED SOURCES</span><h3>External</h3><h4>Teaching reconstruction, not local replay</h4><p>Expert Specialization 来自用户提供的署名材料；MegaRTP/CMP 来自公开原文。数字保持原边界，缺失 raw trace 时不会声明独立复现。</p><a class="text-link" href="https://www.zhihu.com/question/2013258505231050695/answer/2071314457918183125" target="_blank" rel="noreferrer">MegaRTP source ↗</a></article>
+            </div>
+        </div></section>
+
+        <section class="page-section dark-section evidence-register-section"><div class="shell">
+            <div class="page-title-row" data-reveal><div><p class="section-index">ARTICLE REGISTER</p><h2>二十四篇，<br>二十四个边界。</h2></div><p>“下一门”不是待办清单的装饰，而是结论重新获得解释权所需的最小新证据。若 workload identity 改变，即使代码没变，也必须创建新记录。</p></div>
+            <div class="journey-grid evidence-card-grid">
+                <article class="journey-card evidence-card" data-reveal><span class="journey-date">01 · ATTRIBUTED · TEACHING RECONSTRUCTION</span><h3>一个 MoE Kernel 为什么不够用</h3><dl><dt>Cell</dt><dd>H20/Hx00 grouped MoE，per-expert <code>Mₑ</code>、TMA tile 与多 stream tail。</dd><dt>Boundary</dt><dd>解释来源材料中的机制与现象；不是当前仓库的独立代码复现。</dd><dt>Reopen</dt><dd>获得可公开 kernel commit、raw profile 和固定 workload contract。</dd></dl><a class="text-link" href="/2026/08/17/moe-expert-specialization-tma-concurrent-streams/">Read note ↗</a></article>
+
+                <article class="journey-card evidence-card" data-reveal><span class="journey-date">02 · ATTRIBUTED · TEACHING RECONSTRUCTION</span><h3>从 80 μs 到 36.992 μs</h3><dl><dt>Cell</dt><dd>GLM-5.2-FP8 attention-pre，B300，rank-local <code>M=16</code> 子图。</dd><dt>Boundary</dt><dd>原文 2×2 scheduling ablation；本站没有原始 trace bundle，不声称 fresh replay。</dd><dt>Reopen</dt><dd>公开 raw trace、kernel revision、Graph capture contract 与复验脚本。</dd></dl><a class="text-link" href="/2026/08/17/megakernel-multistream-pdl-glm-5-2/">Read note ↗</a></article>
+
+                <article class="journey-card evidence-card" data-reveal><span class="journey-date">03 · SGLANG · ACCEPTED BOUNDED</span><h3>为什么搬一搬 Expert 就能让 8 张 B300 更快</h3><dl><dt>Cell</dt><dd>8×B300，GLM-5.2，100K cached-prefill，冻结 N6 placement / DeepEP path。</dd><dt>Evidence</dt><dd>Path hit、correctness、五对 formal、独立 client-seed holdout 与 causal profile。</dd><dt>Boundary</dt><dd>不代表其他 context、parallel plan、online traffic 或模型版本。</dd><dt>Reopen</dt><dd>Router、expert map、DeepEP ABI、parallel topology 或 workload cell 改变。</dd></dl><a class="text-link" href="/2026/08/17/glm52-n6-expert-placement-deepep-critical-path/">Read note ↗</a></article>
+
+                <article class="journey-card evidence-card" data-reveal><span class="journey-date">04 · B300-M2 · DEVELOPMENT</span><h3>为什么三个 Kernel Winner 组合起来只快 5.66%</h3><dl><dt>Cell</dt><dd>8×B300，GLM-5.2-FP8 decode，global BS128 / DP8 / local <code>M=16</code>，CUDA Graph。</dd><dt>Evidence</dt><dd>N=100 development signal、path-hit 与 clean branch；未达到 deployment promotion。</dd><dt>Next gate</dt><dd>Fresh-server AB/BA formal pairs、BS256 独立 cell、correctness、holdout、matched Nsys。</dd></dl><a class="text-link" href="/2026/08/17/glm52-decode-winners-graph-buckets/">Read note ↗</a></article>
+
+                <article class="journey-card evidence-card" data-reveal><span class="journey-date">05 · AGENTIC · S4 BOUNDED WIN</span><h3>为什么 MegaKernel 不该只盯着 GEMM</h3><dl><dt>Cell</dt><dd>1×B200，Llama-3.1-8B，capacity-16，20 s HTTP streaming throughput。</dd><dt>Evidence</dt><dd>LS18R non-GEMM bundle 通过 serving gate；单个 seam 的独立贡献未被组合实验识别。</dd><dt>Boundary</dt><dd>Hub 可审计，但部分 raw/measured revision 仍 local-only。</dd><dt>Reopen</dt><dd>公开 artifact、单因素消融，或模型/serving scheduler 改变。</dd></dl><a class="text-link" href="/2026/08/17/agentic-megakernel-nongemm-boundaries/">Read note ↗</a></article>
+
+                <article class="journey-card evidence-card" data-reveal><span class="journey-date">06 · SUBCUDA · ACCEPTED BOUNDED</span><h3>手写 PTX 真的有 CUDA 做不到的能力吗</h3><dl><dt>Cell</dt><dd>2×B200，Qwen3.5 TP2，B32 offline decode，GDN state update。</dd><dt>Evidence</dt><dd>R93 五对 exact A/B；R95 control/CUDA/PTX 三臂 counterfactual 与 SASS 归因。</dd><dt>Boundary</dt><dd>不外推到 TP1、其他 batch、GPU、在线 serving 或其他 compiler revision。</dd><dt>Reopen</dt><dd>Shape、toolchain、dispatch bucket 或 producer/consumer ABI 改变。</dd></dl><a class="text-link" href="/2026/08/17/subcuda-ptx-vector-io-cuda-counterfactual/">Read note ↗</a></article>
+
+                <article class="journey-card evidence-card" data-reveal><span class="journey-date">07 · MIXED · MECHANISM MAP</span><h3>为什么“更异步”会变慢</h3><dl><dt>Cell</dt><dd>B200 single decode、paged batch decode 与 Hazy resident full-model Graph 的不同 execution shapes。</dd><dt>Evidence</dt><dd>Named-barrier 正例、phase/TMA pending/prefetch 负例；每个 verdict 保持原 operator 或 model boundary。</dd><dt>Boundary</dt><dd>不存在“异步总是更快/更慢”的跨形态总排名。</dd><dt>Reopen</dt><dd>Ownership、residency、dependency window 或 live-state budget 改变。</dd></dl><a class="text-link" href="/2026/08/17/async-barrier-pipeline-sign-reversal/">Read note ↗</a></article>
+
+                <article class="journey-card evidence-card" data-reveal><span class="journey-date">08 · MIXED · REPLAY + BLOCKED</span><h3>为什么 FP8 Fusion 必须一个 Byte 都不能变</h3><dl><dt>Cell</dt><dd>Qwen3.5 TP1/TP2 的 activation quant、add-RMSNorm、shared SwiGLU+quant 等不同边界。</dd><dt>Evidence</dt><dd>TP2 cases 可结构化 replay；TP1 historical accepted evidence 的 fresh replay 依赖外部 OMoE checkout。</dd><dt>Boundary</dt><dd>不能把三条不同频次、分母和默认状态的 fusion 合成一个收益。</dd><dt>Reopen</dt><dd>补齐外部 checkout、consumer-exact replay 与对应 E2E cell。</dd></dl><a class="text-link" href="/2026/08/17/fp8-fusion-byte-exact-rounding/">Read note ↗</a></article>
+
+                <article class="journey-card evidence-card" data-reveal><span class="journey-date">09 · ARCHIVE + PLAN · NO QUEUE WIN CLAIM</span><h3>GPU 内的 Ready Queue 为什么可能死锁</h3><dl><dt>Cell</dt><dd>Hazy release/acquire 与 Split-KV archive、SubCUDA poll/PDL/third-stream analogs。</dd><dt>Evidence</dt><dd>C2/S3 archive lineage、replayable negative analogs，以及 C0/S0 ready-queue research plan。</dd><dt>Boundary</dt><dd>GPU-resident ready queue 尚无实现、correctness 或 performance result。</dd><dt>Next gate</dt><dd>Canonical freeze、epoch/lifetime proof、reserved producer capacity 与 long-run liveness test。</dd></dl><a class="text-link" href="/2026/08/17/gpu-ready-queue-release-acquire-forward-progress/">Read note ↗</a></article>
+
+                <article class="journey-card evidence-card" data-reveal><span class="journey-date">10 · SUBCUDA · EXPERIMENTAL DEFAULT-OFF</span><h3>为什么少写一半 Store，模型只快 0.02%</h3><dl><dt>Cell</dt><dd>Qwen3.5 TP2，B200，冻结 Graph 与 source-owned symmetric pull。</dd><dt>Evidence</dt><dd>D064 boundary + 五对 TP2 exact/E2E 小幅正向；并列保存 direct-output、third-stream 与 geometry stops。</dd><dt>Boundary</dt><dd>不外推到其他 rank count、transport、reduction tree 或 serving mode。</dd><dt>Reopen</dt><dd>Transport/ownership/consumer 图改变，或收益超过预声明 materiality gate。</dd></dl><a class="text-link" href="/2026/08/17/symmetric-memory-rank-ownership-slow-rank/">Read note ↗</a></article>
+
+                <article class="journey-card evidence-card" data-reveal><span class="journey-date">11 · SUBCUDA · EXACT-SHAPE OPERATOR</span><h3>寄存器越少越快吗</h3><dl><dt>Cell</dt><dd>B200 上 RMSNorm、single decode、SiLU、activation 与 GDN 的多个精确 shape。</dd><dt>Evidence</dt><dd>Machine-readable replay 与 static register/spill/SASS proof；未声明统一模型收益。</dd><dt>Boundary</dt><dd><code>r32</code> 与 <code>r80</code> 是不同 kernel 的相反最优点，不是全局规则。</dd><dt>Reopen</dt><dd>Block size、shared memory、toolchain、shape bucket 或 dispatch policy 改变。</dd></dl><a class="text-link" href="/2026/08/17/register-occupancy-ilp-cliffs/">Read note ↗</a></article>
+
+                <article class="journey-card evidence-card" data-reveal><span class="journey-date">12 · B300-M2 · MIXED WORKLOAD EVIDENCE</span><h3>为什么 2K 上快 9% 的 Kernel 到 64K 就消失</h3><dl><dt>Cell</dt><dd>2K prefill、cold 64K、cached 64K incremental 与 long decode；它们是四个不同 estimand。</dd><dt>Evidence</dt><dd>历史 E2E matrix、64K profiler 分类与公开 N6 accepted cell；不能跨 cell 拼百分比。</dd><dt>Boundary</dt><dd>Profiler summed duration 只做因果定位，不当 wall-time 加速比。</dd><dt>Next gate</dt><dd>同 revision、同 path、同 cache state 的 matched 2K/64K paired matrix。</dd></dl><a class="text-link" href="/2026/08/17/why-kernel-wins-disappear-at-64k/">Read note ↗</a></article>
+
+                <article class="journey-card evidence-card" data-reveal><span class="journey-date">13 · CROSS-REPO · GOVERNANCE SYNTHESIS</span><h3>什么时候应该停止优化</h3><dl><dt>Source</dt><dd>SGLang-DGMK、agentic-megakernel 与 SubCUDA 的 accepted/rejected/stopped records。</dd><dt>Evidence</dt><dd>七道 gate 的归纳；本篇不产生新的 kernel 性能 claim。</dd><dt>Boundary</dt><dd>案例 verdict 仍由各自 authoritative record 决定，文章不能覆写。</dd><dt>Reopen</dt><dd>只有预声明 workload 或机制前提改变，才重开对应 STOP；不能事后改 gate。</dd></dl><a class="text-link" href="/2026/08/17/when-to-stop-gpu-optimization/">Read note ↗</a></article>
+
+                <article class="journey-card evidence-card" data-reveal><span class="journey-date">14 · AGENTIC · S3 GUARDED SUBSTRATES</span><h3>为什么 Benchmark 变快了，却可能没跑你的 Kernel</h3><dl><dt>Cell</dt><dd>1×B200、Qwen3-4B、BF16；五条 native seam 的 batched-prefill gate 与 B1 4K/8K decode Graph。</dd><dt>Evidence</dt><dd>Path-hit/zero-call、same-path baseline、negative control 与 1% no-regression guardrail。</dd><dt>Boundary</dt><dd>五条结果都是 <code>ENABLED_GUARDED / default-off</code>；zero-call delta 没有 candidate attribution。</dd><dt>Reopen</dt><dd>补齐 raw pairs 与 durable revision，在真正执行候选的 phase 上建立 treatment experiment。</dd></dl><a class="text-link" href="/2026/08/17/path-hit-zero-call-guardrail/">Read note ↗</a></article>
+
+                <article class="journey-card evidence-card" data-reveal><span class="journey-date">15 · SUBCUDA · REJECTED CONTRACT / OPERATOR</span><h3>为什么少用 CTA 反而会算错</h3><dl><dt>Cell</dt><dd>B200、BF16、local Q16/KV1、D256、sequence 32769、page 128、32 sequences。</dd><dt>Evidence</dt><dd>D041/D045 replay：Q8 launch invalid；1/2 split non-exact；Q32 与 exact GMEM4 都 0/30。</dd><dt>Boundary</dt><dd>Provider/tile operator oracle；没有 arm 进入 profiler 或模型 E2E。</dd><dt>Reopen</dt><dd>新 provider 支持合法 Q8 composition，或新 split 算法保持 exact four-way partial ordering。</dd></dl><a class="text-link" href="/2026/08/17/fmha-cta-split-reduction-tree/">Read note ↗</a></article>
+
+                <article class="journey-card evidence-card" data-reveal><span class="journey-date">16 · SUBCUDA · REJECTED / BELOW FLOOR</span><h3>为什么 TMA 比 cp.async 快，却仍输给普通 LDG</h3><dl><dt>Cell</dt><dd>B200、B32/T1、Q/K8、V32、K=V=128、32 KiB BF16 recurrent state。</dd><dt>Evidence</dt><dd>D005/D006/D001/D017 replay：staging、retime 与 cache-hint 的独立 operator verdict。</dd><dt>Boundary</dt><dd>One-shot state；四条 case 使用各自 control，均无 TP2 E2E promotion。</dd><dt>Reopen</dt><dd>出现多消费者/多 token reuse，或 staging 在不降低 8 CTA/SM 的新表示下成立。</dd></dl><a class="text-link" href="/2026/08/17/tma-cpasync-direct-load-one-shot-state/">Read note ↗</a></article>
+
+                <article class="journey-card evidence-card" data-reveal><span class="journey-date">17 · SUBCUDA · REJECTED + ATTRIBUTION</span><h3>为什么 DRAM 流量减半，Kernel 反而更慢</h3><dl><dt>Sources</dt><dd>Pure-PTX FP8 QKV、D038 activation vector I/O、KV page-copy CUDA 13.0/13.2。</dd><dt>Evidence</dt><dd>D038 与 page-copy replay 通过；pure-PTX 资产检查通过但无 offline replay contract。</dd><dt>Boundary</dt><dd>三个独立 workload；profiler 机制不能覆盖 matched no-profiler wall-time。</dd><dt>Reopen</dt><dd>压缩解码税下降、保持 warp pool 的 vector mapping，或完整恢复 pure-PTX offline replay contract。</dd></dl><a class="text-link" href="/2026/08/17/dram-bytes-down-kernel-slower/">Read note ↗</a></article>
+
+                <article class="journey-card evidence-card" data-reveal><span class="journey-date">18 · SUBCUDA · REJECTED OPERATOR</span><h3>为什么删掉 67% 的“空 Row”仍然不快</h3><dl><dt>Cell</dt><dd>2×B200 TP2 operator、B32/topK8、256 routed experts、tile8；exact rows 84/90。</dd><dt>Evidence</dt><dd>D022 representative replay 与资产检查通过；四个 rank/profile cell 全部 0/30。</dd><dt>Boundary</dt><dd>只缩 launch/workspace capacity；routes、active work、tactic 与输出不变，无 NCU/E2E。</dd><dt>Reopen</dt><dd>新设计真正删除 active tiles、sorting/movement 或 materialized dataflow edge。</dd></dl><a class="text-link" href="/2026/08/17/compact-route-grid-persistent-fast-drain/">Read note ↗</a></article>
+
+                <article class="journey-card evidence-card" data-reveal><span class="journey-date">19 · SUBCUDA · REJECTED JOINED / E2E</span><h3>为什么节点快 46.7%，Joined DAG 反而更慢</h3><dl><dt>Sources</dt><dd>R99 one-launch shared gate 与 R92 finalize+RMSNorm+group-FP8 fusion。</dd><dt>Evidence</dt><dd>两条 replay/asset check 通过；R99 joined 两次回退，R92 exact tokens 但 TP2 0/2。</dd><dt>Boundary</dt><dd>Profiler node saving 只作 attribution；no-profiler joined/E2E 是 admission authority。</dd><dt>Reopen</dt><dd>新设计删除 exposed critical-path edge，并保持原 stream/PDL overlap 与数值 seams。</dd></dl><a class="text-link" href="/2026/08/17/isolated-node-win-joined-dag-loss/">Read note ↗</a></article>
+
+                <article class="journey-card evidence-card" data-reveal><span class="journey-date">20 · AGENTIC · INTERNAL S4 WIN</span><h3>为什么一张 CUDA Graph 不够</h3><dl><dt>Cell</dt><dd>Qwen3-4B BF16、1×B200、HTTP C16/maxlen2048、B1/T64 prefill + B16/K256 decode。</dd><dt>Evidence</dt><dd>Internal two-order A/B：3078.559→4654.812 tok/s，+51.20%；drift 0.54%，gate 126/128。</dd><dt>Boundary</dt><dd>Exact-scenario default-on；C2/S4 migration pending，无同 epoch SGLang arm。</dd><dt>Reopen</dt><dd>在同一 fresh session 跑 rollback / two-graph / SGLang 三臂 matched board。</dd></dl><a class="text-link" href="/2026/08/17/prefill-decode-two-cuda-graphs-serving/">Read note ↗</a></article>
+
+                <article class="journey-card evidence-card" data-reveal><span class="journey-date">21 · AGENTIC · HISTORICAL S4 WIN</span><h3>为什么 Mask 掉的 KV 仍然要付费</h3><dl><dt>Cell</dt><dd>Qwen3-4B BF16、1×B200、HTTP C16、max_len2048、K256/512/1024/full decode Graphs。</dd><dt>Evidence</dt><dd>1920/1920 faithfulness；focused −20.1%；C16 2803.6→3191.3 tok/s，+13.83%。</dd><dt>Boundary</dt><dd>Historical qualified default-on lineage；source/public ref 仍需统一，无 fresh replay。</dd><dt>Reopen</dt><dd>Context distribution、batch grouping、max_len 或 ragged/live-length kernel contract 改变。</dd></dl><a class="text-link" href="/2026/08/17/live-context-cuda-graph-buckets/">Read note ↗</a></article>
+
+                <article class="journey-card evidence-card" data-reveal><span class="journey-date">22 · AGENTIC · HISTORICAL SIGN FLIP</span><h3>为什么 QKV 先拆开更快，后来合并又更快</h3><dl><dt>Cells</dt><dd>Q4B3 FlashInfer compact-only consumer；Q4B4 SGL stride-generic consumer，BF16 batched prefill。</dd><dt>Evidence</dt><dd>Split 59.8→56.5 ms / copy 5.86→1.59；merged 50.834→50.115 ms；micro 0.1615/0.1677/0.2783。</dd><dt>Boundary</dt><dd>Q4B3 run bundle 缺失；Q4B4 raw/manifest 不完整；historical mechanism，不是 fresh result。</dd><dt>Reopen</dt><dd>任何 consumer、stride、M bucket、GEMM tactic 或 materialization behavior 改变。</dd></dl><a class="text-link" href="/2026/08/17/qkv-split-merged-consumer-contract/">Read note ↗</a></article>
+
+                <article class="journey-card evidence-card" data-reveal><span class="journey-date">23 · AGENTIC · ROLE/M-SCOPED FP8</span><h3>为什么 FP8 不能全模型一键打开</h3><dl><dt>Cells</dt><dd>Q4B7 large-M batched all-role；Q4B15 B1 down-only；B1 all-role/o-only negative controls。</dd><dt>Evidence</dt><dd>Batched 38.939→33.680 ms；B1 down 4K/8K −9.63/−8.82%；all-role 124/128 reject。</dd><dt>Boundary</dt><dd>Historical source/result/logs 可定位；统一 manifest/hash/public binding仍欠，无 fresh replay。</dd><dt>Reopen</dt><dd>任何 phase、M、role、consumer、scale layout 或 model correctness margin 改变。</dd></dl><a class="text-link" href="/2026/08/17/fp8-role-m-bucket-selector/">Read note ↗</a></article>
+
+                <article class="journey-card evidence-card" data-reveal><span class="journey-date">24 · AGENTIC · STRUCTURE REPAIR / PARTIAL</span><h3>为什么 409→15.5 ms 不是 26× Kernel 加速</h3><dl><dt>Cell</dt><dd>Qwen3-4B BF16、1×B200 true batched prefill；B16T128/T512、B64T128。</dd><dt>Evidence</dt><dd>409→37.4→17.8→15.5 ms staged repair；fair SGLang board 15.03/50.89/128.08 ms。</dd><dt>Boundary</dt><dd>Q4B2 run directory/raw/manifest 缺失；historical MERGED-PARTIAL/STOP，不是 fresh 26× claim。</dd><dt>Reopen</dt><dd>恢复 raw bundle，并在当前 tip 对同一 B/T/dtype/Graph contract 重跑 matched board。</dd></dl><a class="text-link" href="/2026/08/17/true-batched-prefill-fair-baseline/">Read note ↗</a></article>
+            </div>
+        </div></section>
+
+        <section class="contact-section"><div class="shell contact-inner" data-reveal><p class="section-index">UPDATE RULE</p><h2>先改证据，<br><em>再改叙事。</em></h2><p>新结果到来时，先更新 authoritative experiment record 与本页状态，再修改文章中的解释。负结果保留原分支和重开条件，不被新故事覆盖。</p><a class="contact-email" href="gpu-systems-series.html">Follow the reading path <span aria-hidden="true">↗</span></a></div></section>
+    </main>
+
+    <footer class="site-footer"><div class="shell footer-grid"><div><strong>Haiyan Qin</strong><p>AI infrastructure researcher at Beihang University.</p></div><div class="footer-links"><a href="https://github.com/qhy991" target="_blank" rel="noreferrer">GitHub</a><a href="https://scholar.google.com/citations?user=zzmYq9QAAAAJ&amp;hl=en" target="_blank" rel="noreferrer">Google Scholar</a><a href="mailto:haiyanq@buaa.edu.cn">Email</a></div><p class="copyright">© <span data-year>2026</span> Haiyan Qin</p></div></footer>
+    <script src="assets/js/home.js" defer></script>
+</body>
+</html>

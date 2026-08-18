@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">MoE routing turns one token batch into uneven expert GEMM shapes</title>
+  <desc id="desc">A batch of 256 tokens with top eight routing creates 2048 assignments, but individual experts receive very different M dimensions.</desc>
+  <rect width="1200" height="720" fill="#0b111c"/>
+  <g fill="none" stroke="#203047" stroke-width="2"><path d="M0 120H1200M0 360H1200M0 600H1200"/><path d="M200 0V720M600 0V720M1000 0V720"/></g>
+  <text x="70" y="82" fill="#f5f7fb" font-family="Arial, sans-serif" font-size="38" font-weight="700">ONE BATCH ≠ ONE GEMM SHAPE</text>
+  <text x="72" y="122" fill="#9fb1c8" font-family="Arial, sans-serif" font-size="22">Global routed-token count hides the per-expert M distribution</text>
+  <rect x="70" y="190" width="230" height="118" rx="20" fill="#14263b" stroke="#56d8ff" stroke-width="3"/>
+  <text x="185" y="236" text-anchor="middle" fill="#56d8ff" font-family="Arial, sans-serif" font-size="24" font-weight="700">256 TOKENS</text>
+  <text x="185" y="276" text-anchor="middle" fill="#f5f7fb" font-family="Arial, sans-serif" font-size="20">Top-K = 8</text>
+  <path d="M300 249H432" stroke="#a8ff60" stroke-width="5"/><path d="M420 236L444 249 420 262Z" fill="#a8ff60"/>
+  <rect x="448" y="190" width="250" height="118" rx="20" fill="#183125" stroke="#a8ff60" stroke-width="3"/>
+  <text x="573" y="236" text-anchor="middle" fill="#a8ff60" font-family="Arial, sans-serif" font-size="24" font-weight="700">2048 ASSIGNMENTS</text>
+  <text x="573" y="276" text-anchor="middle" fill="#f5f7fb" font-family="Arial, sans-serif" font-size="20">256 × 8</text>
+  <path d="M698 249H790" stroke="#bc9cff" stroke-width="5"/><path d="M778 236L802 249 778 262Z" fill="#bc9cff"/>
+  <text x="952" y="172" text-anchor="middle" fill="#bc9cff" font-family="Arial, sans-serif" font-size="22" font-weight="700">PER-EXPERT Mₑ</text>
+  <g font-family="Arial, sans-serif" font-size="18">
+    <text x="798" y="220" fill="#c9d5e5">E0</text><rect x="842" y="203" width="20" height="24" rx="5" fill="#56d8ff"/><text x="878" y="221" fill="#f5f7fb">2</text>
+    <text x="798" y="260" fill="#c9d5e5">E1</text><rect x="842" y="243" width="88" height="24" rx="5" fill="#56d8ff"/><text x="946" y="261" fill="#f5f7fb">11</text>
+    <text x="798" y="300" fill="#c9d5e5">E2</text><rect x="842" y="283" width="4" height="24" rx="2" fill="#56667d"/><text x="862" y="301" fill="#f5f7fb">0</text>
+    <text x="798" y="340" fill="#c9d5e5">E3</text><rect x="842" y="323" width="244" height="24" rx="5" fill="#ffad4d"/><text x="1102" y="341" fill="#f5f7fb">67</text>
+  </g>
+  <rect x="70" y="410" width="1060" height="205" rx="24" fill="#111b2a" stroke="#33445c" stroke-width="2"/>
+  <text x="110" y="462" fill="#f5f7fb" font-family="Arial, sans-serif" font-size="25" font-weight="700">Same N and K; wildly different Mₑ</text>
+  <text x="110" y="510" fill="#9fb1c8" font-family="Arial, sans-serif" font-size="22">Cₑ[Mₑ, N] = Aₑ[Mₑ, K] × Bₑ[K, N]</text>
+  <g font-family="Arial, sans-serif" font-size="20" font-weight="700">
+    <rect x="110" y="548" width="250" height="45" rx="12" fill="#14263b"/><text x="235" y="578" text-anchor="middle" fill="#56d8ff">small M → memory-bound</text>
+    <rect x="475" y="548" width="250" height="45" rx="12" fill="#2c2540"/><text x="600" y="578" text-anchor="middle" fill="#bc9cff">middle M → transition</text>
+    <rect x="840" y="548" width="250" height="45" rx="12" fill="#3b291a"/><text x="965" y="578" text-anchor="middle" fill="#ffad4d">large M → compute-bound</text>
+  </g>
+  <text x="600" y="670" text-anchor="middle" fill="#a8ff60" font-family="Arial, sans-serif" font-size="24" font-weight="700">Select by Mₑ and mechanism—not by the batch total</text>
+</svg>
