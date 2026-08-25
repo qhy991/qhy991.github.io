@@ -15,6 +15,8 @@ excerpt: "一套面向新手的 19 课中文 GPU Megakernel 课程：从 page-re
 
 > **[GPU Megakernel 实战课：Lessons 36–54](https://qhy991.github.io/gpu-megakernel-course-art/)**
 
+如果你第一次接触这组词，先打开课程的 **[术语表](https://qhy991.github.io/gpu-megakernel-course-art/glossary/)**：CTA 就是 CUDA thread block，TMA 是异步 tensor 搬运机制，TMEM 是 Blackwell 的独立片上 tensor 资源，而 occupancy 只是资源准入指标，不等于 GPU 利用率。
+
 它不是一份“CUDA 优化技巧清单”。课程更关心三个问题：
 
 1. GPU 上到底是谁在等待谁？
@@ -66,6 +68,8 @@ GPU 性能研究最危险的不是数字小，而是把一个窄证据写成宽�
 
 课程因此固定区分 `MEASURED`、`SOURCE-PROVEN`、`PROPOSED · UNMEASURED` 与 `WITHDRAWN`。
 
+这些标签描述的是结论来源，不是文章质量评分。`SOURCE-PROVEN` 可以证明 page 几何或资源公式，却不能冒充实测收益；`PROPOSED · UNMEASURED` 表示设计已经具体到可以实现和推翻，但还没有性能资格。完整判定方式见 **[证据规则](https://qhy991.github.io/gpu-megakernel-course-art/evidence/)**。
+
 ## 配图和源码在哪里？
 
 课程仓库同时保存：
@@ -79,4 +83,3 @@ GPU 性能研究最危险的不是数字小，而是把一个窄证据写成宽�
 项目地址：**[qhy991/gpu-megakernel-course-art](https://github.com/qhy991/gpu-megakernel-course-art)**
 
 建议从 **[第 36 课：Page-ready](https://qhy991.github.io/gpu-megakernel-course-art/lessons/lesson-36-page-ready/)** 顺序阅读。如果你已经在做 persistent runtime，也可以直接跳到 **[第 50 课：2 CTA/SM 的五把锁](https://qhy991.github.io/gpu-megakernel-course-art/lessons/lesson-50-five-locks-two-cta/)** 或 **[第 54 课：Poison Litmus](https://qhy991.github.io/gpu-megakernel-course-art/lessons/lesson-54-poison-litmus/)**。
-
