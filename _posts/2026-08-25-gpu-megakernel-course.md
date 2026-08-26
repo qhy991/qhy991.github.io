@@ -8,14 +8,14 @@ series: gpu-systems
 tags: [Megakernel, Persistent Kernel, B200, CUDA, TMA, TMEM, Evidence]
 reading_time: 12
 cover_image: /assets/blog-megakernel-course.png
-excerpt: "一套面向新手的 54 课中文 GPU Megakernel 课程：从 GPU、Llama 数据流和 Persistent Kernel 基础，逐步走到资源封套、TMEM、2 CTA/SM、内存序和 deterministic poison litmus。"
+excerpt: "一套不要求 GPU 基础的 54 课中文课程：每课先用日常问题和生活类比建立直觉，再进入 Llama、Persistent Kernel、资源与可证伪实验。"
 ---
 
 我把最近围绕 B200 Megakernel 的源码审计、性能实验和失败案例整理成了一套可连续阅读的中文课程：
 
 > **[GPU Megakernel 实战课：Lessons 1–54](https://qhy991.github.io/gpu-megakernel-course-art/)**
 
-如果你第一次接触这组词，先打开课程的 **[术语表](https://qhy991.github.io/gpu-megakernel-course-art/glossary/)**：CTA 就是 CUDA thread block，TMA 是异步 tensor 搬运机制，TMEM 是 Blackwell 的独立片上 tensor 资源，而 occupancy 只是资源准入指标，不等于 GPU 利用率。
+你不需要先懂 GPU 或 CUDA。每课开头都有三句“零基础入口”：它在解决什么、可以把它想成什么、哪些细节这次可以先忽略。理解主线后，再按需查看 **[术语表](https://qhy991.github.io/gpu-megakernel-course-art/glossary/)** 和技术推导。
 
 它不是一份“CUDA 优化技巧清单”。课程更关心三个问题：
 
