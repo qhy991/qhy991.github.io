@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "GPU Megakernel 实战课：从 Page Pipeline 到可证伪实验"
+title: "GPU Megakernel 实战课：从 GPU 基础到可证伪实验"
 date: 2026-08-25 10:00:00 +0800
 author: Haiyan Qin
 lang: zh-CN
@@ -8,12 +8,12 @@ series: gpu-systems
 tags: [Megakernel, Persistent Kernel, B200, CUDA, TMA, TMEM, Evidence]
 reading_time: 12
 cover_image: /assets/blog-megakernel-course.png
-excerpt: "一套面向新手的 19 课中文 GPU Megakernel 课程：从 page-ready、Split-KV 和 Dynamic Tail 出发，逐步走到资源封套、TMEM、2 CTA/SM、内存序和 deterministic poison litmus。"
+excerpt: "一套面向新手的 54 课中文 GPU Megakernel 课程：从 GPU、Llama 数据流和 Persistent Kernel 基础，逐步走到资源封套、TMEM、2 CTA/SM、内存序和 deterministic poison litmus。"
 ---
 
 我把最近围绕 B200 Megakernel 的源码审计、性能实验和失败案例整理成了一套可连续阅读的中文课程：
 
-> **[GPU Megakernel 实战课：Lessons 36–54](https://qhy991.github.io/gpu-megakernel-course-art/)**
+> **[GPU Megakernel 实战课：Lessons 1–54](https://qhy991.github.io/gpu-megakernel-course-art/)**
 
 如果你第一次接触这组词，先打开课程的 **[术语表](https://qhy991.github.io/gpu-megakernel-course-art/glossary/)**：CTA 就是 CUDA thread block，TMA 是异步 tensor 搬运机制，TMEM 是 Blackwell 的独立片上 tensor 资源，而 occupancy 只是资源准入指标，不等于 GPU 利用率。
 
@@ -25,34 +25,46 @@ excerpt: "一套面向新手的 19 课中文 GPU Megakernel 课程：从 page-re
 
 ![GPU Megakernel 实战课封面](/assets/blog-megakernel-course.png)
 
-## 为什么从第 36 课开始？
+## 现在从第 1 课开始
 
-课号延续真实研究日志。第 36–54 课恰好组成一条独立完整的学习线：
+课程现已补齐第 1–35 课，并与原有第 36–54 课接成一条连续学习线：
 
-- 从已经测过的 Legacy 8B page-ready 优化建立直觉；
+- 从 GPU、SM、CTA、warp、kernel 与 Llama token 数据流建立基础；
+- 沿源码区分代码融合、launch 融合与数据流融合；
+- 学会阅读 NCU、PTX、SASS 和原始实验档案；
+- 理解 release/acquire、epoch、ACK、驻留死锁与 Ready-aware 调度；
+- 再从已经测过的 Legacy 8B page-ready 优化进入 B200 实战；
 - 用 Split-KV 和 Dynamic Tail 学会拆解任务并行与冗余 work；
 - 读懂 occupancy、eligible warp 和 issue active；
 - 讨论最大融合、Megakernel island 与 physical cut；
 - 逐项审计 shared memory、register、TMEM、grid supply 和 worker identity；
 - 最后用 controlled experiment tree 与 poison litmus 学会推翻自己的协议。
 
-更早的课程会在证据整理完成后继续公开，但这一卷不依赖前 35 课，也适合直接开始。
+第一次接触 Megakernel 的读者可以从第 1 课顺序阅读；已有 GPU 系统经验的读者也可以按主题跳转。
 
-## 课程的四个阶段
+## 课程的五个学习段
 
-### 1. 从真实瓶颈建立直觉
+### 1. 建立 GPU 与 Megakernel 心智模型
+
+第 1–10 课从 GPU 执行、Llama 数据流和三种融合出发，搭建最小 Megakernel，理解一枚 token 如何在常驻执行引擎中流动。
+
+### 2. 审计性能证据与真实优化
+
+第 11–20 课连接 NCU、PTX、SASS、实验卡和原始归档，再用 Page-ready、Split-KV 与 Dynamic Tail 解释等待、并行度和冗余工作。
+
+### 3. 闭合同步、生命周期与调度
+
+第 21–35 课处理 release/acquire、epoch、ACK、驻留死锁与 Ready-aware 调度，并用 CPU 模型、poison、exact binary 和 manifest 建立可复核结论。
+
+### 4. 从真实 B200 瓶颈建立直觉
 
 第 36–39 课使用已有报告和源码，解释为什么同样的数据量在不同 readiness 粒度下会有完全不同的等待，为什么长上下文 attention 需要 Split-KV，以及为什么 resident warp 不等于 eligible warp。
 
-### 2. 找到正确的融合边界
+### 5. 找到融合边界并设计可证伪实验
 
 第 40–43 课区分 physical fusion、CUDA Graph provider swap 与 Megakernel island。核心结论是：切开一个 kernel 会重置状态，却不会自动 right-size 下一段的资源包络。
 
-### 3. 打开 2 CTA/SM 的五把锁
-
 第 44–48 课逐项审计 page count、scratch、register、TMEM、grid supply 与 worker identity。`occupancy=2` 只代表“允许”，不代表真的同时驻留，更不代表更快。
-
-### 4. 用可证伪实验替代性能故事
 
 第 49–54 课把两岛方案拆成 R0–R5 单变量实验，并设计 deterministic READY_EARLY / ACK_EARLY poison litmus。坏协议必须以预期签名失败，测试才算真正有牙齿。
 
@@ -74,12 +86,12 @@ GPU 性能研究最危险的不是数字小，而是把一个窄证据写成宽�
 
 课程仓库同时保存：
 
-- 19 篇完整博客正文；
-- 19 张 16:9 教学信息图；
+- 54 篇完整博客正文；
+- 54 张 16:9 教学信息图；
 - ImageGen 生成与修订提示词；
 - GitHub Pages 站点主题；
 - 对应的证据边界与历史撤回说明。
 
 项目地址：**[qhy991/gpu-megakernel-course-art](https://github.com/qhy991/gpu-megakernel-course-art)**
 
-建议从 **[第 36 课：Page-ready](https://qhy991.github.io/gpu-megakernel-course-art/lessons/lesson-36-page-ready/)** 顺序阅读。如果你已经在做 persistent runtime，也可以直接跳到 **[第 50 课：2 CTA/SM 的五把锁](https://qhy991.github.io/gpu-megakernel-course-art/lessons/lesson-50-five-locks-two-cta/)** 或 **[第 54 课：Poison Litmus](https://qhy991.github.io/gpu-megakernel-course-art/lessons/lesson-54-poison-litmus/)**。
+建议从 **[第 1 课：GPU 到底在做什么？](https://qhy991.github.io/gpu-megakernel-course-art/lessons/gpu-kernel-mental-model/)** 顺序阅读。如果你已经在做 persistent runtime，也可以直接跳到 **[第 50 课：2 CTA/SM 的五把锁](https://qhy991.github.io/gpu-megakernel-course-art/lessons/lesson-50-five-locks-two-cta/)** 或 **[第 54 课：Poison Litmus](https://qhy991.github.io/gpu-megakernel-course-art/lessons/lesson-54-poison-litmus/)**。
