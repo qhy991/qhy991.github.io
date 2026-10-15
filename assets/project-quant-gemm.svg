@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+  <title id="title">Quantized matrix multiplication</title>
+  <desc id="desc">Packed INT4 weights and INT8 activations feed a tiled GEMM kernel.</desc>
+  <defs>
+    <pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse">
+      <path d="M24 0H0V24" fill="none" stroke="#283235" stroke-width="1"/>
+    </pattern>
+    <pattern id="weights" width="34" height="34" patternUnits="userSpaceOnUse">
+      <rect x="3" y="3" width="12" height="28" fill="#c5ff26"/>
+      <rect x="19" y="3" width="12" height="28" fill="#6c9015"/>
+    </pattern>
+    <pattern id="activations" width="34" height="34" patternUnits="userSpaceOnUse">
+      <rect x="3" y="3" width="28" height="28" fill="#9dc5eb"/>
+    </pattern>
+  </defs>
+  <rect width="960" height="540" fill="#0a0d0f"/>
+  <rect width="960" height="540" fill="url(#grid)"/>
+  <g font-family="monospace">
+    <text x="56" y="64" fill="#c5ff26" font-size="17">KERNEL LAB / QUANTIZED INFERENCE</text>
+    <text x="56" y="120" fill="#f4f3ef" font-size="38" font-weight="bold">llama.cpp-quant-gemm</text>
+    <rect x="56" y="190" width="204" height="204" fill="url(#weights)"/>
+    <text x="56" y="438" fill="#c5ff26" font-size="21">INT4 weights</text>
+    <text x="294" y="303" fill="#f4f3ef" font-size="42">×</text>
+    <rect x="364" y="190" width="204" height="204" fill="url(#activations)"/>
+    <text x="364" y="438" fill="#9dc5eb" font-size="21">INT8 inputs</text>
+    <path d="M606 292H670m-14-14 14 14-14 14" fill="none" stroke="#f4f3ef" stroke-width="3"/>
+    <rect x="710" y="190" width="194" height="204" fill="#151a1d" stroke="#c5ff26" stroke-width="2"/>
+    <path d="M710 258H904M710 326H904M775 190V394M840 190V394" stroke="#455d16"/>
+    <rect x="775" y="258" width="65" height="68" fill="#c5ff26"/>
+    <text x="710" y="438" fill="#f4f3ef" font-size="21">Tiled GEMM</text>
+    <text x="56" y="502" fill="#a8aca8" font-size="16">packed data · quantization scales · matrix tiles</text>
+  </g>
+</svg>
