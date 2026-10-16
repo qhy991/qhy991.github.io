@@ -1,0 +1,67 @@
+{
+  "updated": "2026-10-16",
+  "email": "haiyanq@buaa.edu.cn",
+  "website": "https://qhy991.github.io/",
+  "github": "https://github.com/qhy991",
+  "scholar": "https://scholar.google.com/citations?user=zzmYq9QAAAAJ&hl=en",
+  "locales": {
+    "zh": {
+      "name": "秦海岩",
+      "name_secondary": "Haiyan Qin",
+      "tagline": "Agent 基础设施与推理系统",
+      "identity": "北京航空航天大学博士研究生 · ApxInf 核心开发者",
+      "summary": "研发 Agent 运行时、工作流编排与 GPU 评测基础设施，构建可验证、可恢复的自动优化流程，连接智能体与推理引擎。",
+      "labels": {"education": "教育与实习经历", "achievements": "代表成果", "projects": "开源项目与工程贡献", "publications": "代表论文", "skills": "技术能力", "updated": "更新"},
+      "education": [
+        {"title": "北京航空航天大学 · 集成电路工程博士在读", "date": "2023.09 - 2028.07 预计"},
+        {"title": "北京航空航天大学 · 微电子科学与工程本科", "date": "2019 - 2023"},
+        {"title": "无问芯穹 Infinigence AI · 实习生", "date": "2025.09 - 至今"}
+      ],
+      "achievements": [
+        "曾助力 Infinigence AI 获得 NVIDIA SOL-ExecBench 双榜第一。",
+        "参与 GLM-5.3 推理优化，达到 630 tokens/s。"
+      ],
+      "projects": [
+        {"name": "ApxInf", "role": "核心开发者", "url": "https://github.com/infinigence/ApxInf", "bullets": ["参与开源端侧推理引擎研发；项目采用 Rust 与 CUDA，面向 Jetson Thor/Orin 等设备上的具身模型推理。"]},
+        {"name": "KernelOwl / KerSor / AKW", "role": "主导设计与开发", "bullets": ["开发 ReAct 运行时，统一 CLI、TUI 与 SDK，支持 MCP 扩展、任务图、Session/Trace 与上下文管理。", "设计类型化任务交接和 Host 验证控制面，接入 Codex、Claude Code，支持失败回滚与最优版本管理。"]},
+        {"name": "GPU Infra / Agent GPU Broker", "role": "主导设计与开发", "url": "https://github.com/qhy991/gpu-infra", "bullets": ["实现不可变候选提交、GPU 共享/独占调度及多卡原子分配，串联编译、正确性、Sanitizer 与测时。", "在 A800/B200 上验证；通过 A800 的 SIGKILL 故障注入检查进程、容器及 GPU 资源回收并保留中断记录。"]},
+        {"name": "Cake IR / open-cake-ir", "role": "主导设计与开发", "url": "https://github.com/qhy991/open-cake-ir", "bullets": ["设计 Python DSL 与类型化 Schedule/Program IR，显式表达分块、存储和同步约束；实现 Triton、CUDA、CuTe DSL 与 Metal 代码生成路线。"]},
+        {"name": "EngineTailor", "role": "主导研发与论文第一作者", "url": "https://qhy991.github.io/2026/08/09/enginetailor-minimal-inference-engines/", "bullets": ["设计 Manager/Worker/Supervisor 协作与 worktree 隔离，分离生成和验收权限，贯通任务拆解、验证及归档。", "在 Qwen3-4B/B200、并发 16 的同引擎场景优化图边界，输出吞吐从 3078.6 提升至 4654.8 tokens/s，提升 51.2%。"]}
+      ],
+      "publications": [
+        {"name": "EngineTailor", "title": "Minimal Complete Inference Engines for Agent-Driven Optimization", "venue": "DAI 2026 · 第一作者 · 已录用", "url": "https://adai.ai/dai/2026/accepted-papers.html"},
+        {"name": "ReasoningV", "title": "Efficient Verilog Code Generation with Adaptive Hybrid Reasoning Model", "venue": "ICAIS 2025 · 第一作者", "url": "https://arxiv.org/abs/2504.14560"}
+      ],
+      "skills": ["Agent 与系统：ReAct、MCP、任务图、Session/Trace、状态恢复、GPU 调度、独立评测、Docker、Linux", "工程与推理：Python、C++/CUDA、PyTorch、Triton、SGLang、MLX/Metal、Git"]
+    },
+    "en": {
+      "name": "Haiyan Qin",
+      "name_secondary": "秦海岩",
+      "tagline": "Agent infrastructure and inference systems",
+      "identity": "Ph.D. student at Beihang University · Core developer of ApxInf",
+      "summary": "I build agent runtimes, workflow orchestration, and GPU evaluation infrastructure for verifiable, recoverable optimization of inference systems.",
+      "labels": {"education": "Education and internship", "achievements": "Selected achievements", "projects": "Open source and engineering", "publications": "Selected publications", "skills": "Technical skills", "updated": "Updated"},
+      "education": [
+        {"title": "Beihang University · Ph.D. in Integrated Circuit Engineering", "date": "Sep 2023 - Jul 2028 expected"},
+        {"title": "Beihang University · B.Eng. in Microelectronics Science and Engineering", "date": "2019 - 2023"},
+        {"title": "Infinigence AI · Research intern", "date": "Sep 2025 - Present"}
+      ],
+      "achievements": [
+        "Helped Infinigence AI achieve first place on two NVIDIA SOL-ExecBench leaderboards.",
+        "Contributed to GLM-5.3 inference optimization, reaching 630 tokens/s."
+      ],
+      "projects": [
+        {"name": "ApxInf", "role": "Core developer", "url": "https://github.com/infinigence/ApxInf", "bullets": ["Develop an open-source Rust and CUDA inference engine for embodied edge AI, targeting devices including Jetson Thor and Orin."]},
+        {"name": "KernelOwl / KerSor / AKW", "role": "Lead designer and developer", "bullets": ["Built a ReAct runtime across CLI, TUI, and SDK, with MCP extensions, task graphs, sessions, traces, and context management.", "Designed typed task handoffs and host-side verification for Codex and Claude Code, with rollback and verified-best version tracking."]},
+        {"name": "GPU Infra / Agent GPU Broker", "role": "Lead designer and developer", "url": "https://github.com/qhy991/gpu-infra", "bullets": ["Built immutable candidate submission, shared/exclusive GPU scheduling, and atomic multi-GPU allocation across compilation, correctness, sanitizers, and timing.", "Validated on A800/B200; used SIGKILL fault injection on A800 to check process, container, and GPU cleanup while retaining interruption records."]},
+        {"name": "Cake IR / open-cake-ir", "role": "Lead designer and developer", "url": "https://github.com/qhy991/open-cake-ir", "bullets": ["Designed a Python DSL and typed schedule/program IR for tiling, memory, and synchronization, with Triton, CUDA, CuTe DSL, and Metal code generation."]},
+        {"name": "EngineTailor", "role": "Lead developer and first author", "url": "https://qhy991.github.io/2026/08/09/enginetailor-minimal-inference-engines/", "bullets": ["Designed Manager/Worker/Supervisor collaboration and worktree isolation, separating candidate generation from acceptance and verification.", "Optimized graph boundaries for Qwen3-4B on B200 at concurrency 16; output throughput rose from 3078.6 to 4654.8 tokens/s, a 51.2% gain within the same engine."]}
+      ],
+      "publications": [
+        {"name": "EngineTailor", "title": "Minimal Complete Inference Engines for Agent-Driven Optimization", "venue": "DAI 2026 · First author · Accepted", "url": "https://adai.ai/dai/2026/accepted-papers.html"},
+        {"name": "ReasoningV", "title": "Efficient Verilog Code Generation with Adaptive Hybrid Reasoning Model", "venue": "ICAIS 2025 · First author", "url": "https://arxiv.org/abs/2504.14560"}
+      ],
+      "skills": ["Agents and systems: ReAct, MCP, task graphs, sessions/traces, state recovery, GPU scheduling, independent evaluation, Docker, Linux", "Engineering and inference: Python, C++/CUDA, PyTorch, Triton, SGLang, MLX/Metal, Git"]
+    }
+  }
+}
