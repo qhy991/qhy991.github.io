@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+  <title id="title">ApxInf</title>
+  <desc id="desc">A Rust and CUDA inference engine for embodied edge AI on NVIDIA Jetson.</desc>
+  <rect width="960" height="540" fill="#0a0d0f"/>
+  <rect x="56" y="56" width="848" height="428" rx="12" fill="#151b1e" stroke="#394245"/>
+  <path d="M56 116H904" stroke="#394245"/>
+  <circle cx="88" cy="86" r="6" fill="#c5ff26"/>
+  <circle cx="112" cy="86" r="6" fill="#69726c"/>
+  <circle cx="136" cy="86" r="6" fill="#69726c"/>
+  <g font-family="monospace">
+    <text x="88" y="169" fill="#99a29c" font-size="20">infinigence / ApxInf</text>
+    <text x="88" y="273" fill="#c5ff26" font-size="80" font-weight="700">ApxInf</text>
+    <text x="88" y="332" fill="#f4f3ef" font-size="26">Embodied edge AI inference</text>
+    <text x="88" y="401" fill="#99a29c" font-size="20">Rust + CUDA</text>
+    <text x="88" y="437" fill="#99a29c" font-size="20">Jetson Thor / Orin</text>
+  </g>
+</svg>
