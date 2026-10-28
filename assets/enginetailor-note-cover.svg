@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">EngineTailor: one target, one engine</title>
+  <desc id="desc">A proposed engine change passes independent verification before it becomes the next engine version.</desc>
+  <defs><pattern id="dots" width="28" height="28" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="#c7d6f2"/></pattern></defs>
+  <rect width="1200" height="675" fill="#eef3fc"/>
+  <rect x="700" y="80" width="440" height="490" fill="url(#dots)"/>
+  <g fill="#1447df" font-family="Arial,Helvetica,sans-serif"><text x="75" y="125" font-size="17" letter-spacing="4">RESEARCH NOTE</text><text x="70" y="255" font-size="74" font-weight="700" letter-spacing="-3">EngineTailor</text></g>
+  <g fill="#14243c" font-family="Arial,Helvetica,sans-serif" font-size="38"><text x="75" y="335">One target.</text><text x="75" y="387">One engine.</text><text x="75" y="439">Every change, verified.</text></g>
+  <text x="75" y="576" fill="#63718a" font-family="Arial,Helvetica,sans-serif" font-size="17">Haiyan Qin · Beihang University</text>
+  <g fill="none" stroke-width="3"><path d="M765 180h125v130h110V180h100M765 430h125V310" stroke="#bdcdef"/><path d="M765 310h235v120h100" stroke="#1447df"/></g>
+  <rect x="730" y="275" width="70" height="70" fill="#1447df"/><path d="M749 294h32m-32 16h22m-22 16h32" stroke="white" stroke-width="3"/>
+  <rect x="889" y="275" width="70" height="70" fill="#fbfcfe" stroke="#1447df" stroke-width="2"/><path d="m906 310 13 13 24-30" fill="none" stroke="#1447df" stroke-width="3"/>
+  <rect x="1065" y="395" width="70" height="70" fill="#1447df"/><path d="M1084 414h32m-32 16h22m-22 16h32" stroke="white" stroke-width="3"/>
+  <g fill="#b5c5e5"><circle cx="765" cy="180" r="7"/><circle cx="765" cy="430" r="7"/></g>
+  <path d="m1092 172 16 16m0-16-16 16" stroke="#8fa4c9" stroke-width="3"/>
+  <g fill="#6177a1" font-family="monospace" font-size="13"><text x="886" y="252">VERIFY</text><text x="728" y="378">E(t)</text><text x="1064" y="496">E(t+1)</text></g>
+</svg>
