@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="340" viewBox="0 0 1120 340" role="img" aria-labelledby="title desc">
+  <title id="title">EngineTailor overview</title>
+  <desc id="desc">A model, device, and workload define the target. A Manager assigns tasks to isolated Workers. Candidates pass independent verification before the engine advances. Recorded evidence informs future tasks.</desc>
+  <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 10 5 0 10" fill="#71849e"/></marker></defs>
+  <rect width="1120" height="340" fill="#f3f6fa"/>
+  <g font-family="Arial,Helvetica,sans-serif">
+    <text x="40" y="44" font-size="11" letter-spacing="1.5" fill="#234e86">REGISTERED TARGET</text>
+    <text x="232" y="44" font-size="13" fill="#556477">Model · Device · Workload</text>
+    <text x="1080" y="44" text-anchor="end" font-size="11" fill="#788595">Bounded search. Independent acceptance.</text>
+    <path d="M40 63h1040" stroke="#d6dee9"/>
+    <text x="40" y="102" font-size="11" letter-spacing="1.3" fill="#788595">AGENT IMPLEMENTATION</text>
+    <text x="637" y="102" font-size="11" letter-spacing="1.3" fill="#234e86">PROTECTED VERIFICATION</text>
+    <path d="M606 86v146" stroke="#93a8c3" stroke-dasharray="4 5"/>
+    <rect x="40" y="127" width="145" height="76" rx="3" fill="#fff" stroke="#bdcadb"/>
+    <rect x="235" y="127" width="158" height="76" rx="3" fill="#fff" stroke="#bdcadb"/>
+    <rect x="443" y="127" width="126" height="76" rx="3" fill="#fff" stroke="#bdcadb"/>
+    <rect x="637" y="127" width="205" height="76" rx="3" fill="#e7eef8" stroke="#7c9bc2"/>
+    <rect x="899" y="127" width="181" height="76" rx="3" fill="#fff" stroke="#7c9bc2"/>
+    <g fill="none" stroke="#71849e" stroke-width="1.3" marker-end="url(#arrow)"><path d="M185 165h49"/><path d="M393 165h49"/><path d="M569 165h67"/><path d="M842 165h56"/></g>
+    <g fill="#1c2735" font-size="15" text-anchor="middle"><text x="112" y="157">Manager</text><text x="314" y="157">Workers</text><text x="506" y="157">Candidate</text><text x="739" y="157">Correctness + E2E</text><text x="989" y="157">Next engine state</text></g>
+    <g fill="#6c7785" font-size="11" text-anchor="middle"><text x="112" y="181">Profiles and task contracts</text><text x="314" y="181">Isolated worktrees</text><text x="506" y="181">Recorded base revision</text><text x="739" y="181">Registered gate and re-verification</text><text x="989" y="181">Admitted changes only</text></g>
+    <g fill="none" stroke="#93a5bd" stroke-width="1.2"><path d="M739 203v57H112v-56" marker-end="url(#arrow)"/><path d="M989 203v57H739"/></g>
+    <rect x="225" y="244" width="447" height="32" rx="2" fill="#f3f6fa"/>
+    <text x="448" y="265" text-anchor="middle" font-size="12" fill="#556477">Evidence ledger · Runnable variants · Conditional recipes</text>
+    <text x="40" y="312" font-size="11" fill="#788595">All decisions are retained. A new target requires fresh qualification.</text>
+  </g>
+</svg>
