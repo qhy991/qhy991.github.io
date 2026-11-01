@@ -6,11 +6,11 @@
   <meta name="theme-color" content="#234e86">
   <meta name="description" content="A research note on EngineTailor: minimal complete inference engines, independent verification, and target-specific optimization across GPUs and edge devices.">
   <meta property="og:title" content="EngineTailor: Minimal Complete Inference Engines for Agent-Driven Optimization">
-  <meta property="og:description" content="How a working inference engine becomes an agent's optimization target, and how independent verification determines which changes persist.">
+  <meta property="og:description" content="Three experimental observations explain why agent-written inference optimizations need calibrated checks, end-to-end measurements, and fresh qualification after transfer.">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://qhy991.github.io/research/enginetailor/">
   <meta property="article:author" content="Haiyan Qin">
-  <meta property="article:modified_time" content="2026-10-28">
+  <meta property="article:modified_time" content="2026-11-01">
   <link rel="canonical" href="https://qhy991.github.io/research/enginetailor/">
   <link rel="icon" href="/assets/enginetailor-note-cover.svg" type="image/svg+xml">
   <link rel="stylesheet" href="article.css">
@@ -31,10 +31,10 @@
       <header class="paper-header">
         <p class="kicker">Research note <span aria-hidden="true"></span> DAI 2026</p>
         <h1><span class="project-name">EngineTailor</span>Minimal complete inference engines<br class="desktop"> for agent-driven optimization</h1>
-        <p class="standfirst">A working inference engine can be a tractable optimization target for coding agents. The harder question is which proposed changes should become its next trusted version.</p>
+        <p class="standfirst">A faithful fusion can fail a naive output check. A candidate that passes the numerical gate can still slow the engine down. A successful mechanism can lose its benefit on a new target. EngineTailor studies how to turn these observations into independently verified engine updates.</p>
         <div class="byline">
           <a href="/about.html">Haiyan Qin</a><span>Beihang University</span>
-          <time datetime="2026-10-28">October 28, 2026</time><span>9 min read</span>
+          <time datetime="2026-10-28">Published October 28, 2026</time><time datetime="2026-11-01">Updated November 1, 2026</time><span>9 min read</span>
         </div>
         <p class="paper-authors"><span>Paper authors</span> Haiyan Qin, Rui Wan, Jinchen Han, Shulin Zeng, Guohao Dai, Yu Wang, and Wang Kang</p>
         <div class="paper-links">
@@ -42,56 +42,79 @@
           <a href="/2026/08/09/enginetailor-minimal-inference-engines/">Earlier technical note (Chinese) ↗</a>
         </div>
       </header>
-      <figure class="opening-figure">
-        <a href="assets/overview.svg" target="_blank" rel="noopener" aria-label="Open the EngineTailor overview diagram at full size">
-          <picture><source media="(max-width: 680px)" srcset="assets/overview-mobile.svg" width="430" height="600"><img src="assets/overview.svg" width="1120" height="340" alt="A registered model, device, and workload define the target. A Manager assigns work to isolated Workers. Candidates cross an independent verification boundary before advancing the engine. Evidence and runnable variants inform later tasks."></picture>
-        </a>
-        <figcaption><strong>Figure 1.</strong> EngineTailor separates candidate generation from acceptance. Agents explore bounded changes; a protected verification process controls engine-state transitions. Schematic, not a measured execution trace.</figcaption>
-      </figure>
       <div class="reading-layout">
         <nav class="contents" aria-label="Article contents">
           <div class="contents-label">On this page</div>
-          <a href="#idea"><span>01</span>The optimization target</a>
-          <a href="#method"><span>02</span>Independent acceptance</a>
-          <a href="#results"><span>03</span>Experimental results</a>
-          <a href="#transfer"><span>04</span>Transfer across targets</a>
-          <a href="#takeaway"><span>05</span>Discussion</a>
+          <a href="#idea"><span>01</span>A faithful fusion, rejected</a>
+          <a href="#results"><span>02</span>Passing can still be slower</a>
+          <a href="#transfer"><span>03</span>Transfer needs matching conditions</a>
+          <a href="#method"><span>04</span>The EngineTailor process</a>
+          <a href="#deployment"><span>05</span>Deployment results</a>
+          <a href="#takeaway"><span>06</span>Scope and implications</a>
           <a class="back" href="/blog.html">← All research notes</a>
         </nav>
         <article id="article">
           <div class="abstract">
-            <h2>Overview</h2>
-            <p>EngineTailor studies agent-driven optimization of an existing inference repository for a fixed model, device, and workload. It gives agents a complete target execution path, isolates their proposed changes, and keeps correctness checks and acceptance authority outside their control. Accepted implementations and unsuccessful attempts remain as executable experience. When a mechanism moves to a new target, its correctness and performance must be established again.</p>
+            <h2>When should an optimization become part of the engine?</h2>
+            <p>Writing a candidate is only one part of agent-driven inference optimization. In EngineTailor's experiments, a faithful fusion could be rejected by a naive output comparison, two candidates with the same correctness verdict had opposite performance outcomes, and a useful mechanism lost much of its benefit after a target change. These observations motivate a complete target engine with independent acceptance and records that preserve the conditions behind each result.</p>
           </div>
           <section id="idea" aria-labelledby="heading-idea">
-            <h2 id="heading-idea"><span class="number">01</span>Choosing the optimization target</h2>
-            <p>General-purpose inference systems support many models, devices, and serving configurations. That breadth is valuable in production. For an agent optimizing one deployment, it also introduces code and dependencies unrelated to the immediate bottleneck.</p>
-            <p>Edge devices make the mismatch especially visible. A consumer GPU may encounter a missing fused attention path. An embedded platform may repeatedly launch small operators inside an action-generation loop. A unified-memory laptop may be limited by weight traffic or runtime dispatch. The same model name does not identify the same optimization problem.</p>
-            <div class="definition" aria-label="A target is defined by its model, device, and workload"><span>Model</span><span class="operator">×</span><span>Device</span><span class="operator">×</span><span>Workload</span><span class="operator">=</span><b>Registered target</b></div>
-            <p>EngineTailor starts from a working, versioned engine for that target. "Minimal" limits unrelated functionality. "Complete" preserves the execution path needed to evaluate a change, including model execution, cache behavior, and end-to-end measurement. A standalone kernel benchmark is useful for diagnosis, but it cannot establish an engine-level improvement.</p>
-            <p>This makes the unit of work concrete. An agent can modify a bounded execution path, such as normalization, attention, weight layout, or graph scheduling, while retaining a runnable baseline and a fixed acceptance protocol.</p>
+            <h2 id="heading-idea"><span class="number">01</span>A verifier can reject a faithful implementation</h2>
+            <p>Exact agreement between generated continuations sounds like a strict correctness test. It can also ask the wrong question. A small numerical difference may change one token, after which the two model executions condition on different histories.</p>
+            <p>The manuscript reports this failure mode for a faithful fused RMSNorm path. One last-bit argmax divergence reduced later free-running trajectory identity to roughly <strong>14%</strong>, even though the local implementation was otherwise faithful. That value describes agreement between the diverging trajectories; it does not measure the fused operator's accuracy in isolation.</p>
+            <h3>Compare decisions under a shared history</h3>
+            <p>A shared-prefix, teacher-forced protocol evaluates decisions under the same token history. This avoids turning one rounding-induced divergence into a cascade of mismatched future inputs. EngineTailor calibrates that protocol against protected references and deliberately broken controls.</p>
+            <p>In separate B200 calibration rows, faithful implementations score <strong>98.4–100%</strong> against the registered 98% threshold, while an off-by-one control scores 14.1%. Distinct-row batched checks also expose a corruption that identical-row checking misses. These measurements test whether the verifier separates faithful behavior from known defects.</p>
+            <p>The approximately 14% free-running result and the 14.1% broken-control result come from different checks. They are not interchangeable measures. The former illustrates a false rejection; the latter helps establish that the calibrated gate detects an injected error.</p>
+            <p>Verification therefore needs its own experiments. A calibrated numerical gate also has a defined scope. Precision-changing paths require separate quality evidence, and continuous-action models need action-error, shape, and finiteness checks rather than token agreement.</p>
+          </section>
+          <section id="results" aria-labelledby="heading-results">
+            <h2 id="heading-results"><span class="number">02</span>The same correctness verdict can lead to opposite decisions</h2>
+            <p>Passing a correctness gate makes a candidate eligible for measurement. It does not establish that the candidate improves the engine.</p>
+            <p>On Qwen3.5-2B with an RTX 5070 Laptop GPU, single-pass decode and split-K decode both pass <strong>126 of 128</strong> correctness checks. Their end-to-end measurements point in opposite directions. At 4k, single-pass decode reduces throughput from 67.7 to <strong>60.2 tokens/s</strong>, an 11.1% regression. Split-K raises it to <strong>71.5 tokens/s</strong>, a 5.6% gain. The same directions hold at 8k.</p>
+            <figure class="figure">
+              <a href="assets/rtx-admission.svg" target="_blank" rel="noopener" aria-label="Open the RTX candidate comparison chart at full size"><picture><source media="(max-width: 680px)" srcset="assets/rtx-admission-mobile.svg" width="420" height="500"><img src="assets/rtx-admission.svg" width="1080" height="580" loading="lazy" alt="At 4k and 8k, the admitted baseline achieves 67.7 and 62.4 tokens per second. Single-pass decode falls to 60.2 and 52.4; split-K rises to 71.5 and 67.2. Both candidates pass 126 of 128 correctness checks."></picture></a>
+              <figcaption><strong>Figure 1.</strong> Same correctness result, different admission decisions. The single-pass candidate is stopped; split-K is retained. This same-session trace is distinct from the external SGLang comparison in Table 1.</figcaption>
+            </figure>
+            <p>EngineTailor stops and reverts the single-pass candidate, then admits the split-K candidate. Both numerical verdicts remain in the record, together with the timing results that explain the different decisions. The measurements establish which update is profitable under this protocol; the correctness count alone cannot explain either performance outcome.</p>
+            <p>Acceptance can fail at the other boundary as well. On Orin, a faster W8A8 branch misses the frozen action-error threshold, so it does not replace the accepted BF16 implementation. Neither speed nor numerical admission can substitute for the other.</p>
+          </section>
+          <section id="transfer" aria-labelledby="heading-transfer">
+            <h2 id="heading-transfer"><span class="number">03</span>Transfer gains depend on the target bottleneck</h2>
+            <p>A successful optimization leaves more than a patch. It also leaves a hypothesis about why that patch helps. EngineTailor retains runnable variants, measurements, and conditional recipes so a later target can test that hypothesis again.</p>
+            <div class="transfer"><h3>Successful reuse across models</h3><p>A context-bucketed decode-attention mechanism is adapted from a Llama/B200 record to Qwen3-4B on B200. Opposite-order A/B measurements raise concurrency-16 throughput from 2803.6 to 3191.3 tokens/s, a <strong>13.83%</strong> gain. The target package passes 126/128 token decisions and 1920/1920 graph-faithfulness checks, including a context-bucket crossing.</p></div>
+            <div class="transfer"><h3>Successful reuse across devices</h3><p>A B200 prefill transplant combines last-token <code>lm_head</code> slicing, causal SDPA with in-kernel GQA, and RMSNorm. After fresh RTX qualification, prompt throughput improves by <strong>21.8% at 4k</strong> and <strong>48.5% at 8k</strong>, with 126/128 target steps passing.</p></div>
+            <h3>When the original bottleneck is absent</h3>
+            <p>An overlap mechanism that yields a large gain on Llama does not reproduce the same magnitude on Qwen. In the reported trace, Qwen lacks the source target's host-idle interval. Reusing the mechanism does not create the idle time that made overlap valuable in the first place.</p>
+            <p>The useful record therefore includes the limiting condition, the implementation, and the target-side verdict. A previous WIN supplies a candidate to investigate; correctness and profitability are established again on the new target.</p>
+            <p>These traces establish observed, re-qualified transfer. They do not isolate whether executable memory reduces search cost compared with starting without it. That causal claim requires dedicated controls.</p>
           </section>
           <section id="method" aria-labelledby="heading-method">
-            <h2 id="heading-method"><span class="number">02</span>Separating implementation from acceptance</h2>
-            <p>The Manager reads the target contract, profiles, prior outcomes, and remaining budget. It packages a bounded task for a fresh Worker, which implements a candidate in an isolated worktree. The Worker can change the proposed implementation, but it cannot redefine its correctness oracle or authorize its own merge.</p>
-            <p>A protected acceptance process evaluates the candidate against the registered target. Only a passing verdict can advance the engine from its current state to the next one.</p>
+            <h2 id="heading-method"><span class="number">04</span>How EngineTailor turns these observations into a process</h2>
+            <p>The optimization object is a working, versioned engine for one model, device, and workload. Its scope is small enough for an agent to inspect, but it retains model execution, cache behavior, and the complete measurement path. A local kernel benchmark can guide diagnosis; it cannot authorize an engine update.</p>
+            <div class="definition" aria-label="A target is defined by its model, device, and workload"><span>Model</span><span class="operator">×</span><span>Device</span><span class="operator">×</span><span>Workload</span><span class="operator">=</span><b>Registered target</b></div>
+            <p>The Manager reads profiles, prior outcomes, and the remaining budget, then packages a bounded task for a fresh Worker. The Worker proposes an implementation in an isolated worktree. A protected acceptance process controls whether that proposal becomes the next engine state.</p>
             <ol class="steps">
-              <li><strong>Fix the comparison before the search.</strong>Register the workload, baseline, correctness criteria, performance threshold, budget, and stopping rule. Record the base revision for each candidate.</li>
-              <li><strong>Establish correctness against a protected reference.</strong>Use calibrated, model-specific checks and standing negative controls. A deliberately broken candidate must fail; passing ordinary candidates alone does not establish that the verifier is effective.</li>
-              <li><strong>Measure the complete target execution path.</strong>A correct candidate must also clear the registered end-to-end performance threshold and independent re-verification. Local kernel speedups guide exploration but do not authorize an engine update.</li>
-              <li><strong>Retain the decision and its conditions.</strong>Record accepted, rejected, and stopped candidates with measurements and runnable variants. Later tasks can revisit a mechanism without treating a summary as proof.</li>
+              <li><strong>Register the comparison.</strong>Fix the workload, baseline, correctness criteria, performance threshold, budget, and stopping rule. Record each candidate's base revision.</li>
+              <li><strong>Calibrate the protected checks.</strong>Use references, shared-prefix checks where applicable, and negative controls. The candidate cannot redefine its own oracle.</li>
+              <li><strong>Require an end-to-end improvement.</strong>A numerically admitted candidate must clear the target's performance threshold and independent re-verification.</li>
+              <li><strong>Preserve the conditions behind the decision.</strong>Retain accepted, rejected, and stopped candidates with their measurements and runnable variants.</li>
             </ol>
-            <h3>Why correctness checks need calibration</h3>
-            <p>A small rounding difference can change one generated token and then alter the entire continuation. Comparing two freely generated trajectories can therefore reject an otherwise faithful implementation. EngineTailor uses calibrated teacher-forced checks alongside target-specific probes and negative controls. Continuous-action models instead require action-error, shape, and finiteness checks. Precision-changing paths need a separate quality-evidence board beyond the registered deployment gate.</p>
+      <figure class="figure">
+        <a href="assets/overview.svg" target="_blank" rel="noopener" aria-label="Open the EngineTailor overview diagram at full size">
+          <picture><source media="(max-width: 680px)" srcset="assets/overview-mobile.svg" width="430" height="600"><img src="assets/overview.svg" width="1120" height="340" alt="A registered model, device, and workload define the target. A Manager assigns work to isolated Workers. Candidates cross an independent verification boundary before advancing the engine. Evidence and runnable variants inform later tasks."></picture>
+        </a>
+        <figcaption><strong>Figure 2.</strong> EngineTailor separates candidate generation from acceptance. Agents explore bounded changes; a protected verification process controls engine-state transitions. Schematic, not a measured execution trace.</figcaption>
+      </figure>
             <details>
               <summary>View the detailed system architecture</summary>
               <figure><a href="assets/architecture.png" target="_blank" rel="noopener"><img src="assets/architecture.png" width="3006" height="1403" loading="lazy" alt="Detailed architecture showing isolated Workers, a queue of candidates, serialized admission, re-verification after rebasing, and executable evolution memory."></a><figcaption>The research manuscript's architecture diagram. Parallel exploration produces candidates; changes to the admitted engine state are serialized.</figcaption></figure>
             </details>
           </section>
-          <section id="results" aria-labelledby="heading-results">
-            <h2 id="heading-results"><span class="number">03</span>Results on registered deployment targets</h2>
-            <p>The study covers five model–device cells. Qwen3-4B on B200 provides the pre-registered autonomy audit. Llama-3.1-8B on B200 examines model transfer and continuous batching. The edge-oriented cells use an RTX 5070 Laptop GPU, Jetson Orin, and Apple M1 Pro.</p>
-            <p>The table reports selected comparisons in each target's native metric. These are measurements of the resulting specialist engines, rather than an equal-budget comparison of search policies.</p>
+          <section id="deployment" aria-labelledby="heading-deployment">
+            <h2 id="heading-deployment"><span class="number">05</span>What the resulting engines achieve</h2>
+            <p>The study covers five model–device cells. Qwen3-4B on B200 supplies the pre-registered autonomy audit; Llama-3.1-8B on B200 examines model transfer and continuous batching. RTX 5070 Laptop, Jetson Orin, and Apple M1 Pro provide the edge-oriented deployments.</p>
+            <p>The table reports selected comparisons of the resulting specialist engines in their native metrics. It does not compare search policies under equal budgets.</p>
             <div class="table-scroll" role="region" aria-label="Selected deployment results; scroll horizontally on small screens" tabindex="0">
               <table>
                 <caption>Table 1. Selected target-local comparisons reported in the research manuscript.</caption>
@@ -110,33 +133,19 @@
               <p>² Native weight-only W8 and GGUF Q8_0 use different quantization formats. This is a deployment comparison, not a same-format kernel comparison.</p>
               <p>The Orin board uses three cameras and ten flow steps, with CUDA Event timing, three warmups, and five measured repeats. Results are not aggregated across devices.</p>
             </div>
-            <h3>A passing candidate can still be the wrong update</h3>
-            <p>A separate RTX admission trace illustrates why correctness and profitability are separate decisions. Single-pass decode and split-K decode both pass 126 of 128 correctness checks. Under the same performance protocol, single-pass decode regresses at both context lengths. Split-K improves both and is admitted.</p>
-            <figure class="figure">
-              <a href="assets/rtx-admission.svg" target="_blank" rel="noopener" aria-label="Open the RTX candidate comparison chart at full size"><picture><source media="(max-width: 680px)" srcset="assets/rtx-admission-mobile.svg" width="420" height="500"><img src="assets/rtx-admission.svg" width="1080" height="580" loading="lazy" alt="At 4k and 8k, the admitted baseline achieves 67.7 and 62.4 tokens per second. Single-pass decode falls to 60.2 and 52.4; split-K rises to 71.5 and 67.2. Both candidates pass 126 of 128 correctness checks."></picture></a>
-              <figcaption><strong>Figure 2.</strong> Same correctness result, different admission decisions. The single-pass candidate is stopped; split-K is retained. This same-session trace is distinct from the external SGLang comparison in Table 1.</figcaption>
-            </figure>
-            <p>The same distinction matters on Orin. A faster W8A8 branch misses the frozen action-error threshold, so it does not replace the accepted BF16 implementation. Rejected and stopped branches remain part of the record.</p>
-          </section>
-          <section id="transfer" aria-labelledby="heading-transfer">
-            <h2 id="heading-transfer"><span class="number">04</span>Reusing mechanisms across targets</h2>
-            <p>EngineTailor preserves chronological evidence, runnable variants, and conditional recipes. A later target can use those records to formulate a candidate. It still needs a new correctness verdict and a new performance comparison under its own contract.</p>
-            <div class="transfer"><h3>Across models: Llama → Qwen3-4B on B200</h3><p>A context-bucketed attention mechanism is adapted from a Llama record to Qwen3-4B. Target-side A/B measurements raise concurrency-16 throughput from 2803.6 to 3191.3 tokens/s, a 13.83% gain. The adapted implementation passes 126/128 token decisions and 1920/1920 graph-faithfulness checks, including a context-bucket crossing.</p></div>
-            <div class="transfer"><h3>Across devices: B200 → RTX 5070</h3><p>A prefill transplant combines last-token <code>lm_head</code> slicing, causal SDPA with in-kernel GQA, and RMSNorm. After fresh RTX qualification, prompt throughput improves by 21.8% at 4k and 48.5% at 8k, with 126/128 target steps passing.</p></div>
-            <h3>Transfer also identifies when a mechanism stops helping</h3>
-            <p>A mechanism that removes host-idle time on Llama does not reproduce the same gain on a Qwen target without that idle interval. Similarly, a correct implementation may cost more than it saves once a target's bottleneck changes. A useful recipe therefore records the conditions behind a result, including the conditions under which it was stopped.</p>
+
           </section>
           <section class="limits" id="takeaway" aria-labelledby="heading-takeaway">
-            <h2 id="heading-takeaway"><span class="number">05</span>What the evidence establishes</h2>
-            <p>The central result is a repository process in which agent-authored changes can become independently admitted engine states. The Qwen3-4B/B200 audit records zero human-authored engine-code changes; humans register the target and budget and provide compute. The remaining assisted campaigns establish target-specific specialization and observed retargeting.</p>
-            <p>The evidence does not isolate a causal search-efficiency benefit from the Manager policy or executable memory. Those claims require dedicated controls and ablations. The deployment results also do not establish a universal engine ranking, and energy and thermal behavior are not normalized across platforms.</p>
-            <p>An independently admitted repository update provides a concrete unit of progress for agent-driven systems research. Its execution path, comparison protocol, and verdict remain available to the next optimization episode.</p>
+            <h2 id="heading-takeaway"><span class="number">06</span>What this changes about agent-driven optimization</h2>
+            <p>The experiments separate three questions that a generated patch cannot answer on its own. Does the verifier test fidelity under comparable inputs? Does a passing candidate improve the complete execution path? Does a reused mechanism still address the new target's bottleneck?</p>
+            <p>EngineTailor makes each question part of a recorded repository transition. The Qwen3-4B/B200 audit records <strong>zero human-authored engine-code changes</strong>. Humans still register the target and budget and provide compute. The other assisted campaigns support target-specific specialization and observed retargeting; they do not extend that autonomy claim to every target.</p>
+            <p>The Manager policy and executable memory are not causally ablated. Cross-platform energy and thermal behavior are not normalized, and the deployment boards do not establish a universal engine ranking. The supported contribution is narrower and testable: proposed changes become durable engine states only after target-local numerical checks, end-to-end measurement, and independent re-verification.</p>
             <div class="source-note">
               <h3>Publication and source notes</h3>
               <ol>
-                <li><a href="https://adai.ai/dai/2026/accepted-papers.html" target="_blank" rel="noopener">EngineTailor: Minimal Complete Inference Engines for Agent-Driven Optimization</a>. Haiyan Qin, Rui Wan, Jinchen Han, Shulin Zeng, Guohao Dai, Yu Wang, and Wang Kang. DAI 2026. The title and authors above follow the official conference listing.</li>
-                <li>Experimental values follow the research manuscript's headline results, RTX admission trace, and target-transfer sections. Each comparison retains its own workload and precision conditions. They are not pooled with results from other campaign checkpoints.</li>
-                <li>The <a href="/2026/08/09/enginetailor-minimal-inference-engines/">earlier Chinese-language technical note</a> is retained as a separate record. Its numerical comparisons concern other campaign checkpoints and remain separate from the boards summarized here.</li>
+                <li><a href="https://adai.ai/dai/2026/accepted-papers.html" target="_blank" rel="noopener">EngineTailor: Minimal Complete Inference Engines for Agent-Driven Optimization</a>. Haiyan Qin, Rui Wan, Jinchen Han, Shulin Zeng, Guohao Dai, Yu Wang, and Wang Kang. DAI 2026. The title and authors follow the official conference listing.</li>
+                <li>The <a href="#idea">calibration case</a> and <a href="#results">RTX admission trace</a> follow the manuscript's RQ2 discussion. The <a href="#transfer">transfer cases</a> follow RQ4. Table 1 follows its headline deployment results. Each board retains its own workload and precision conditions.</li>
+                <li>The <a href="/2026/08/09/enginetailor-minimal-inference-engines/">earlier Chinese-language technical note</a> remains a separate record of other campaign checkpoints. Its numerical comparisons are not pooled with the boards summarized here.</li>
               </ol>
             </div>
           </section>

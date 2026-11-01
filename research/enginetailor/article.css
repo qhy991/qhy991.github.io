@@ -35,8 +35,6 @@ h1 .project-name { display: block; color: var(--blue); margin-bottom: 8px; }
 .paper-authors span { color: var(--ink); margin-right: 8px; }
 .paper-links { display: flex; flex-wrap: wrap; gap: 12px 25px; margin-top: 20px; font-size: 12px; }
 .paper-links a { text-decoration: none; border-bottom: 1px solid #bdcce0; padding-bottom: 4px; }
-.opening-figure { margin: 0 0 49px; }
-.opening-figure > a { display: block; background: var(--tint); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 figcaption { margin-top: 13px; color: var(--muted); font-size: 12px; line-height: 1.75; }
 figcaption strong { color: var(--body); font-weight: 600; }
 .reading-layout { display: grid; grid-template-columns: 164px minmax(0, 1fr); gap: 60px; }
@@ -118,8 +116,6 @@ details figure { margin: 20px 0 5px; }
   .standfirst { font-size: 16px; line-height: 1.7; }
   .byline, .paper-authors { font-size: 11px; }
   .paper-links { font-size: 11px; gap: 12px 20px; }
-  .opening-figure { margin-bottom: 29px; }
-  .opening-figure > a { margin: 0 -10px; }
   figcaption { font-size: 11px; }
   .reading-layout { display: block; }
   .contents { position: static; border-bottom: 1px solid var(--line); padding-bottom: 19px; margin-bottom: 29px; display: flex; gap: 3px 20px; flex-wrap: wrap; }
