@@ -32,7 +32,7 @@ Clef 正好是这个形状的模型：9B、affine 4-bit，把"状态 + 结构化
 | --- | --- | --- |
 | 1 系统检查 | 确认 Apple Silicon + macOS，检查 cargo / uv / curl、内存与磁盘 | 秒级 |
 | 2 MLX SDK | 本机没有 0.32.3 就在 `~/.local/share/apxinf-mlx-sdk` 装一份（wheel 自带 C++ 头文件与 `mlx.metallib`） | 1–2 分钟 |
-| 3 构建 | 没有二进制就 clone [ApxInf](https://github.com/infinigence/ApxInf) 并构建决策服务；M1 Pro / M4 自动改用 `coreml` | 几分钟 |
+| 3 构建 | 没有二进制就 clone [ApxInf](https://github.com/infinigence/ApxInf) 并构建决策服务（`--features coreml`，GPU 与 Neural Engine 都在里面） | 几分钟 |
 | 4 权重 | 从 ModelScope 下载 `clef-flash-4bit`（同 id 镜像，失败回退 HF 镜像与官方 Hub） | 6.2 GB |
 | 5 Python 环境 | 建 venv，装模拟器依赖（`gym-super-mario-bros` 自带 ROM） | 1–2 分钟 |
 | 6 启动 | 选空闲端口起页面、等 HTTP 200、打印地址并打开浏览器 | 秒级 |
@@ -54,28 +54,30 @@ Clef 正好是这个形状的模型：9B、affine 4-bit，把"状态 + 结构化
 
 ## 芯片差异：`auto` 会选什么
 
-ApxInf 的原生 Clef 实现只会在**通过资格验证**的架构上启用优化组合，否则退回 reference：
+ApxInf 的原生 Clef 实现只会在**通过资格验证**的架构上启用优化组合，否则退回 reference。构建只需要一种 `coreml`（包含 `mlx`），GPU 与 Neural Engine 都在同一个二进制里：
 
-| 构建 | M1 Pro（`applegpu_g13s`） | M2（`applegpu_g14g`） | M4（`applegpu_g16g`） |
-| --- | --- | --- | --- |
-| `--features mlx` | GPU 组合（已资格） | reference | reference |
-| `--features coreml` | GPU + ANE 列切分 | reference | GPU + ANE 神经元切分 |
+| 芯片 | `auto` 选中的组合 | 说明 |
+| --- | --- | --- |
+| M1 Pro（`applegpu_g13s`） | GPU + ANE 列切分 | 两条路都过资格 |
+| M2（`applegpu_g14g`） | GPU 组合 | 2026-11-15 起纳入 GPU 资格（demo 裁剪 parity `max\|Δp\| = 0.0024`）；ANE 未资格 |
+| M4（`applegpu_g16g`） | GPU + ANE 神经元切分 | 加载 93–130 s 量级 |
+| 其他（普通 M1、M3） | reference | 能跑，只是慢 |
 
 reference 组合能跑，只是慢，不是错误。启动日志会明确写"没有已资格组合，使用 reference"。想强制某个组合做对照可以用 `APXINF_CLEF_COMPOSITION`，但它绕过资格门，只适合诊断。
 
 ## 实测
 
-先说我手上这台：MacBook Air M2（8 核）、16 GB、macOS 27.0.1。`auto` 在 `applegpu_g14g` 上没有已资格组合，走 reference：
+先说我手上这台：MacBook Air M2（8 核）、16 GB、macOS 27.0.1。`applegpu_g14g` 已经纳入 GPU 资格，`auto` 选 GPU 组合：
 
 | 项 | 结果 |
 | --- | --- |
-| 加载（`ready` 的 `load_ms`） | 16171 ms |
-| 单个冷请求（480×320 合成图） | 66636 ms |
-| 一局（`separate`，1 决策 = 3 请求） | 383214 ms，整局 428.4 s，x 40 → 41 |
-| 可复现性 | 三个 Noul 概率与 2026-11-05 同机 reference 记录逐位一致（0.023871 / 0.060975 / 0.062789） |
+| 资格证据 | 2026-11-05 同机：demo 三块裁剪的 GPU vs reference `max\|Δp\| = 0.0024`（gate 0.035） |
+| 加载（`load_ms`，同机记录） | 16.7 s |
+| 稳态（低内存压力窗口） | `single` 协议 39 决策跑到旗杆，中位 2.99 s/决策，整局 120.9 s |
+| reference 对照（换页窗口） | 冷请求 66.6 s、1 决策 383.2 s；概率 0.023871 / 0.060975 / 0.062789 |
 | 云端请求与费用 | 0 |
 
-这台机器当时已经用掉约 18.7 GB swap、空闲页只有 60 MB 左右，所以这组读数是"能跑通"的证据，不是性能结论。
+这台机器当时已经用掉约 18.7 GB swap、空闲页只有 60 MB 左右，所以 reference 对照那行是"换页主导"的读数，不是性能结论；GPU 组合在低压力窗口里才能看到秒级稳态。
 
 早期在同一套 demo 上的记录：M1 Pro（`applegpu_g13s`）reference 组合约 2.2 s/请求、6.6 s/决策；`single` 协议配合调过的阈值和动作帧数，在低内存压力窗口里跑到过旗杆（39 决策、x=3161、得分 800、中位 2.99 s/决策）。M4 的 GPU+ANE 神经元组合加载在 93–130 s 量级，换来更快的稳态决策。
 
@@ -128,7 +130,7 @@ HF_ENDPOINT=https://hf-mirror.com hf download mlx-community/clef-flash-4bit \
 ```sh
 export MLX_ROOT="$HOME/.local/share/apxinf-mlx-sdk/lib/python3.11/site-packages/mlx"
 export DYLD_LIBRARY_PATH="$MLX_ROOT/lib"
-cargo build --release --locked --features mlx --bin apxinf-decide-server
+cargo build --release --locked --features coreml --bin apxinf-decide-server
 ```
 
 ```sh
