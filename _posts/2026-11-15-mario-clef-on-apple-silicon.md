@@ -89,6 +89,14 @@ M2 之前一直落在 reference 组合上，慢到不适合演示。这次把它
 | 一局 | 1 决策 383 s（换页窗口） | `single` 协议 39 决策到旗杆，中位 2.99 s/决策 |
 | 云端请求 | 0 | 0 |
 
+M2 的 ANE 我也探了一轮，结论是"能用，但现在不值得用"：
+
+- M4 走的 **neuron 切分**在 Core ML 加载阶段直接被拒：`Clef Core ML admission: runtime operation is not ANE-preferred and supported`——M2 的 ANE 不支持这条程序里的某个算子，不是调参能绕过的。
+- M1 Pro 走的 **column 切分**能编译、数值也过（同一请求 `max abs(Δp)=0.00043`，gate 0.035），但 32 层加载 **28.9 分钟**，稳态请求 **30–94 s**；同一请求在 GPU 组合上只要 **5.5 s**。
+- 暖缓存也不救：placement 检查每次加载都重跑，32 个程序已编译完，重启 6 分钟后仍然没有 `ready`。
+
+所以 M2 默认留在 GPU 组合。要让 ANE 变成可选项，得先解决算子支持，或者把 29 分钟的加载成本拿掉。
+
 ## 三种芯片，三种组合
 
 ApxInf 只在**通过资格验证**的架构上启用优化组合，其余芯片退回 reference（能跑，只是慢）。构建只有一种 `coreml`：
@@ -96,23 +104,11 @@ ApxInf 只在**通过资格验证**的架构上启用优化组合，其余芯片
 | 芯片 | `auto` 选中 | 依据 |
 | --- | --- | --- |
 | M1 Pro（`applegpu_g13s`） | GPU + ANE 列切分 | GPU 与列切分都过资格 |
-| M2（`applegpu_g14g`） | GPU 组合 | 2026-11-15 起纳入；demo 裁剪 parity max abs(Δp) 0.0024（gate 0.035） |
+| M2（`applegpu_g14g`） | GPU 组合 | 2026-11-15 起纳入；demo 裁剪 parity max abs(Δp) 0.0024（gate 0.035）。ANE 见下 |
 | M4（`applegpu_g16g`） | GPU + ANE 神经元切分 | 加载 93–130 s 量级，稳态更快 |
 | 普通 M1 / M3 | reference | 能跑，只是慢 |
 
 同一套对局在 M4 上也录了一版（38 s），结论方向一致：换芯片会同时换掉组合，跨机器只能各自陈述，不能直接相除。
-
-## 下载：差一个数量级
-
-同一个模型在 ModelScope 上有同 id 镜像。同一网络、20 MB 文件：
-
-<div class="bars">
-  <div class="bar-row"><span>ModelScope</span><div class="bar"><i style="width:100%"></i></div><b>4.3 MB/s</b></div>
-  <div class="bar-row"><span>hf-mirror</span><div class="bar"><i style="width:2%"></i></div><b>90 KB/s</b></div>
-  <div class="bar-row"><span>官方 HF</span><div class="bar"><i style="width:2.2%"></i></div><b>96 KB/s</b></div>
-</div>
-
-所以脚本默认走 ModelScope，失败才回退镜像和官方 Hub。
 
 ## 三个只有真跑才会撞到的坑
 
