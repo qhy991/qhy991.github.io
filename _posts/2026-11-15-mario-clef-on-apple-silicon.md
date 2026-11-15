@@ -59,7 +59,7 @@ ApxInf 的原生 Clef 实现只会在**通过资格验证**的架构上启用优
 | 芯片 | `auto` 选中的组合 | 说明 |
 | --- | --- | --- |
 | M1 Pro（`applegpu_g13s`） | GPU + ANE 列切分 | 两条路都过资格 |
-| M2（`applegpu_g14g`） | GPU 组合 | 2026-11-15 起纳入 GPU 资格（demo 裁剪 parity `max\|Δp\| = 0.0024`）；ANE 未资格 |
+| M2（`applegpu_g14g`） | GPU 组合 | 2026-11-15 起纳入 GPU 资格（demo 裁剪 parity `max abs(Δp) = 0.0024`）；ANE 未资格 |
 | M4（`applegpu_g16g`） | GPU + ANE 神经元切分 | 加载 93–130 s 量级 |
 | 其他（普通 M1、M3） | reference | 能跑，只是慢 |
 
@@ -71,7 +71,7 @@ reference 组合能跑，只是慢，不是错误。启动日志会明确写"没
 
 | 项 | 结果 |
 | --- | --- |
-| 资格证据 | 2026-11-05 同机：demo 三块裁剪的 GPU vs reference `max\|Δp\| = 0.0024`（gate 0.035） |
+| 资格证据 | 2026-11-05 同机：demo 三块裁剪的 GPU vs reference `max abs(Δp) = 0.0024`（gate 0.035） |
 | 加载（`load_ms`，同机记录） | 16.7 s |
 | 稳态（低内存压力窗口） | `single` 协议 39 决策跑到旗杆，中位 2.99 s/决策，整局 120.9 s |
 | reference 对照（换页窗口） | 冷请求 66.6 s、1 决策 383.2 s；概率 0.023871 / 0.060975 / 0.062789 |
