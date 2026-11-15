@@ -1128,3 +1128,80 @@
     .project-body { padding: 22px; }
     .featured-copy { padding: 25px; }
 }
+
+/* Article media: demo video, callouts, comparison bars */
+.article-content figure {
+    margin: 2.6em 0;
+}
+
+.article-content figure video {
+    display: block;
+    width: 100%;
+    background: var(--ink);
+    border: 1px solid var(--ink);
+}
+
+.article-content figcaption {
+    margin-top: 10px;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.article-content .metric-strip {
+    margin: 2.4em 0;
+}
+
+.article-content .callout {
+    margin: 2em 0;
+    padding: 17px 20px;
+    background: var(--paper-warm);
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--coral);
+    font-size: 15.5px;
+    line-height: 1.7;
+}
+
+.article-content .callout strong {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--ink);
+    font-size: 16px;
+}
+
+.article-content .bars {
+    margin: 2em 0;
+    display: grid;
+    gap: 12px;
+}
+
+.article-content .bar-row {
+    display: grid;
+    grid-template-columns: 120px minmax(0, 1fr) 92px;
+    gap: 12px;
+    align-items: center;
+    font-family: var(--mono);
+    font-size: 12px;
+}
+
+.article-content .bar {
+    position: relative;
+    height: 12px;
+    background: var(--paper-warm);
+    border: 1px solid var(--line);
+}
+
+.article-content .bar i {
+    position: absolute;
+    inset: 0 auto 0 0;
+    background: var(--coral);
+}
+
+.article-content .bar-row b {
+    text-align: right;
+    font-weight: 700;
+}
+
+@media (max-width: 720px) {
+    .article-content .bar-row { grid-template-columns: 92px minmax(0, 1fr) 74px; }
+}
