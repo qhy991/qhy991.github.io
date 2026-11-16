@@ -71,31 +71,27 @@ lang: zh
 
 看到 `READY` 后，策略下拉选 `clef`、点**重开**、再点**单步**或**自动**。第一次点击要等权重加载和三个裁剪形状各自的首次编译，之后进入稳态。每一步都能在页面上看到三张裁剪、三个概率和这一决策的延迟；云端用量永远是 0。
 
-## 同一套配方，M2 上也能跑
+## M1 Pro 上的完整对局
 
-<figure class="video-figure">
-  <video controls preload="none" poster="/assets/mario-clef/hero-poster.png" aria-label="M2 Air 上的同一套配方连续回放">
-    <source src="/assets/mario-clef/hero.mp4" type="video/mp4">
-  </video>
-  <figcaption>M2 Air 上的回放（24 个决策、x=507）。点播放；画面按 NES 60 Hz 逐帧播放，步间停顿是模型在思考。</figcaption>
-</figure>
+同一局 World 1-1、同一份权重、同一套 v035 `single` 配方，四局交替（A→C→C→A）：
 
-M2 之前一直落在 reference 组合上，慢到不适合演示。这次把它的 GPU 组合纳入资格列表后，同一台机器从"能跑通"变成"能看"：
+| arm | 引擎 | 决策 | 到旗杆 | 整局 | 加载+预热 | 中位/决策 | 模型耗时 |
+| --- | --- | ---: | --- | ---: | ---: | ---: | ---: |
+| A1 | ApxInf（GPU+ANE 列） | 39 | 是 | 79.8 s | 28.8 s | 1917.7 ms | 76.5 s |
+| A2 | ApxInf（GPU+ANE 列） | 39 | 是 | 77.6 s | 26.2 s | 1877.3 ms | 74.5 s |
+| C1 | MLX `clef_mlx.py` | 39 | 是 | 155.2 s | 9.3 s | 3906.7 ms | 152.4 s |
+| C2 | MLX `clef_mlx.py` | 39 | 是 | 153.1 s | 8.5 s | 3848.0 ms | 150.2 s |
 
-| 项 | reference（未资格时） | GPU 组合（现在） |
-| --- | --- | --- |
-| 加载 `load_ms` | 16.2 s | 16.7 s（同机记录） |
-| 单个冷请求 | 66.6 s | 秒级（低内存压力窗口） |
-| 一局 | 1 决策 383 s（换页窗口） | `single` 协议 39 决策到旗杆，中位 2.99 s/决策 |
-| 云端请求 | 0 | 0 |
+四局都到旗杆、都是 39 个决策，`own_action_disagreements=0`——两个引擎的判断完全一致，C 臂只是用 follow-actions 保证同一条路线。
 
-M2 的 ANE 我也探了一轮，结论比预期更微妙：**算子支持不是问题，成本才是**。
+两个倍率要分开说：**模型耗时 2.0×**（152.4/150.2 s → 76.5/74.5 s），**到旗杆墙钟 1.78–1.97×**（两边共享约 21 s 游戏画面，所以墙钟倍率更低）。组合层面，同一 32 层完整请求 GPU-only 3603 ms vs GPU+ANE 2790 ms = **1.29×**（`doc/coreml-ane.md` 的资格记录）。
 
-- 当前 neuron 程序的 **38 个运行时算子**（conv、mul、tanh、reduce_max、split 等）在 M2 上全部是 `preferred=NeuralEngine`。旧版本里"某个算子不支持"的说法，随程序重做已经不再成立。
-- 真正的开销是 Core ML 的 compute-plan 检查：M2 上约 **75–90 秒/层**。column 切分实测加载 **28.9 分钟**；neuron 组合在 release 驱动上编译完 32 个程序用了约 **41 分钟**，仍未 `ready`（进程在加载结束前退出）。
-- 请求侧：column 切分要 **30–94 秒**，同一请求在 GPU 组合上只要 **7.5–8.1 秒**（release，3 次）；暖缓存也不会跳过 plan 检查。
+代价也在表里：GPU+ANE 峰值内存 **8.68 GB**（GPU-only 7.22 GB），首载要编译 32 个 Core ML 程序，所以"加载+预热"是 26–29 s，MLX 只要 8–9 s。
 
-所以 M2 默认留在 GPU 组合。要让 ANE 变成可选项，得先摊销 plan 检查的成本，而不是换编码或换算子。
+## 其它机器
+
+- **M4**：`applegpu_g16g` 上 `auto` 选 GPU+ANE 神经元切分；加载 93–130 s，稳态每层 1.1–1.3 ms/512 tok。
+- **M2**：`applegpu_g14g` 只有 GPU 组合（2026-11-15 起纳入资格）。ANE 在 M2 上不划算——38 个运行时算子虽然全部 `preferred=NeuralEngine`，但 plan 检查要 75–90 s/层，column 切分加载 28.9 分钟、请求 30–94 s，neuron 组合编译 32 个程序约 41 分钟仍未 `ready`。
 
 ## 三种芯片，三种组合
 
@@ -103,7 +99,7 @@ ApxInf 只在**通过资格验证**的架构上启用优化组合，其余芯片
 
 | 芯片 | `auto` 选中 | 依据 |
 | --- | --- | --- |
-| M1 Pro（`applegpu_g13s`） | GPU + ANE 列切分 | GPU 与列切分都过资格 |
+| M1 Pro（`applegpu_g13s`） | GPU + ANE 列切分 | GPU 与列切分都过资格；本文基准机 |
 | M2（`applegpu_g14g`） | GPU 组合 | 2026-11-15 起纳入；demo 裁剪 parity max abs(Δp) 0.0024（gate 0.035）。ANE 见下 |
 | M4（`applegpu_g16g`） | GPU + ANE 神经元切分 | 加载 93–130 s 量级，稳态更快 |
 | 普通 M1 / M3 | reference | 能跑，只是慢 |
